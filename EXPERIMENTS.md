@@ -8,6 +8,7 @@ per experiment; controlled ablations over multi-change jumps.
 |---|---|---|---|---|---|---|---|---|---|---|
 | E000-tinker-smoke | Qwen/Qwen3.8-27B | untouched baseline | 1 task (13-1) | 0.0 | 0.68 | n/a | 0.0 | 1 parse | 106 s | plumbing OK; reply hit 8192-token cap mid-reasoning |
 | E001-baseline-dev | Qwen/Qwen3.8-27B | untouched baseline | dev (60) | 0.467 | 0.747 | 0.561 | 0.263 | 25 | 18 min | 24/32 failures are 8192-token truncations |
+| E002-maxtokens-24k-dev | Qwen/Qwen3.8-27B | baseline + max_tokens 24576 | dev (60) | 0.617 | 0.894 | 0.732 | 0.368 | 8 | 14 min | +9 tasks, 0 regressions; wrong values now dominant failure |
 
 ## Template (copy per experiment)
 
@@ -66,3 +67,25 @@ per experiment; controlled ablations over multi-change jumps.
 - **Next action:** E002 = single-variable ablation raising `--max-tokens`
   (65k context allows ~24k) on dev; also note the MergedCell write bug as a
   future harness fix (separate experiment, not bundled).
+
+## E002-maxtokens-24k-dev
+
+- **Hypothesis:** E001's dominant failure is the 8192-token cap; raising
+  max_tokens to 24576 converts most of the 24 truncated tasks.
+- **Primary change (one):** `--max-tokens` 8192 → 24576. Nothing else.
+  (Concurrency 4 → 12 per adopted speed policy; independent tasks at
+  temperature 0, not a result-affecting variable.)
+- **Result:** pass_rate **0.617** (cell 0.732, sheet 0.368), cell_accuracy
+  0.894. Diff vs E001: **FAIL→PASS 9, PASS→FAIL 0**, net +9. 14 min at
+  concurrency 12, 529k output tokens, no rate-limit errors.
+- **Failure breakdown (23 failed):**
+  - 15 completed but wrong values — now the dominant mode.
+  - 6 still truncate even at 24k (254-34, 290-27, 433-47, 49667, 524-31, 6698).
+  - 1 malformed JSON (51090), 1 MergedCell harness bug (38703, persists).
+- **Conclusion:** hypothesis confirmed; the cap was worth +15 points. Of
+  E001's 24 truncations: 9 → pass, ~9 → completed-but-wrong, 6 → still
+  truncating. Returns are diminishing — the next lever is answer quality
+  (wrong values), not more tokens.
+- **Next action:** analyse the 15 wrong-value traces (local, free); probe the
+  6 stubborn truncators at 32k; fix the MergedCell write bug as its own
+  change.
