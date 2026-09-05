@@ -1,0 +1,30 @@
+{
+  "experiment_id": "P-msheet-train",
+  "timestamp": "2026-09-05T23:04:56.293503+00:00",
+  "git_commit": "ab244747dc5bf28863978906939dd17c5d7966b1",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": null,
+  "harness_version": "h8-structural",
+  "prompt_version": "cascade-v1",
+  "dataset_split": "ids:283-32,156-14,170-13",
+  "task_ids": [
+    "283-32",
+    "156-14",
+    "170-13"
+  ],
+  "temperature": 0.0,
+  "max_tokens": 24576,
+  "concurrency": 3,
+  "retry_policy": "escalate+structural",
+  "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P-msheet-train --base-model Qwen/Qwen3.8-27B --ids 283-32,156-14,170-13 --concurrency 3 --max-tokens 24576",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": 1486.0
+}

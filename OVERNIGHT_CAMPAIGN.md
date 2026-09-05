@@ -6,7 +6,7 @@ E013 (85.0% dev) best measured. Gates per overnight directive.
 | Phase | Experiment | State | Verdict |
 |---|---|---|---|
 | 0 | preflight | done (oracle recheck backgrounded) | GREEN |
-| 1 | P-msheet train probe (283-32,156-14,170-13) | pending | |
+| 1 | P-msheet train probe | done | GREEN — 156-14 156/156 & 283-32 28/28 (bug-signature tasks fixed); 170-13 content-bound as expected; IN candidate |
 | 2 | E014 H4 risk-gated selector dev | pending | |
 | 2B | H4B exec-evidence selector (train sim) | done | YELLOW — redundant with H4 on values-only pools (82.2=82.2); no dev run per gate |
 | 3 | P-h10 train probe | pending | |

@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T23:04:56.642369+00:00", "event": "experiment.start", "experiment_id": "P-msheet-train", "split": "ids:283-32,156-14,170-13", "n_tasks": 3, "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P-msheet-train --base-model Qwen/Qwen3.8-27B --ids 283-32,156-14,170-13 --concurrency 3 --max-tokens 24576"}
+{"ts": "2026-09-05T23:29:42.632752+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 1486.0}
+{"ts": "2026-09-05T23:29:45.046755+00:00", "event": "evaluation.done", "items": 3, "graded": 3, "missing": 0, "errors": 0, "pass_rate": 0.6667, "cell_accuracy": 0.8724, "pass_rate_cell_level": null, "pass_rate_sheet_level": 0.6667}
+{"ts": "2026-09-05T23:29:45.046867+00:00", "event": "experiment.end", "returncode": 0}
