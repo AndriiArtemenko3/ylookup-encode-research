@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "baseline"))
 
 import tinker
-from common import FORMAT_HINT, append_jsonl, load_env, log, parse_ids, prepare_out_dir, selected_tasks
+from common import FORMAT_HINT, SYSTEM_PROMPT, append_jsonl, load_env, log, parse_ids, prepare_out_dir, selected_tasks
 from tinker import types
 from tinker_cookbook import renderers
 from tinker_cookbook.model_info import get_recommended_renderer_name
@@ -57,6 +57,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--model-path")
     p.add_argument("--concurrency", type=int, default=12)
     p.add_argument("--max-tokens", type=int, default=24576)
+    p.add_argument("--system-prompt", choices=["values", "formulas"], required=True,
+                   help="values = baseline champion prompt (plain values, not formulas); "
+                        "formulas = formula-permitting prompt")
     return p.parse_args()
 
 
@@ -90,9 +93,10 @@ async def main():
     sampler = service.create_sampling_client(base_model=args.base_model, model_path=args.model_path)
     renderer = renderers.get_renderer(get_recommended_renderer_name(args.base_model), get_tokenizer(args.base_model))
     params = types.SamplingParams(max_tokens=args.max_tokens, temperature=0, stop=renderer.get_stop_sequences())
+    system_prompt = SYSTEM_PROMPT if args.system_prompt == "values" else SYSTEM_PROMPT_FORMULAS
 
     async def complete(prompt: str):
-        messages = [{"role": "system", "content": SYSTEM_PROMPT_FORMULAS}, {"role": "user", "content": prompt + FORMAT_HINT}]
+        messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt + FORMAT_HINT}]
         model_input = renderer.build_generation_prompt(messages)
         response = await sampler.sample_async(prompt=model_input, num_samples=1, sampling_params=params)
         tokens = response.sequences[0].tokens

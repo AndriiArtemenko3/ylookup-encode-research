@@ -12,6 +12,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E003-faithful-write-dev | Qwen/Qwen3.8-27B | h1-faithful-write (replay of E002) | dev (60) | 0.767 | 0.923 | 0.780 | 0.737 | 8 | 0 tokens | +9/-0; all 9 date-as-text tasks converted |
 | E004-salvage-unmerge-dev | Qwen/Qwen3.8-27B | h2-salvage-unmerge (replay of E002) | dev (60) | 0.783 | 0.924 | 0.805 | 0.737 | 3 | 0 tokens | +1/-0 (38703 via unmerge); salvage recovered 4 replies |
 | E006-formulas-dev | Qwen/Qwen3.8-27B | h4-formulas (coverage + formula prompt) | dev (60) | 0.700 | 0.962 | 0.780 | 0.526 | 1 | 15 min | +3/-8 NET -5: formula prompt over-applied; changes confounded |
+| E007-coverage-only-dev | Qwen/Qwen3.8-27B | h5-coverage-values (coverage serialiser only) | dev (60) | 0.717 | 0.916 | 0.756 | 0.632 | 2 | 13 min | net -4 BUT 4/5 flips are sampling noise (identical prompts); true serialiser effect: -1 (250-20 cap) |
 
 ## Template (copy per experiment)
 
@@ -172,3 +173,33 @@ per experiment; controlled ablations over multi-change jumps.
   computation is impractical: aggregations over many/hidden rows") + recalc
   self-check that catches error values (#NAME?/#N/A/#REF!) in answer cells
   with one retry falling back to values.
+
+## E007-coverage-only-dev
+
+- **Hypothesis:** isolate the coverage serialiser: E004's values-only prompt +
+  h2 write path, coverage serialisation the only change.
+- **Result:** pass_rate 0.717, net -4 vs E004 (FAIL->PASS: 433-47;
+  PASS->FAIL: 236-22, 250-20, 333-29, 43436, 43657).
+- **Key finding — sampling noise quantified:** 4 of 5 regressions and the 1
+  conversion had BYTE-IDENTICAL prompts to E002 (input token counts equal;
+  their sheets fit the old window, so the serialiser never touched their
+  prompts). Same prompt, temp 0, different completions = Tinker sampling
+  nondeterminism (SUBMISSION.md: "two runs differ by a few tasks. That is
+  expected."). Fresh-sample runs carry ~±3-4 tasks (~±6pp) of run-to-run
+  noise on dev; replay-based diffs (E003/E004) remain exact.
+- **True serialiser effect (prompt-changed tasks only):** among passers it
+  changed exactly one prompt (250-20, 2184-row sheet) and regressed it
+  (bigger view -> longer reasoning -> 24k cap). Among the 7 oversize failers:
+  0 conversions alone (consistent with P005). Coverage alone: <= neutral,
+  slightly negative.
+- **Verdict:** coverage serialiser is GATED, not default: champion 120x30
+  view unless deterministic need (answer range outside 120x30, or formula
+  mode active on an oversize sheet). This protects 250-20 while enabling the
+  P006-class formula wins.
+- **Methodology update going forward:** attribute single-run flips only where
+  a mechanism is visible (prompt changed, formula present, error type);
+  treat unexplained flips on identical prompts as noise. Reread of E006's 8
+  regressions: the 4 no-formula ones are likely noise, the 4 formula ones
+  remain real.
+- **Next action:** E008 = deterministically gated formula escalation +
+  recalc validation/retry (Phase B of the build spec).
