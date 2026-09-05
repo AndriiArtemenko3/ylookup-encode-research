@@ -40,6 +40,7 @@ from tinker_cookbook.model_info import get_recommended_renderer_name
 from tinker_cookbook.tokenizer_utils import get_tokenizer
 
 from inference.parse import parse_answer_lenient
+from inference.retry import with_backoff
 from inference.write import write_output
 from sb import load_dataset
 from training.reward import compute_reward, train_ids
@@ -55,7 +56,7 @@ def parse_args():
     p.add_argument("--group-size", type=int, default=4)
     p.add_argument("--temperature", type=float, default=0.7)
     p.add_argument("--max-tokens", type=int, default=24576)
-    p.add_argument("--concurrency", type=int, default=12, help="concurrent samples (task x group)")
+    p.add_argument("--concurrency", type=int, default=24, help="concurrent TASK groups (one num_samples call each)")
     return p.parse_args()
 
 
@@ -76,56 +77,68 @@ async def main():
     params = types.SamplingParams(max_tokens=args.max_tokens, temperature=args.temperature,
                                   stop=renderer.get_stop_sequences())
     semaphore = asyncio.Semaphore(args.concurrency)
-    reward_lock = asyncio.Semaphore(3)  # concurrent LibreOffice recalcs
+    reward_lock = asyncio.Semaphore(4)  # concurrent LibreOffice recalcs
 
-    async def one_rollout(task, k):
+    done_tasks = set()
+    groups_path = out_dir / "groups.jsonl"
+    if groups_path.exists():  # resume: never redo a completed group
+        done_tasks = {json.loads(l)["task_id"] for l in groups_path.read_text().splitlines() if l.strip()}
+
+    async def score_candidate(task, k, user, content):
+        record = {"task_id": task["id"], "k": k, "temperature": args.temperature,
+                  "prompt": user, "response": content, "reward": None, "score": None, "error": None}
+        with tempfile.TemporaryDirectory() as td:
+            out = Path(td) / "cand.xlsx"
+            try:
+                answer, _mode = parse_answer_lenient(content)
+                await asyncio.to_thread(write_output, task, answer, out)
+            except Exception as e:
+                shutil.copy(task["init_xlsx"], out)
+                record["error"] = f"{type(e).__name__}: {e}"[:200]
+            async with reward_lock:
+                reward, item = await asyncio.to_thread(compute_reward, task, out, td)
+        record["reward"] = round(reward, 4)
+        record["score"] = {key: item.get(key) for key in ("status", "pass", "cells", "correct")}
+        return record
+
+    async def one_task(task):
+        """One num_samples=group_size call: the prompt is prefilled once and the
+        group rides the server's GPU batching (docs: async-patterns)."""
         user = build_prompt(task)
         messages = [{"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user + FORMAT_HINT}]
         model_input = renderer.build_generation_prompt(messages)
-        record = {"task_id": task["id"], "k": k, "temperature": args.temperature,
-                  "prompt": user, "response": None, "reward": None, "score": None, "error": None}
         started = time.time()
         try:
             async with semaphore:
-                response = await sampler.sample_async(prompt=model_input, num_samples=1, sampling_params=params)
-            tokens = response.sequences[0].tokens
-            content = renderer.parse_response(tokens)[0]["content"]
-            if not isinstance(content, str):
-                content = "".join(p.get("text", "") for p in content if p.get("type") == "text")
-            record["response"] = content
-            with tempfile.TemporaryDirectory() as td:
-                out = Path(td) / "cand.xlsx"
-                try:
-                    answer, _mode = parse_answer_lenient(content)
-                    await asyncio.to_thread(write_output, task, answer, out)
-                except Exception as e:
-                    shutil.copy(task["init_xlsx"], out)
-                    record["error"] = f"{type(e).__name__}: {e}"[:200]
-                async with reward_lock:
-                    reward, item = await asyncio.to_thread(compute_reward, task, out, td)
-            record["reward"] = round(reward, 4)
-            record["score"] = {key: item.get(key) for key in ("status", "pass", "cells", "correct")}
+                response = await with_backoff(lambda: sampler.sample_async(
+                    prompt=model_input, num_samples=args.group_size, sampling_params=params))
+            contents = []
+            for seq in response.sequences:
+                content = renderer.parse_response(seq.tokens)[0]["content"]
+                if not isinstance(content, str):
+                    content = "".join(p.get("text", "") for p in content if p.get("type") == "text")
+                contents.append(content)
+            records = await asyncio.gather(*(score_candidate(task, k, user, c) for k, c in enumerate(contents)))
         except Exception as e:
-            record["error"] = f"{type(e).__name__}: {e}"[:300]
-            record["reward"] = -0.1
-        record["latency_ms"] = int((time.time() - started) * 1000)
+            records = [{"task_id": task["id"], "k": k, "temperature": args.temperature, "prompt": user,
+                        "response": None, "reward": -0.1, "score": None,
+                        "error": f"{type(e).__name__}: {e}"[:300]} for k in range(args.group_size)]
         task_dir = out_dir / "rollouts" / task["id"]
         task_dir.mkdir(exist_ok=True)
-        (task_dir / f"{k}.json").write_text(json.dumps(record, ensure_ascii=False))
-        return record
-
-    async def one_task(task):
-        records = await asyncio.gather(*(one_rollout(task, k) for k in range(args.group_size)))
+        for r in records:
+            r["latency_ms"] = int((time.time() - started) * 1000)
+            (task_dir / f"{r['k']}.json").write_text(json.dumps(r, ensure_ascii=False))
         rewards = [r["reward"] for r in records]
         n_pass = sum(1 for r in records if (r["score"] or {}).get("pass"))
-        line = {"task_id": task["id"], "rewards": rewards, "passes": n_pass, "group": args.group_size}
-        with (out_dir / "groups.jsonl").open("a") as f:
-            f.write(json.dumps(line) + "\n")
+        with groups_path.open("a") as f:
+            f.write(json.dumps({"task_id": task["id"], "rewards": rewards, "passes": n_pass,
+                                "group": args.group_size}) + "\n")
         print(f"{task['id']:<8} passes {n_pass}/{args.group_size}  rewards {rewards}", flush=True)
 
-    for task in tasks:  # tasks sequential, samples within a task parallel
-        await one_task(task)
+    todo = [t for t in tasks if t["id"] not in done_tasks]
+    print(f"tasks: {len(todo)} to run ({len(done_tasks)} already complete, resumed)", flush=True)
+    await asyncio.gather(*(one_task(t) for t in todo))
 
 
 if __name__ == "__main__":

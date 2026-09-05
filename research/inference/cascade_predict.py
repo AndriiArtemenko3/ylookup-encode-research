@@ -32,6 +32,7 @@ from tinker_cookbook.model_info import get_recommended_renderer_name
 from tinker_cookbook.tokenizer_utils import get_tokenizer
 
 from inference.cascade import HARNESS_VERSION, run_cascade_task
+from inference.retry import with_backoff
 from sb import DEFAULT_DATASET
 
 
@@ -64,7 +65,8 @@ async def main():
         messages = [{"role": "system", "content": system},
                     {"role": "user", "content": user_prompt + FORMAT_HINT}]
         model_input = renderer.build_generation_prompt(messages)
-        response = await sampler.sample_async(prompt=model_input, num_samples=1, sampling_params=params)
+        response = await with_backoff(lambda: sampler.sample_async(
+            prompt=model_input, num_samples=1, sampling_params=params))
         tokens = response.sequences[0].tokens
         content = renderer.parse_response(tokens)[0]["content"]
         if not isinstance(content, str):
