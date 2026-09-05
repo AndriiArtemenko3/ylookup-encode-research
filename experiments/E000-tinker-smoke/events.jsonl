@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T13:54:34.995150+00:00", "event": "experiment.start", "experiment_id": "E000-tinker-smoke", "split": "ids:13-1", "n_tasks": 1, "command": "uv run baseline/tinker_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/E000-tinker-smoke --base-model Qwen/Qwen3.8-27B --ids 13-1 --concurrency 1"}
+{"ts": "2026-09-05T13:56:32.045870+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 117.1}
+{"ts": "2026-09-05T13:56:33.337070+00:00", "event": "evaluation.done", "items": 1, "graded": 1, "missing": 0, "errors": 0, "pass_rate": 0.0, "cell_accuracy": 0.6833, "pass_rate_cell_level": null, "pass_rate_sheet_level": 0.0}
+{"ts": "2026-09-05T13:56:33.337211+00:00", "event": "experiment.end", "returncode": 0}

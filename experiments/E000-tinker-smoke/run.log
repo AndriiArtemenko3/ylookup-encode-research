@@ -1,0 +1,7 @@
+model Qwen/Qwen3.8-27B  tasks 1
+13-1     error: Expecting value: line 1 column 40 (char 39)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+model Qwen/Qwen3.8-27B  tasks 1
+13-1     error: Expecting value: line 1 column 40 (char 39)
+Task was destroyed but it is pending!
+task: <Task pending name='tinker_session_futures_poller' coro=<SessionFuturesPoller._poll_loop() running at /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research/.venv/lib/python3.13/site-packages/tinker/lib/session_futures_poller.py:132> wait_for=<Future pending cb=[Task.task_wakeup()]>>

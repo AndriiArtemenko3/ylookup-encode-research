@@ -1,0 +1,49 @@
+{
+  "summary": {
+    "items": 1,
+    "graded": 1,
+    "missing": 0,
+    "errors": 0,
+    "pass_rate": 0.0,
+    "cell_accuracy": 0.6833,
+    "pass_rate_cell_level": null,
+    "pass_rate_sheet_level": 0.0
+  },
+  "items": [
+    {
+      "status": "graded",
+      "cells": 120,
+      "correct": 82,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "LISTS!B15",
+          "expected": "2024-02-22 00:00:00",
+          "actual": null
+        },
+        {
+          "cell": "LISTS!C15",
+          "expected": "REAS",
+          "actual": null
+        },
+        {
+          "cell": "LISTS!D15",
+          "expected": 1545,
+          "actual": null
+        },
+        {
+          "cell": "LISTS!B16",
+          "expected": "2024-02-22 00:00:00",
+          "actual": null
+        },
+        {
+          "cell": "LISTS!C16",
+          "expected": "RETER",
+          "actual": null
+        }
+      ],
+      "id": "13-1",
+      "type": "Sheet-Level Manipulation"
+    }
+  ]
+}

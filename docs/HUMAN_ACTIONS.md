@@ -11,7 +11,13 @@ for it. The `Qwen/Qwen3-8B` strings in `research/baseline/tinker_predict.py`
 are upstream doc examples only (no code default) and are superseded by this
 confirmation. All experiments use `Qwen/Qwen3.8-27B`.
 
-## 2. TINKER_API_KEY provided — but its project is READ-ONLY (BLOCKING)
+## 2. ~~TINKER_API_KEY / project~~ — RESOLVED 2026-09-05
+
+Key provided; the default project was read-only, human supplied the team
+project `superspreadsheets` (id in `research/.env` as `TINKER_PROJECT_ID`).
+E000 smoke test sampled `Qwen/Qwen3.8-27B` successfully. Original notes below.
+
+### (historical) TINKER_API_KEY provided — but its project is READ-ONLY
 
 Key added to `research/.env` 2026-09-05 and it authenticates: `whoami` resolves
 to your account in the org, and `get_server_capabilities` lists

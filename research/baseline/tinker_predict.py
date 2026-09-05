@@ -11,6 +11,7 @@ files as llm_predict.py.
 
 import argparse
 import asyncio
+import os
 from pathlib import Path
 
 import tinker
@@ -38,7 +39,8 @@ def parse_args() -> argparse.Namespace:
 async def main():
     load_env()
     args = parse_args()
-    sampler = tinker.ServiceClient().create_sampling_client(base_model=args.base_model, model_path=args.model_path)
+    service = tinker.ServiceClient(project_id=os.environ.get("TINKER_PROJECT_ID") or None)
+    sampler = service.create_sampling_client(base_model=args.base_model, model_path=args.model_path)
     renderer = renderers.get_renderer(get_recommended_renderer_name(args.base_model), get_tokenizer(args.base_model))
     params = types.SamplingParams(max_tokens=args.max_tokens, temperature=0, stop=renderer.get_stop_sequences())
 
