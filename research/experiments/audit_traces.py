@@ -92,8 +92,12 @@ def main():
             if missing:
                 findings.append(f"{tid}: step {rec.get('step')} missing fields {sorted(missing)}")
             prompt = rec.get("prompt") or ""
-            if "golden" in prompt.lower():
-                findings.append(f"{tid}: prompt references 'golden'")
+            # lookup smell = file/path-shaped references, not the English word
+            # appearing inside workbook data (school names, street addresses)
+            for marker in ("golden.xlsx", "_golden", "golden_xlsx", "/golden"):
+                if marker in prompt.lower():
+                    findings.append(f"{tid}: prompt contains path-like reference {marker!r}")
+                    break
         if [r.get("step") for r in lines] != list(range(1, len(lines) + 1)):
             findings.append(f"{tid}: steps not sequential")
         if task and task.get("golden_xlsx"):
