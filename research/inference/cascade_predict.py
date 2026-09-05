@@ -44,6 +44,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--model-path")
     p.add_argument("--concurrency", type=int, default=12)
     p.add_argument("--max-tokens", type=int, default=24576)
+    p.add_argument("--escalation-max-tokens", type=int, default=32768,
+                   help="budget for formula/repair attempts (champion stage keeps --max-tokens)")
     p.add_argument("--champion-cache", help="experiment dir whose traces seed byte-identical champion attempts")
     return p.parse_args()
 
@@ -54,10 +56,11 @@ async def main():
     service = tinker.ServiceClient(project_id=os.environ.get("TINKER_PROJECT_ID") or None)
     sampler = service.create_sampling_client(base_model=args.base_model, model_path=args.model_path)
     renderer = renderers.get_renderer(get_recommended_renderer_name(args.base_model), get_tokenizer(args.base_model))
-    params = types.SamplingParams(max_tokens=args.max_tokens, temperature=0, stop=renderer.get_stop_sequences())
+    stops = renderer.get_stop_sequences()
     model = args.model_path or args.base_model
 
-    async def complete(system: str, user_prompt: str):
+    async def complete(system: str, user_prompt: str, max_tokens: int):
+        params = types.SamplingParams(max_tokens=max_tokens, temperature=0, stop=stops)
         messages = [{"role": "system", "content": system},
                     {"role": "user", "content": user_prompt + FORMAT_HINT}]
         model_input = renderer.build_generation_prompt(messages)
@@ -82,7 +85,8 @@ async def main():
             try:
                 best_path, traces, status = await run_cascade_task(
                     complete, task, work_dir, max_tokens=args.max_tokens,
-                    model=model, cache_dir=cache_dir)
+                    model=model, cache_dir=cache_dir,
+                    escalation_max_tokens=args.escalation_max_tokens)
                 shutil.copy(best_path, out_dir / "outputs" / f"{task['id']}.xlsx")
             except Exception as e:
                 shutil.copy(task["init_xlsx"], out_dir / "outputs" / f"{task['id']}.xlsx")

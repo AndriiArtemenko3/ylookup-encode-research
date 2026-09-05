@@ -44,7 +44,7 @@ from inference.serialize import build_prompt as coverage_build_prompt
 from inference.write import write_output
 from sb import answer_cells
 
-HARNESS_VERSION = "h6-cascade"
+HARNESS_VERSION = "h7-cascade-fv"
 BASELINE_VIEW_ROWS, BASELINE_VIEW_COLS = 120, 30
 # Above every answer-range size the champion configuration has ever passed
 # (max known pass: 200 cells). Below this, stage 1 always gets its chance.
@@ -102,6 +102,8 @@ async def _assess(task, path, *, stage, output_tokens, max_tokens, parse_mode):
 
 async def _run_attempt(complete, task, *, stage, system, user_prompt, path,
                        max_tokens, model, cached=None) -> Attempt:
+    # max_tokens is this attempt's own budget: forwarded to sampling AND to the
+    # truncation health check, so escalation stages may run with more headroom.
     trace = {"step": None, "model": model, "stage": stage, "cached": bool(cached),
              "prompt": user_prompt, "response": None,
              "input_tokens": None, "output_tokens": None, "latency_ms": None, "error": None}
@@ -112,7 +114,7 @@ async def _run_attempt(complete, task, *, stage, system, user_prompt, path,
             text = cached["response"]
             trace["input_tokens"], trace["output_tokens"] = cached.get("input_tokens"), cached.get("output_tokens")
         else:
-            text, trace["input_tokens"], trace["output_tokens"] = await complete(system, user_prompt)
+            text, trace["input_tokens"], trace["output_tokens"] = await complete(system, user_prompt, max_tokens)
         trace["response"] = text
         answer, parse_mode = parse_answer_lenient(text)
         await asyncio.to_thread(write_output, task, answer, path)
@@ -141,8 +143,10 @@ def _evidence(report) -> str:
 
 
 async def run_cascade_task(complete, task: dict, work_dir: Path, *,
-                           max_tokens: int, model: str, cache_dir: Path | None) -> tuple[Path, list[dict], str]:
+                           max_tokens: int, model: str, cache_dir: Path | None,
+                           escalation_max_tokens: int | None = None) -> tuple[Path, list[dict], str]:
     """Returns (best_output_path, trace_records, status_string)."""
+    esc_tokens = escalation_max_tokens or max_tokens
     attempts: list[Attempt] = []
     tmp = work_dir / task["id"]
     tmp.mkdir(parents=True, exist_ok=True)
@@ -161,7 +165,7 @@ async def run_cascade_task(complete, task: dict, work_dir: Path, *,
         escalation = await _run_attempt(
             complete, task, stage="formula", system=SYSTEM_PROMPT_FORMULAS,
             user_prompt=formula_prompt, path=tmp / "formula.xlsx",
-            max_tokens=max_tokens, model=model)
+            max_tokens=esc_tokens, model=model)
         escalation.trace["gate"] = reason or "champion attempt unhealthy"
         attempts.append(escalation)
 
@@ -170,7 +174,7 @@ async def run_cascade_task(complete, task: dict, work_dir: Path, *,
             attempts.append(await _run_attempt(
                 complete, task, stage="repair", system=SYSTEM_PROMPT_FORMULAS,
                 user_prompt=repair_prompt, path=tmp / "repair.xlsx",
-                max_tokens=max_tokens, model=model))
+                max_tokens=esc_tokens, model=model))
 
     best = min(attempts, key=lambda a: a.report.hard_failures)  # min is stable: ties -> earliest stage
     traces = []

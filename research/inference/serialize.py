@@ -71,7 +71,21 @@ def _select(total, window, must_have, head, tail, context):
     return sorted(i for i in keep if 1 <= i <= total)
 
 
-def _serialize_sheet(ws, task, active_title, max_rows, max_cols):
+MAX_FORMULA_CHARS = 90
+
+
+def _formula_text(raw):
+    """openpyxl gives '=...' strings, or ArrayFormula objects with .text."""
+    raw = getattr(raw, "text", raw)
+    if isinstance(raw, str) and raw.startswith("="):
+        return raw if len(raw) <= MAX_FORMULA_CHARS else raw[:MAX_FORMULA_CHARS - 1] + "…"
+    return None
+
+
+def _serialize_sheet(ws, ws_formulas, task, active_title, max_rows, max_cols, formula_mode="all"):
+    """formula_mode: 'all' annotates every formula cell; 'answer' only cells in
+    the answer range's rows/columns (fill-downs of 1000s of formulas otherwise
+    blow the char budget); 'none' matches the value-only view."""
     a_rows, a_cols = _answer_rows_cols(task, ws.title, active_title)
     rows = _select(ws.max_row, max_rows, a_rows, HEAD_ROWS, TAIL_ROWS, ANSWER_CONTEXT_ROWS)
     cols = _select(ws.max_column, max_cols, a_cols, max_cols, 0, 1)
@@ -81,16 +95,28 @@ def _serialize_sheet(ws, task, active_title, max_rows, max_cols):
     if len(cols) < ws.max_column:
         omitted = sorted(set(range(1, ws.max_column + 1)) - set(cols))
         lines.append(f"[columns omitted: {_ranges_note(omitted, get_column_letter)}]")
+    header_at = len(lines)
     lines.append("\t".join([""] + [get_column_letter(c) for c in cols]))
-    prev = 0
+    prev, any_formula = 0, False
     for r in rows:
         if r != prev + 1:
             lines.append(f"... rows {prev + 1}-{r - 1} omitted ({ws.max_row} total) ...")
-        vals = [ws.cell(row=r, column=c).value for c in cols]
-        lines.append("\t".join([str(r)] + ["" if v is None else str(v) for v in vals]))
+        cells = []
+        for c in cols:
+            v = ws.cell(row=r, column=c).value
+            text = "" if v is None else str(v)
+            wanted = formula_mode == "all" or (formula_mode == "answer" and c in a_cols)
+            formula = _formula_text(ws_formulas.cell(row=r, column=c).value) if (ws_formulas and wanted) else None
+            if formula:
+                text = f"{text} [{formula}]"
+                any_formula = True
+            cells.append(text)
+        lines.append("\t".join([str(r)] + cells))
         prev = r
     if prev < ws.max_row:
         lines.append(f"... rows {prev + 1}-{ws.max_row} omitted ({ws.max_row} total) ...")
+    if any_formula:
+        lines.insert(header_at, "[cells holding formulas are shown as: cached_value [=formula]]")
     return "\n".join(lines)
 
 
@@ -111,9 +137,16 @@ def _ranges_note(indices, label):
 
 def serialize_workbook(path, task):
     wb = openpyxl.load_workbook(path, data_only=True)
-    for max_rows, max_cols in WINDOW_STEPS:
-        parts = [_serialize_sheet(ws, task, wb.active.title, max_rows, max_cols)
-                 for ws in wb.worksheets]
+    try:  # second load with formulas intact; the init file is the task's own input
+        wb_formulas = openpyxl.load_workbook(path, data_only=False)
+    except Exception:
+        wb_formulas = None
+    steps = [(WINDOW_STEPS[0], "all")] + [(w, "answer") for w in WINDOW_STEPS] + [(WINDOW_STEPS[-1], "none")]
+    for (max_rows, max_cols), formula_mode in steps:
+        parts = []
+        for ws in wb.worksheets:
+            ws_f = wb_formulas[ws.title] if wb_formulas and ws.title in wb_formulas.sheetnames else None
+            parts.append(_serialize_sheet(ws, ws_f, task, wb.active.title, max_rows, max_cols, formula_mode))
         text = "\n\n".join(parts)
         if len(text) <= CHAR_BUDGET:
             return text
