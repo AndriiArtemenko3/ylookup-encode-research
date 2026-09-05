@@ -1,0 +1,27 @@
+{
+  "experiment_id": "F1v2-sft-lr2e5",
+  "timestamp": "2026-09-05T23:12:05.707829+00:00",
+  "git_commit": "432187f57057e052936f06be0bae3ec075516b84",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": "tinker://c629ba9c-f63c-5ce6-97a5-d914e82913c9:train:0/sampler_weights/final",
+  "harness_version": "training:rsft-v2-raw-tokens",
+  "prompt_version": "champion-values-v0",
+  "dataset_split": "sftv2:sft_dataset_v2.jsonl",
+  "task_ids": null,
+  "temperature": null,
+  "max_tokens": 32768,
+  "concurrency": null,
+  "retry_policy": "lora r32 lr2e-05 bs8 passes1.0 assistant_tokens=1799795",
+  "command": "training/sft2.py --dataset ../experiments/F1v2-rollouts-reasoning-preserved/sft_dataset_v2.jsonl --log-path ../experiments/F1v2-sft-lr2e5 --lr 2e-5 --batch-size 8 --passes 1.0",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": null,
+  "assistant_token_exposure": 1799795
+}
