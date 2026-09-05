@@ -11,11 +11,24 @@ for it. The `Qwen/Qwen3-8B` strings in `research/baseline/tinker_predict.py`
 are upstream doc examples only (no code default) and are superseded by this
 confirmation. All experiments use `Qwen/Qwen3.8-27B`.
 
-## 2. Provide TINKER_API_KEY
+## 2. TINKER_API_KEY provided — but its project is READ-ONLY (BLOCKING)
 
-Add the API key generated from the Ylookup Hackathon Tinker organisation to
-`research/.env` as `TINKER_API_KEY=...` (the file is gitignored; never commit
-it). Until it exists, no Tinker inference or training is possible.
+Key added to `research/.env` 2026-09-05 and it authenticates: `whoami` resolves
+to your account in the org, and `get_server_capabilities` lists
+`Qwen/Qwen3.8-27B` as sampleable + trainable (65k context). However every
+attempt to create a sampling session fails with:
+
+> 400 — "This project is read-only and cannot be modified."
+
+The SDK has no project-listing call; a writable project id could only be
+passed explicitly as `ServiceClient(project_id=...)`.
+
+**Please do one of:**
+1. Check the Tinker console (https://tinker.thinkingmachines.ai) for a
+   writable project for your team and give me its project id, or
+2. Ask the organisers / research desk why the hackathon key's default project
+   is read-only (likely the team invite or project provisioning is incomplete)
+   and get either a corrected key or a writable project.
 
 Optional: `OPENROUTER_API_KEY=...` in the same file if we also want the
 OpenRouter one-shot baseline (`baseline/llm_predict.py`) for reference numbers.

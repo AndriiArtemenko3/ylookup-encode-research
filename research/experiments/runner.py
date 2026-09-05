@@ -51,6 +51,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--id", required=True, help="experiment id, e.g. E001-formulas")
     p.add_argument("--split", default="all", help="train | dev | local_test | all")
+    p.add_argument("--ids", help="comma-separated task ids; overrides --split")
     p.add_argument("--model", help="model id for the manifest")
     p.add_argument("--checkpoint", help="tinker:// checkpoint for the manifest")
     p.add_argument("--harness", default="baseline-untouched")
@@ -72,7 +73,11 @@ def main():
     if not command:
         sys.exit("no prediction command given (put it after --)")
 
-    ids = load_split(args.split)
+    if args.ids:
+        ids = [i.strip() for i in args.ids.split(",") if i.strip()]
+        args.split = f"ids:{','.join(ids)}"
+    else:
+        ids = load_split(args.split)
     exp_dir.mkdir(parents=True)
     (exp_dir / "notes.md").write_text(f"# {args.id}\n\n- Hypothesis:\n- Primary change:\n- Result:\n")
     events = exp_dir / "events.jsonl"
