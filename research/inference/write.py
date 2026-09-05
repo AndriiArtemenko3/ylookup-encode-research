@@ -28,7 +28,7 @@ import openpyxl
 
 from sb import answer_cells
 
-HARNESS_VERSION = "h1-faithful-write"
+HARNESS_VERSION = "h2-salvage-unmerge"
 
 _ISO_DATETIME = re.compile(r"^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})$")
 _ISO_DATE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})$")
@@ -57,13 +57,36 @@ def coerce_value(value):
     return value
 
 
+def _unmerge_target_ranges(wb, targets) -> None:
+    """Unmerge only merged ranges that overlap cells we are about to write.
+
+    The baseline crashes with "MergedCell.value is read-only" and loses the
+    whole task; the failure mode here at worst matches that (a wrong workbook
+    is no worse than the guaranteed-fail fallback).
+    """
+    from openpyxl.utils.cell import coordinate_to_tuple
+
+    by_sheet: dict[str, tuple] = {}
+    for ws, coord in targets:
+        by_sheet.setdefault(ws.title, (ws, set()))[1].add(coordinate_to_tuple(coord))
+    for ws, coords in by_sheet.values():
+        for rng in list(ws.merged_cells.ranges):
+            if any(rng.min_row <= r <= rng.max_row and rng.min_col <= c <= rng.max_col
+                   for r, c in coords):
+                ws.unmerge_cells(str(rng))
+
+
 def write_output(task: dict, answer, out_path: Path) -> None:
-    """Baseline write_output (baseline/common.py:79) plus coerce_value per cell."""
+    """Baseline write_output (baseline/common.py:79) plus coerce_value and unmerge."""
     cells = {c.cell.upper(): c.value for c in answer.cells}
     shutil.copy(task["init_xlsx"], out_path)
     wb = openpyxl.load_workbook(out_path)
+    targets = []
     for sheet, coord in answer_cells(task, wb):
         ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb.active
         if coord in cells:
-            ws[coord] = coerce_value(cells[coord])
+            targets.append((ws, coord))
+    _unmerge_target_ranges(wb, targets)
+    for ws, coord in targets:
+        ws[coord] = coerce_value(cells[coord])
     wb.save(out_path)

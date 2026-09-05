@@ -39,8 +39,8 @@ def main():
     if dst.exists():
         sys.exit(f"refusing to overwrite existing experiment dir: {dst}")
 
-    from common import parse_answer
     from experiments.manifest import build_manifest, write_manifest
+    from inference.parse import parse_answer_lenient
     from inference.write import HARNESS_VERSION, write_output
     from sb import load_dataset
 
@@ -53,7 +53,7 @@ def main():
     started = time.time()
     log_lines = [f"replay of {args.source} through {HARNESS_VERSION} at {datetime.datetime.now(datetime.timezone.utc).isoformat()}"]
 
-    n_ok = n_err = 0
+    n_ok = n_err = n_salvaged = 0
     with (dst / "predictions.jsonl").open("w", encoding="utf-8") as pred_file:
         for prediction in src_predictions:
             tid = prediction["id"]
@@ -61,11 +61,15 @@ def main():
             trace = json.loads((src / "traces" / f"{tid}.jsonl").read_text())
             out = dst / "outputs" / f"{tid}.xlsx"
             try:
-                if trace["error"]:
-                    raise ValueError(f"source trace error: {trace['error'][:120]}")
-                write_output(task, parse_answer(trace["response"]), out)
-                status = "ok"
+                # A stored response is worth parsing even when the source
+                # harness recorded an error for it (its parser was stricter).
+                if not trace["response"]:
+                    raise ValueError(f"no response in source trace: {(trace['error'] or '?')[:120]}")
+                answer, mode = parse_answer_lenient(trace["response"])
+                write_output(task, answer, out)
+                status = "ok" if mode == "strict" else "ok (salvaged)"
                 n_ok += 1
+                n_salvaged += mode == "salvaged"
             except Exception as e:
                 shutil.copy(task["init_xlsx"], out)
                 status = f"error: {e}"[:200]
@@ -91,7 +95,7 @@ def main():
     manifest["wall_clock_seconds"] = round(time.time() - started, 1)
     manifest["replay_of"] = args.source
     write_manifest(dst / "manifest.json", manifest)
-    log_lines.append(f"rewritten ok={n_ok} error={n_err}")
+    log_lines.append(f"rewritten ok={n_ok} (salvaged={n_salvaged}) error={n_err}")
     (dst / "run.log").write_text("\n".join(log_lines) + "\n")
     (dst / "notes.md").write_text(f"# {args.id}\n\nReplay of {args.source} through {HARNESS_VERSION}.\n")
 

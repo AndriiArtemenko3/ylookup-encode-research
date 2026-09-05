@@ -10,6 +10,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E001-baseline-dev | Qwen/Qwen3.8-27B | untouched baseline | dev (60) | 0.467 | 0.747 | 0.561 | 0.263 | 25 | 18 min | 24/32 failures are 8192-token truncations |
 | E002-maxtokens-24k-dev | Qwen/Qwen3.8-27B | baseline + max_tokens 24576 | dev (60) | 0.617 | 0.894 | 0.732 | 0.368 | 8 | 14 min | +9 tasks, 0 regressions; wrong values now dominant failure |
 | E003-faithful-write-dev | Qwen/Qwen3.8-27B | h1-faithful-write (replay of E002) | dev (60) | 0.767 | 0.923 | 0.780 | 0.737 | 8 | 0 tokens | +9/-0; all 9 date-as-text tasks converted |
+| E004-salvage-unmerge-dev | Qwen/Qwen3.8-27B | h2-salvage-unmerge (replay of E002) | dev (60) | 0.783 | 0.924 | 0.805 | 0.737 | 3 | 0 tokens | +1/-0 (38703 via unmerge); salvage recovered 4 replies |
 
 ## Template (copy per experiment)
 
@@ -122,3 +123,27 @@ per experiment; controlled ablations over multi-change jumps.
   output-size/combinatorial, 2 logic, 1 MergedCell. E004 candidates:
   MergedCell unmerge fix (deterministic, +1) and the serialisation-coverage
   experiment.
+
+## E004-salvage-unmerge-dev
+
+- **Hypothesis:** two deterministic additions whose failure mode equals the
+  current behaviour (init-workbook fallback / guaranteed fail) can only add:
+  (a) unmerge merged ranges overlapping cells being written, (b) salvage
+  complete `{"cell","value"}` entries from truncated/malformed replies.
+- **Primary change:** harness v2 = h1 + `inference/parse.py::
+  parse_answer_lenient` (strict first, salvage second, scanning from the last
+  `"cells"` marker to skip reasoning drafts) + `_unmerge_target_ranges` in
+  `inference/write.py`.
+- **Method:** replay of E002's stored responses; zero tokens.
+- **Result:** pass_rate **0.783** (cell 0.805, sheet 0.737), cell_accuracy
+  0.9241 (from 0.9230). Diff vs E003: **FAIL→PASS 1 (38703, the unmerge fix),
+  PASS→FAIL 0.** Salvage recovered 4 of the 7 parse-failed replies; none
+  passed (their content was genuinely incomplete/wrong — they truncated
+  mid-answer), but recovered cells lift cell_accuracy, the tie-break metric.
+- **Conclusion:** both additions behaved exactly as designed; the
+  no-regression property held empirically. Truncation salvage's main value
+  will show on tasks that finish their JSON but stumble on syntax — rare on
+  dev, cheap insurance for the holdout.
+- **Next action:** remaining 13 failures: 7 serialisation-window, 4
+  output-size/combinatorial, 2 logic. E005 = serialisation coverage (needs
+  real sampling).
