@@ -12,3 +12,6 @@ __pycache__/
 experiments/*/outputs/
 experiments/*/traces/
 !experiments/*/results.json
+
+# bulky rollout candidates stay local; groups.jsonl + curation report are kept
+experiments/*/rollouts/
