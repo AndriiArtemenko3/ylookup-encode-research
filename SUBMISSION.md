@@ -68,8 +68,11 @@ uv run evaluate.py --predictions <your predictions.jsonl> --all --out results.js
 
 ## Things to look at
 
+- `docs/RESEARCH_APPENDIX.md` — concise research narrative covering the
+  benchmark methodology, ablations, negative results, post-training design,
+  residual-error analysis and generalisation safeguards.
 - `EXPERIMENTS.md` — the full ablation log: hypothesis, one change, diff, and
-  conclusion per experiment, including the two negative results.
+  conclusion per experiment, including the negative results.
 - `docs/BASELINE_ANALYSIS.md` — source-cited analysis of the starter baseline.
 - `experiments/` — per-run manifests (git commit, params, command), official
   results.json, and event logs for every experiment.
