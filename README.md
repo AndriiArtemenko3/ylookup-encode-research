@@ -27,4 +27,3 @@ SpreadsheetBench: 400 real spreadsheet tasks from Excel forums. Given a workbook
 
 - $2,000 prize pool plus build credits for everyone.
 - Winners pitch EQT Ventures.
-- Interviews at Ylookup across engineering, product and ops.
