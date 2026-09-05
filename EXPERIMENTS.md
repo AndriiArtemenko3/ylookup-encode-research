@@ -11,6 +11,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E002-maxtokens-24k-dev | Qwen/Qwen3.8-27B | baseline + max_tokens 24576 | dev (60) | 0.617 | 0.894 | 0.732 | 0.368 | 8 | 14 min | +9 tasks, 0 regressions; wrong values now dominant failure |
 | E003-faithful-write-dev | Qwen/Qwen3.8-27B | h1-faithful-write (replay of E002) | dev (60) | 0.767 | 0.923 | 0.780 | 0.737 | 8 | 0 tokens | +9/-0; all 9 date-as-text tasks converted |
 | E004-salvage-unmerge-dev | Qwen/Qwen3.8-27B | h2-salvage-unmerge (replay of E002) | dev (60) | 0.783 | 0.924 | 0.805 | 0.737 | 3 | 0 tokens | +1/-0 (38703 via unmerge); salvage recovered 4 replies |
+| E006-formulas-dev | Qwen/Qwen3.8-27B | h4-formulas (coverage + formula prompt) | dev (60) | 0.700 | 0.962 | 0.780 | 0.526 | 1 | 15 min | +3/-8 NET -5: formula prompt over-applied; changes confounded |
 
 ## Template (copy per experiment)
 
@@ -147,3 +148,27 @@ per experiment; controlled ablations over multi-change jumps.
 - **Next action:** remaining 13 failures: 7 serialisation-window, 4
   output-size/combinatorial, 2 logic. E005 = serialisation coverage (needs
   real sampling).
+
+## E006-formulas-dev
+
+- **Hypothesis:** allowing formula outputs converts the pattern-2/3 tasks
+  (P006 probe: 3/11 converted, 95.7% cell accuracy on the 11 hardest).
+- **Changes (two, bundled — a methodology mistake, see conclusion):**
+  formula-permitting system prompt + coverage serialisation on ALL tasks
+  (P005 had probed the serialiser on the 7 failing ids only).
+- **Result:** pass_rate **0.700** (net **-5** vs E004's 0.783): FAIL→PASS 3
+  (15671, 32438, 6698 — all never-passed-before), PASS→FAIL 8. cell_accuracy
+  rose to **0.962** (best yet). Sheet-level fell 0.737 → 0.526.
+- **Regression analysis:** 4/8 wrote wrong formulas where values worked
+  (#N/A lookups, zero sums — prompt made formulas too attractive); 4/8 used
+  no formulas but still changed answers — attributable to the serialiser
+  and/or prompt wording, confounded because both changed at once.
+- **Conclusion:** formula capability is real (COUNTIFS over 9.5k rows in
+  1.8k tokens) but v1 of the prompt over-applies it, and bundling two
+  upstream changes broke attribution. E004 (78.3%) remains the best known
+  configuration.
+- **Next action:** disentangle: (a) E007 = coverage serialiser alone on dev;
+  (b) E008 = constrained formula prompt ("formula ONLY when direct
+  computation is impractical: aggregations over many/hidden rows") + recalc
+  self-check that catches error values (#NAME?/#N/A/#REF!) in answer cells
+  with one retry falling back to values.
