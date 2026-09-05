@@ -74,7 +74,7 @@ def main():
         adam = tinker.AdamParams(learning_rate=lr, beta1=0.9, beta2=0.95, eps=1e-8)
         batch_rows = order[step * args.batch_size:(step + 1) * args.batch_size]
         batch = [conversation_to_datum(r["messages"], renderer, args.max_length,
-                                       renderers.TrainOnWhat.ALL_ASSISTANT_MESSAGES)
+                                       renderers.TrainOnWhat.LAST_ASSISTANT_MESSAGE)
                  for r in batch_rows]
         fwd = client.forward_backward(batch, loss_fn="cross_entropy")
         opt = client.optim_step(adam)

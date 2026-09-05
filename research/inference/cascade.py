@@ -38,6 +38,7 @@ from openpyxl.utils.cell import coordinate_to_tuple
 import openpyxl
 
 from inference import health as health_mod
+from inference.invariants import structural_defects
 from inference.parse import parse_answer_lenient
 from inference.predict import SYSTEM_PROMPT_FORMULAS
 from inference.serialize import build_prompt as coverage_build_prompt
@@ -55,6 +56,12 @@ REPAIR_HINT = (
     "\n\nYour previous answer had problems detected by automatic validation:\n{evidence}\n"
     "Produce a corrected answer. If a formula caused an error, fix it or replace it with "
     "a direct literal value. Reply with the same JSON shape as before."
+)
+
+STRUCTURAL_HINT = (
+    "\n\nAutomatic structural validation of a previous answer to this task found defects:\n{defects}\n"
+    "Produce the complete corrected answer for the whole answer range, fixing exactly these "
+    "defects and keeping everything else consistent. Reply with the same JSON shape."
 )
 
 
@@ -78,6 +85,21 @@ def doomed_reason(task: dict) -> str | None:
         if row > BASELINE_VIEW_ROWS or col > BASELINE_VIEW_COLS:
             return f"answer cell {coord} outside baseline {BASELINE_VIEW_ROWS}x{BASELINE_VIEW_COLS} view"
     return None
+
+
+def _changed_cells(task, before_path, after_path):
+    """Answer cells whose value differs between two artifacts: [(sheet, coord, before_value)]."""
+    wb_a = openpyxl.load_workbook(before_path)
+    wb_b = openpyxl.load_workbook(after_path)
+    changed = []
+    for sheet, coord in answer_cells(task, wb_a):
+        ws_a = wb_a[sheet] if sheet and sheet in wb_a.sheetnames else wb_a.active
+        ws_b = wb_b[ws_a.title] if ws_a.title in wb_b.sheetnames else wb_b.active
+        va, vb = ws_a[coord].value, ws_b[coord].value
+        if va != vb:
+            changed.append((ws_a.title, coord, va))
+    wb_a.close(); wb_b.close()
+    return changed
 
 
 def load_cached_response(cache_dir: Path | None, task: dict, champion_prompt: str) -> dict | None:
@@ -177,6 +199,32 @@ async def run_cascade_task(complete, task: dict, work_dir: Path, *,
                 max_tokens=esc_tokens, model=model))
 
     best = min(attempts, key=lambda a: a.report.hard_failures)  # min is stable: ties -> earliest stage
+
+    # H3 structural repair: one targeted pass when the selected artifact holds a
+    # real model answer but violates golden-free invariants (emptiness inside a
+    # filled range, column-type conflicts). Accepted only if it strictly reduces
+    # defects without new hard failures — worst case remains the prior best.
+    if best.trace["error"] is None:
+        try:
+            defects, flagged = await asyncio.to_thread(structural_defects, task, best.path)
+            if defects:
+                repair = await _run_attempt(
+                    complete, task, stage="structural-repair", system=SYSTEM_PROMPT_FORMULAS,
+                    user_prompt=coverage_build_prompt(task) + STRUCTURAL_HINT.format(defects="\n".join(f"- {d}" for d in defects[:8])),
+                    path=tmp / "structural.xlsx", max_tokens=esc_tokens, model=model)
+                repair.trace["gate"] = f"structural defects: {len(defects)}"
+                attempts.append(repair)
+                if repair.trace["error"] is None and repair.report.hard_failures <= best.report.hard_failures:
+                    rep_defects, _ = await asyncio.to_thread(structural_defects, task, repair.path)
+                    changed = await asyncio.to_thread(_changed_cells, task, best.path, repair.path)
+                    # a change is allowed only on a flagged cell or one that was empty before
+                    only_allowed = all((s, c) in flagged or prev is None for s, c, prev in changed)
+                    repair.trace["repair_check"] = {"defects_before": len(defects), "defects_after": len(rep_defects),
+                                                    "changed": len(changed), "only_allowed_cells": only_allowed}
+                    if len(rep_defects) < len(defects) and only_allowed:
+                        best = repair
+        except Exception:
+            pass  # repair is opportunistic; the selected artifact stands
     traces = []
     for step, attempt in enumerate(attempts, 1):
         attempt.trace["step"] = step
