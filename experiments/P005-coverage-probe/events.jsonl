@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T15:10:43.945088+00:00", "event": "experiment.start", "experiment_id": "P005-coverage-probe", "split": "ids:15671,486-17,49667,50193,51090,54590,6698", "n_tasks": 7, "command": "uv run inference/predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P005-coverage-probe --base-model Qwen/Qwen3.8-27B --ids 15671,486-17,49667,50193,51090,54590,6698 --concurrency 7 --max-tokens 24576"}
+{"ts": "2026-09-05T15:17:04.930440+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 381.0}
+{"ts": "2026-09-05T15:17:13.264100+00:00", "event": "evaluation.done", "items": 7, "graded": 7, "missing": 0, "errors": 0, "pass_rate": 0.0, "cell_accuracy": 0.721, "pass_rate_cell_level": 0.0, "pass_rate_sheet_level": 0.0}
+{"ts": "2026-09-05T15:17:13.264238+00:00", "event": "experiment.end", "returncode": 0}

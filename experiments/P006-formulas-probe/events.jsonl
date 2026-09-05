@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T15:24:23.029361+00:00", "event": "experiment.start", "experiment_id": "P006-formulas-probe", "split": "ids:15671,486-17,49667,50193,51090,54590,6698,254-34,290-27,433-47,524-31", "n_tasks": 11, "command": "uv run inference/predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P006-formulas-probe --base-model Qwen/Qwen3.8-27B --ids 15671,486-17,49667,50193,51090,54590,6698,254-34,290-27,433-47,524-31 --concurrency 11 --max-tokens 24576"}
+{"ts": "2026-09-05T15:29:59.775092+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 336.7}
+{"ts": "2026-09-05T15:30:11.078680+00:00", "event": "evaluation.done", "items": 11, "graded": 11, "missing": 0, "errors": 0, "pass_rate": 0.2727, "cell_accuracy": 0.9565, "pass_rate_cell_level": 0.3333, "pass_rate_sheet_level": 0.2}
+{"ts": "2026-09-05T15:30:11.078827+00:00", "event": "experiment.end", "returncode": 0}
