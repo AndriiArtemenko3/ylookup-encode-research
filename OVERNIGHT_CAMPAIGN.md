@@ -10,7 +10,7 @@ E013 (85.0% dev) best measured. Gates per overnight directive.
 | 2 | E014 H4 risk-gated selector dev | pending | |
 | 2B | H4B exec-evidence selector (train sim) | done | YELLOW — redundant with H4 on values-only pools (82.2=82.2); no dev run per gate |
 | 3 | P-h10 train probe | pending | |
-| 4 | P-patch train probe | pending | |
+| 4 | P-patch train probe | done | RED/YELLOW — 0 conversions, 1 allowlisted regression (496-34), consensus-wrong defeats triggers; EXCLUDED from candidate |
 | 5 | RSFT lr2e-5 + canary | pending | |
 | 7 | combined candidate dev | pending | |
 | 8 | local_test single confirmation | pending | |
