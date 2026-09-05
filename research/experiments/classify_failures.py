@@ -54,7 +54,7 @@ def classify(item: dict, task: dict, traces: list[dict], max_tokens: int) -> str
         return "truncated"
     wb = openpyxl.load_workbook(task["init_xlsx"], read_only=True)
     cells = answer_cells(task, wb)
-    oversize = any(ws.max_row > 120 or ws.max_column > 30 for ws in wb.worksheets)
+    oversize = any((ws.max_row or 0) > 120 or (ws.max_column or 0) > 30 for ws in wb.worksheets)
     wb.close()
     outside = any(coordinate_to_tuple(c)[0] > 120 or coordinate_to_tuple(c)[1] > 30 for _s, c in cells)
     if outside or (oversize and any(m.get("actual") in (None, 0, "0") for m in mismatches)):

@@ -103,29 +103,41 @@ async def main():
 
     async def one_task(task):
         """One num_samples=group_size call: the prompt is prefilled once and the
-        group rides the server's GPU batching (docs: async-patterns)."""
+        group rides the server's GPU batching (docs: async-patterns).
+
+        F0 TRAJECTORY INTEGRITY: the exact prompt token ids and the exact
+        sampled completion token ids are retained per candidate — the raw
+        trajectory including reasoning, not the thinking-stripped content the
+        first (failed) RSFT trained on. Training must consume these tokens."""
         user = build_prompt(task)
         messages = [{"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user + FORMAT_HINT}]
         model_input = renderer.build_generation_prompt(messages)
+        prompt_ints = model_input.to_ints()
         started = time.time()
         try:
             async with semaphore:
                 response = await with_backoff(lambda: sampler.sample_async(
                     prompt=model_input, num_samples=args.group_size, sampling_params=params))
-            contents = []
+            candidates = []
             for seq in response.sequences:
+                comp_ints = list(seq.tokens)
                 content = renderer.parse_response(seq.tokens)[0]["content"]
                 if not isinstance(content, str):
                     content = "".join(p.get("text", "") for p in content if p.get("type") == "text")
-                contents.append(content)
-            records = await asyncio.gather(*(score_candidate(task, k, user, c) for k, c in enumerate(contents)))
+                candidates.append((content, comp_ints))
+            records = await asyncio.gather(*(score_candidate(task, k, user, c) for k, (c, _t) in enumerate(candidates)))
+            for r, (_c, comp_ints) in zip(records, candidates):
+                r["completion_tokens_n"] = len(comp_ints)
+                r["completion_token_ids"] = comp_ints
         except Exception as e:
             records = [{"task_id": task["id"], "k": k, "temperature": args.temperature, "prompt": user,
                         "response": None, "reward": -0.1, "score": None,
                         "error": f"{type(e).__name__}: {e}"[:300]} for k in range(args.group_size)]
         task_dir = out_dir / "rollouts" / task["id"]
         task_dir.mkdir(exist_ok=True)
+        (task_dir / "prompt_tokens.json").write_text(json.dumps(
+            {"prompt_token_ids": prompt_ints, "prompt_tokens_n": len(prompt_ints)}))
         for r in records:
             r["latency_ms"] = int((time.time() - started) * 1000)
             (task_dir / f"{r['k']}.json").write_text(json.dumps(r, ensure_ascii=False))

@@ -1,0 +1,164 @@
+{
+  "summary": {
+    "items": 8,
+    "graded": 8,
+    "missing": 0,
+    "errors": 0,
+    "pass_rate": 0.625,
+    "cell_accuracy": 0.9983,
+    "pass_rate_cell_level": null,
+    "pass_rate_sheet_level": 0.625
+  },
+  "items": [
+    {
+      "status": "graded",
+      "cells": 20,
+      "correct": 20,
+      "pass": true,
+      "mismatches": [],
+      "id": "267-21",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 11917,
+      "correct": 11906,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!Q7",
+          "expected": "Volkswagen",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!J77",
+          "expected": 31133.024999999998,
+          "actual": 31133.025
+        },
+        {
+          "cell": "Sheet1!Q147",
+          "expected": "Volkswagen",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!Q229",
+          "expected": "Volkswagen",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!Q442",
+          "expected": "Volkswagen",
+          "actual": null
+        }
+      ],
+      "id": "341-40",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 42,
+      "correct": 42,
+      "pass": true,
+      "mismatches": [],
+      "id": "493-18",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 307,
+      "correct": 307,
+      "pass": true,
+      "mismatches": [],
+      "id": "73-45",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 9998,
+      "correct": 9976,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!C2",
+          "expected": "TAVERING",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!D2",
+          "expected": "AVERTING",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!C3",
+          "expected": "HEARTING",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!D3",
+          "expected": "EARTHING",
+          "actual": null
+        },
+        {
+          "cell": "Sheet1!C4",
+          "expected": "SHEARING",
+          "actual": null
+        }
+      ],
+      "id": "118-50",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 44,
+      "correct": 44,
+      "pass": true,
+      "mismatches": [],
+      "id": "120-24",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 56,
+      "correct": 56,
+      "pass": true,
+      "mismatches": [],
+      "id": "398-14",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 28,
+      "correct": 23,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!C2",
+          "expected": "2021-02-10 18:33:28",
+          "actual": "2/10/2021 18:33:28"
+        },
+        {
+          "cell": "Sheet1!C3",
+          "expected": "2021-02-09 14:34:28",
+          "actual": "2/09/2021 14:34:28"
+        },
+        {
+          "cell": "Sheet1!C4",
+          "expected": "2021-01-20 13:34:28",
+          "actual": "1/20/2021 13:34:28"
+        },
+        {
+          "cell": "Sheet1!C5",
+          "expected": "2021-01-24 13:33:28",
+          "actual": "1/24/2021 13:33:28"
+        },
+        {
+          "cell": "Sheet1!C6",
+          "expected": "2021-01-20 13:34:28",
+          "actual": "1/20/2021 13:34:28"
+        }
+      ],
+      "id": "496-34",
+      "type": "Sheet-Level Manipulation"
+    }
+  ]
+}

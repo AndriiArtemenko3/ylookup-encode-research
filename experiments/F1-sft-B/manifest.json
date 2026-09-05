@@ -1,0 +1,26 @@
+{
+  "experiment_id": "F1-sft-B",
+  "timestamp": "2026-09-05T21:23:46.264783+00:00",
+  "git_commit": "bfbf91cb4f67a591fda194589741f725e7acfa86",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": "tinker://4cc58417-6b43-5971-8cc6-650d61fb7a2e:train:0/sampler_weights/final",
+  "harness_version": "training:rsft-lora",
+  "prompt_version": "champion-values-v0",
+  "dataset_split": "sft:sft_dataset.jsonl",
+  "task_ids": null,
+  "temperature": null,
+  "max_tokens": 32768,
+  "concurrency": null,
+  "retry_policy": "lora r32 lr2e-05 bs16 ep3",
+  "command": "training/sft.py --dataset ../experiments/F1-rollouts/sft_dataset.jsonl --log-path ../experiments/F1-sft-B --base-model Qwen/Qwen3.8-27B --lr 2e-5 --batch-size 16 --epochs 3",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": null
+}

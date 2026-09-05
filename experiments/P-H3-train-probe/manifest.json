@@ -1,0 +1,35 @@
+{
+  "experiment_id": "P-H3-train-probe",
+  "timestamp": "2026-09-05T21:25:48.769646+00:00",
+  "git_commit": "fedcd3dfaad3962eb47e53fa7de3946a4df0ab2f",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": null,
+  "harness_version": "h8-structural",
+  "prompt_version": "cascade-v1",
+  "dataset_split": "ids:120-24,118-50,73-45,341-40,496-34,398-14,267-21,493-18",
+  "task_ids": [
+    "120-24",
+    "118-50",
+    "73-45",
+    "341-40",
+    "496-34",
+    "398-14",
+    "267-21",
+    "493-18"
+  ],
+  "temperature": 0.0,
+  "max_tokens": 24576,
+  "concurrency": 8,
+  "retry_policy": "escalate+structural",
+  "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P-H3-train-probe --base-model Qwen/Qwen3.8-27B --ids 120-24,118-50,73-45,341-40,496-34,398-14,267-21,493-18 --concurrency 8 --max-tokens 24576",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": 1422.9
+}

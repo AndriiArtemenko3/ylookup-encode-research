@@ -1,0 +1,8 @@
+{"id": "341-40", "output": "outputs/341-40.xlsx", "status": "error: ValueError: no salvageable cell entries in reply"}
+{"id": "493-18", "output": "outputs/493-18.xlsx", "status": "ok"}
+{"id": "267-21", "output": "outputs/267-21.xlsx", "status": "ok"}
+{"id": "398-14", "output": "outputs/398-14.xlsx", "status": "ok"}
+{"id": "120-24", "output": "outputs/120-24.xlsx", "status": "ok"}
+{"id": "496-34", "output": "outputs/496-34.xlsx", "status": "ok"}
+{"id": "118-50", "output": "outputs/118-50.xlsx", "status": "error: ValueError: no salvageable cell entries in reply"}
+{"id": "73-45", "output": "outputs/73-45.xlsx", "status": "unhealthy: hard_failures=5"}

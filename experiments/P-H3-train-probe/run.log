@@ -1,0 +1,21 @@
+harness h8-structural  model Qwen/Qwen3.8-27B  tasks 8  cache=off
+341-40   error: ValueError: no salvageable cell entries in reply  [formula+repair]
+493-18   ok  [champion+structural-repair]
+267-21   ok  [champion+structural-repair]
+398-14   ok  [champion+structural-repair]
+120-24   ok  [formula]
+496-34   ok  [champion+structural-repair]
+118-50   error: ValueError: no salvageable cell entries in reply  [formula+repair]
+73-45    unhealthy: hard_failures=5  [formula+repair+structural-repair]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+harness h8-structural  model Qwen/Qwen3.8-27B  tasks 8  cache=off
+341-40   error: ValueError: no salvageable cell entries in reply  [formula+repair]
+493-18   ok  [champion+structural-repair]
+267-21   ok  [champion+structural-repair]
+398-14   ok  [champion+structural-repair]
+120-24   ok  [formula]
+496-34   ok  [champion+structural-repair]
+118-50   error: ValueError: no salvageable cell entries in reply  [formula+repair]
+73-45    unhealthy: hard_failures=5  [formula+repair+structural-repair]
+Task was destroyed but it is pending!
+task: <Task pending name='tinker_session_futures_poller' coro=<SessionFuturesPoller._poll_loop() running at /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research/.venv/lib/python3.13/site-packages/tinker/lib/session_futures_poller.py:132> wait_for=<Future pending cb=[Task.task_wakeup()]>>

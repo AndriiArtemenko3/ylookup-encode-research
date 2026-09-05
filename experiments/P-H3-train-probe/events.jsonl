@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T21:25:49.027260+00:00", "event": "experiment.start", "experiment_id": "P-H3-train-probe", "split": "ids:120-24,118-50,73-45,341-40,496-34,398-14,267-21,493-18", "n_tasks": 8, "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P-H3-train-probe --base-model Qwen/Qwen3.8-27B --ids 120-24,118-50,73-45,341-40,496-34,398-14,267-21,493-18 --concurrency 8 --max-tokens 24576"}
+{"ts": "2026-09-05T21:49:31.961446+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 1422.9}
+{"ts": "2026-09-05T21:49:38.590444+00:00", "event": "evaluation.done", "items": 8, "graded": 8, "missing": 0, "errors": 0, "pass_rate": 0.625, "cell_accuracy": 0.9983, "pass_rate_cell_level": null, "pass_rate_sheet_level": 0.625}
+{"ts": "2026-09-05T21:49:38.590581+00:00", "event": "experiment.end", "returncode": 0}

@@ -1,0 +1,31 @@
+{
+ "sentinels": [
+  "1925",
+  "30930",
+  "31915",
+  "35739",
+  "37229",
+  "37554",
+  "38703",
+  "105-24",
+  "177-6",
+  "192-22",
+  "343-20",
+  "388-47"
+ ],
+ "opportunity": [
+  "254-34",
+  "290-27",
+  "32438",
+  "486-17",
+  "49667",
+  "50193",
+  "51090",
+  "51680",
+  "524-31",
+  "54590",
+  "236-22",
+  "250-20"
+ ],
+ "rationale": "sentinels = passed E004&E007&E008 (stable under harness+sampling variation), 7 cell/5 sheet; opportunity = all 10 E008 failures + 2 cross-config flippers; selected deterministically from committed dev results, local_test untouched; FROZEN once written"
+}

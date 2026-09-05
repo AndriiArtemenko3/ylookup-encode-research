@@ -246,3 +246,48 @@ per experiment; controlled ablations over multi-change jumps.
   cell-level actually held (0.854 dev → 0.836).
 - **Next:** taxonomy-at-scale comparison, trace audit (background), LoRA
   chain per approved Phase F.
+
+## E012a/b/c — first RSFT LoRA sweep: NEGATIVE RESULT (kept honestly)
+
+- Fair comparison (canary outputs replayed through the h2 writer to remove a
+  configuration confound): A(5e-5) 46.7%, B(2e-5) 41.7%, C(2e-5+boundary)
+  45.0% vs champion E004 78.3%. Transitions: FAIL->PASS 2 each (curiously
+  254-34 and 32438 in all three), PASS->FAIL 21/24/22. Net -19/-22/-20.
+- **Root cause (forensic):** rollout capture stored thinking-STRIPPED content;
+  SFT targets p50 ~253 tokens vs ~5-9k for successful base trajectories. The
+  LoRAs learned answer-immediately-don't-reason; training NLL collapsed
+  (0.38->0.01) while arithmetic/logic collapsed on dev — the pre-registered
+  memorization/behaviour-shift signature.
+- **Restated hypothesis:** RSFT on thinking-stripped targets fails; RSFT in
+  general remains open -> F1v2 corrected experiment.
+
+## F0 — trajectory integrity gate (PASSED)
+
+- rollout.py now captures exact prompt token ids + exact sampled completion
+  token ids per candidate. tests/test_trajectory_integrity.py enforces 8
+  conditions (raw retention, reasoning preserved, length regime p50>=1500,
+  token round-trip reproduces the answer, verifier replay passes, no golden
+  in decoded prompt, serving/training template byte-match, no special-token
+  damage). Mini-rollout: verified-pass p50=4,470 tokens (old failed regime:
+  253), reasoning fraction 0.83-0.93. Training gated on this test.
+
+## P-H3-train-probe — structural repair mechanism validation (train)
+
+- 6 repair targets + 2 passing controls through h8 cascade: **3/6 targets
+  flipped to exact pass** (120-24 44/44, 398-14 56/56, 73-45 307/307 — all
+  formerly 0/4-hard), **both controls held** (acceptance guard held in live
+  fire). Resisted: 341-40 (float-tie), 118-50, 496-34. Mechanism evidence
+  only; H3 claim awaits frozen-logic dev validation.
+
+## H4 offline simulation (train rollouts, zero tokens)
+
+- Validity+agreement trajectory selector: pass@1 73.0% -> 76.4% (+3.4pp),
+  54% of the oracle any-pass@4 gap (79.3%), golden-free. Pre-registered dev
+  confirmation pending; selector rules frozen before it.
+
+## canary24 (frozen)
+
+- research/splits/canary24.json: 12 stable sentinels (pass in E004&E007&E008,
+  7 cell/5 sheet) + 12 opportunity (all 10 E008 dev failures + 2 cross-config
+  flippers). Selected deterministically from committed results; local_test
+  untouched.
