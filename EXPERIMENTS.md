@@ -13,6 +13,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E004-salvage-unmerge-dev | Qwen/Qwen3.8-27B | h2-salvage-unmerge (replay of E002) | dev (60) | 0.783 | 0.924 | 0.805 | 0.737 | 3 | 0 tokens | +1/-0 (38703 via unmerge); salvage recovered 4 replies |
 | E006-formulas-dev | Qwen/Qwen3.8-27B | h4-formulas (coverage + formula prompt) | dev (60) | 0.700 | 0.962 | 0.780 | 0.526 | 1 | 15 min | +3/-8 NET -5: formula prompt over-applied; changes confounded |
 | E007-coverage-only-dev | Qwen/Qwen3.8-27B | h5-coverage-values (coverage serialiser only) | dev (60) | 0.717 | 0.916 | 0.756 | 0.632 | 2 | 13 min | net -4 BUT 4/5 flips are sampling noise (identical prompts); true serialiser effect: -1 (250-20 cap) |
+| E008-cascade-dev | Qwen/Qwen3.8-27B | h6-cascade (matched-control cache) | dev (60) | 0.833 | 0.984 | 0.854 | 0.789 | 0 | 21 min | +3/-0 vs E004; all 47 passers held by construction |
 
 ## Template (copy per experiment)
 
@@ -203,3 +204,28 @@ per experiment; controlled ablations over multi-change jumps.
   remain real.
 - **Next action:** E008 = deterministically gated formula escalation +
   recalc validation/retry (Phase B of the build spec).
+
+## E008-cascade-dev
+
+- **Hypothesis:** an evidence-based cascade (champion attempt -> golden-free
+  health check -> formula escalation -> repair retry -> healthiest-artifact
+  selection, ties to champion) captures formula upside with a structural
+  no-regression guarantee.
+- **Design:** `inference/{health,cascade,cascade_predict}.py`. Doomed-check
+  skips stage 1 only when provably unwinnable (answer cells outside 120x30
+  view, or >300 cells — above every known champion pass). Matched control:
+  champion attempts reuse E002 responses on byte-identical prompts.
+- **Result:** pass_rate **0.833** (cell 0.854, sheet 0.789), cell_accuracy
+  **0.984**. Diff vs E004: **FAIL->PASS 3 (15671, 433-47, 6698), PASS->FAIL 0**,
+  all 47 champion passers held (by construction on the 55 cache-hit attempts).
+- **Mechanics:** 55 champion attempts from cache (0 tokens), 18 live samples
+  (11 formula escalations + 7 repairs), 197k in / 367k out tokens total.
+  All three conversions selected the formula artifact and passed the health
+  check; 433-47 and 6698 escalated after unhealthy cached champions, 15671
+  was view-doomed and went straight to formula mode.
+- **Conclusion:** acceptance criteria met exactly (net +3 > 0, zero cache-arm
+  regressions). Cascade is the champion candidate at 83.3% dev
+  (46.7 -> 61.7 -> 76.7 -> 78.3 -> 83.3). Remaining 10 failures: combinatorial
+  (254-34), rank tie-logic (50193), multi-criteria aggregation (51090), and
+  the residual wrong-value/format tail.
+- **Next action:** gate decision (champion adoption), then Phase C full-400.
