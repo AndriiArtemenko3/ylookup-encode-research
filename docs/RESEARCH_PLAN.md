@@ -70,10 +70,17 @@ split, sampling params, command, runtime), the four official artifacts,
 `EXPERIMENTS.md`: hypothesis, one primary change, result, regressions,
 conclusion, next action. Controlled ablations over multi-change jumps.
 
-## Tinker smoke test (prepared, not run — blocked on HUMAN_ACTIONS #1 and #2)
+## Mandated model — CONFIRMED
+
+`Qwen/Qwen3.8-27B` (human-confirmed 2026-09-05; matches slides' "Qwen3.8-27B,
+59.0% one-shot"). tinker-cookbook renderer: `qwen3_8_xhigh_reasoning` — a
+reasoning model, so budget max_tokens for thinking and rely on the renderer's
+`<think>` handling already present in `baseline/common.py`.
+
+## Tinker smoke test (prepared, not run — blocked on HUMAN_ACTIONS #2, API key)
 
 ```sh
 cd research && uv run baseline/tinker_predict.py \
     --out-dir ../experiments/E000-tinker-smoke/raw \
-    --base-model <CONFIRMED_MODEL_ID> --ids 13-1 --concurrency 1
+    --base-model Qwen/Qwen3.8-27B --ids 13-1 --concurrency 1
 ```

@@ -6,7 +6,7 @@ per experiment; controlled ablations over multi-change jumps.
 
 | Exp | Model | Harness | Split | Pass rate | Cell acc | Cell-level | Sheet-level | Errors | Runtime | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| E000-tinker-smoke | TBC (blocked: model id + TINKER_API_KEY) | untouched baseline | 1 task (13-1) | – | – | – | – | – | – | prepared, not run |
+| E000-tinker-smoke | Qwen/Qwen3.8-27B | untouched baseline | 1 task (13-1) | – | – | – | – | – | – | blocked: TINKER_API_KEY |
 
 ## Template (copy per experiment)
 
@@ -25,5 +25,6 @@ per experiment; controlled ablations over multi-change jumps.
 - **Hypothesis:** the Tinker credentials, mandated base model, renderer and our
   experiment plumbing work end-to-end on one task.
 - **Primary change (one):** none — untouched starter baseline, single task.
-- **Status:** blocked on `docs/HUMAN_ACTIONS.md` items 1 (model id) and 2
-  (TINKER_API_KEY). Command prepared in `docs/RESEARCH_PLAN.md`.
+- **Status:** model confirmed (`Qwen/Qwen3.8-27B`); blocked only on
+  `docs/HUMAN_ACTIONS.md` item 2 (TINKER_API_KEY). Command prepared in
+  `docs/RESEARCH_PLAN.md`.

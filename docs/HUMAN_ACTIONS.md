@@ -2,19 +2,14 @@
 
 Only tasks that genuinely require the human. Engineering tasks do not belong here.
 
-## 1. Confirm the mandatory base model identifier (BLOCKING for any paid run)
+## 1. ~~Confirm the mandatory base model identifier~~ — RESOLVED 2026-09-05
 
-The hackathon slides (p.16) and `research/README.md` line 88 both say:
-
-> **Qwen3.8-27B** — 59.0% one-shot pass rate on the 400
-
-but the starter Tinker baseline (`research/baseline/tinker_predict.py`) uses
-`Qwen/Qwen3-8B` in its examples, and "Qwen3.8-27B" does not correspond to an
-obvious Hugging Face / Tinker model id.
-
-**Please confirm with the organisers the exact mandatory base model / model
-identifier for the research-track final system.** Do not let anyone resolve
-this by guesswork; every training run and the final submission depend on it.
+Human confirmed the mandated model is **Qwen3.8-27B**. Verified: the canonical
+identifier is **`Qwen/Qwen3.8-27B`** (official Qwen org on Hugging Face), and
+the installed tinker-cookbook recommends renderer `qwen3_8_xhigh_reasoning`
+for it. The `Qwen/Qwen3-8B` strings in `research/baseline/tinker_predict.py`
+are upstream doc examples only (no code default) and are superseded by this
+confirmation. All experiments use `Qwen/Qwen3.8-27B`.
 
 ## 2. Provide TINKER_API_KEY
 
