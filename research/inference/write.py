@@ -28,7 +28,31 @@ import openpyxl
 
 from sb import answer_cells
 
-HARNESS_VERSION = "h2-salvage-unmerge"
+HARNESS_VERSION = "h4-formulas"
+
+# Modern Excel functions need the prefix Excel itself stores in the file, or
+# both Excel and the LibreOffice recalculation return #NAME? (research/README.md:32).
+_XLWS_FUNCS = {"FILTER", "SORT", "SORTBY"}
+_XLFN_FUNCS = {
+    "XLOOKUP", "XMATCH", "UNIQUE", "LET", "LAMBDA", "CHOOSECOLS", "CHOOSEROWS",
+    "TEXTJOIN", "IFS", "MAXIFS", "MINIFS", "CONCAT", "SWITCH", "SEQUENCE",
+    "RANDARRAY", "TEXTSPLIT", "TEXTBEFORE", "TEXTAFTER", "TOCOL", "TOROW",
+    "VSTACK", "HSTACK", "TAKE", "DROP", "BYROW", "BYCOL", "MAP", "SCAN", "REDUCE",
+}
+_FUNC_CALL = re.compile(r"(?<![A-Z0-9_.])([A-Z][A-Z0-9]*)\(")
+
+
+def fix_formula(formula: str) -> str:
+    """Add the storage prefixes modern functions need to survive recalculation."""
+    def repl(m):
+        name = m.group(1)
+        if name in _XLWS_FUNCS:
+            return f"_xlfn._xlws.{name}("
+        if name in _XLFN_FUNCS:
+            return f"_xlfn.{name}("
+        return m.group(0)
+
+    return _FUNC_CALL.sub(repl, formula) if "_xlfn" not in formula else formula
 
 _ISO_DATETIME = re.compile(r"^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})$")
 _ISO_DATE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})$")
@@ -88,5 +112,9 @@ def write_output(task: dict, answer, out_path: Path) -> None:
             targets.append((ws, coord))
     _unmerge_target_ranges(wb, targets)
     for ws, coord in targets:
-        ws[coord] = coerce_value(cells[coord])
+        value = cells[coord]
+        if isinstance(value, str) and value.startswith("="):
+            ws[coord] = fix_formula(value)  # openpyxl stores "=..." as a formula
+        else:
+            ws[coord] = coerce_value(value)
     wb.save(out_path)

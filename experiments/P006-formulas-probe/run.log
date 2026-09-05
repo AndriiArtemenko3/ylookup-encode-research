@@ -1,0 +1,27 @@
+harness h4-formulas  model Qwen/Qwen3.8-27B  tasks 11
+6698     ok
+54590    ok
+15671    ok
+433-47   ok
+49667    error: no salvageable cell entries in reply
+524-31   ok
+254-34   error: no salvageable cell entries in reply
+50193    ok (salvaged)
+51090    error: no salvageable cell entries in reply
+290-27   error: no salvageable cell entries in reply
+486-17   ok (salvaged)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+harness h4-formulas  model Qwen/Qwen3.8-27B  tasks 11
+6698     ok
+54590    ok
+15671    ok
+433-47   ok
+49667    error: no salvageable cell entries in reply
+524-31   ok
+254-34   error: no salvageable cell entries in reply
+50193    ok (salvaged)
+51090    error: no salvageable cell entries in reply
+290-27   error: no salvageable cell entries in reply
+486-17   ok (salvaged)
+Task was destroyed but it is pending!
+task: <Task pending name='tinker_session_futures_poller' coro=<SessionFuturesPoller._poll_loop() running at /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research/.venv/lib/python3.13/site-packages/tinker/lib/session_futures_poller.py:132> wait_for=<Future pending cb=[Task.task_wakeup()]>>

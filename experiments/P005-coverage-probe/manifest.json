@@ -1,0 +1,34 @@
+{
+  "experiment_id": "P005-coverage-probe",
+  "timestamp": "2026-09-05T15:10:43.706218+00:00",
+  "git_commit": "209065946be22a0bd45410badc366f89823a2c48",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": null,
+  "harness_version": "h3-coverage",
+  "prompt_version": "baseline-v0+coverage",
+  "dataset_split": "ids:15671,486-17,49667,50193,51090,54590,6698",
+  "task_ids": [
+    "15671",
+    "486-17",
+    "49667",
+    "50193",
+    "51090",
+    "54590",
+    "6698"
+  ],
+  "temperature": 0.0,
+  "max_tokens": 24576,
+  "concurrency": 7,
+  "retry_policy": "none",
+  "command": "uv run inference/predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/P005-coverage-probe --base-model Qwen/Qwen3.8-27B --ids 15671,486-17,49667,50193,51090,54590,6698 --concurrency 7 --max-tokens 24576",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "Andriis-MacBook-Pro.local",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": 381.0
+}
