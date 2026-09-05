@@ -1,0 +1,282 @@
+{
+ "updated_at": "2026-09-06T00:43:47",
+ "head": "6b309ee",
+ "phases": {
+  "P0-preflight": {
+   "started_at": null,
+   "completed_at": "2026-09-06T00:43:47",
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "GREEN",
+   "description": "oracle 1.0, creds, disk, guards"
+  },
+  "P1-msheet": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": "P-msheet-train",
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "GREEN",
+   "description": "156-14 156/156, 283-32 28/28; IN candidate"
+  },
+  "P2-H4-dev": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": "E014-h4-dev",
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "RUNNING",
+   "description": "risk-gated selector dev60",
+   "next_on_green": "P7-candidate",
+   "next_on_yellow": "P7-candidate(E013-config)",
+   "next_on_red": "P7-candidate(E013-config)"
+  },
+  "P2B-H4B": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "YELLOW",
+   "description": "train sim redundant on values-only pools; NO dev per frozen gate"
+  },
+  "P3-H10-probe": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "RUNNING",
+   "description": "exec probe 10 train ids incl whales"
+  },
+  "P4-patch": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "RED",
+   "description": "0 conversions, 1 allowlisted regression; EXCLUDED"
+  },
+  "P5-RSFT-2e5": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "YELLOW",
+   "description": "12/12 retention, plasticity=control; LR escalation STOPPED"
+  },
+  "P6-H11-probe": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "RUNNING",
+   "description": "ladder probe 8 truncation-class train ids"
+  },
+  "P7-candidate": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING",
+   "description": "combined candidate dev60 from GREENs"
+  },
+  "P8-localtest": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING",
+   "description": "single confirmation of frozen finalist"
+  },
+  "P9-full400": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING",
+   "description": "gated promotion run"
+  },
+  "P10-docker": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING",
+   "description": "final-config cold retest"
+  },
+  "P12-morning-report": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-REWARD-ANALYSIS": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-FREEZE-SPEC": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-IMPLEMENT-RL": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R0-SMOKE": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R1-SMOKE": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R2-SMOKE": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R0-TRAIN": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R1-TRAIN": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R2-TRAIN": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R0-CANARY": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R1-CANARY": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R2-CANARY": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R0-DEV": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R1-DEV": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-R2-DEV": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  },
+  "H12-COMPARISON": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null,
+   "commit": null,
+   "status": "PENDING"
+  }
+ }
+}
