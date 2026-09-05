@@ -100,19 +100,38 @@ def _unmerge_target_ranges(wb, targets) -> None:
                 ws.unmerge_cells(str(rng))
 
 
+def split_cell_address(cell: str) -> tuple[str | None, str]:
+    """'Sheet2!B6' -> ('sheet2', 'B6'); 'B6' -> (None, 'B6'). Sheet matched
+    case-insensitively; quotes stripped. Fixes the multi-sheet coordinate
+    collision: identical coordinates on different sheets carry distinct values."""
+    if "!" in cell:
+        sheet, coord = cell.rsplit("!", 1)
+        return sheet.strip().strip("'\"").lower() or None, coord.strip().upper()
+    return None, cell.strip().upper()
+
+
 def write_output(task: dict, answer, out_path: Path) -> None:
-    """Baseline write_output (baseline/common.py:79) plus coerce_value and unmerge."""
-    cells = {c.cell.upper(): c.value for c in answer.cells}
+    """Baseline write_output (baseline/common.py:79) plus coerce_value, unmerge,
+    and sheet-aware answer addressing (coordinate-only entries stay valid)."""
+    qualified, plain = {}, {}
+    for c in answer.cells:
+        sheet, coord = split_cell_address(c.cell)
+        if sheet is not None:
+            qualified[(sheet, coord)] = c.value
+        else:
+            plain[coord] = c.value
     shutil.copy(task["init_xlsx"], out_path)
     wb = openpyxl.load_workbook(out_path)
     targets = []
     for sheet, coord in answer_cells(task, wb):
         ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb.active
-        if coord in cells:
-            targets.append((ws, coord))
-    _unmerge_target_ranges(wb, targets)
-    for ws, coord in targets:
-        value = cells[coord]
+        key = (ws.title.lower(), coord)
+        if key in qualified:
+            targets.append((ws, coord, qualified[key]))
+        elif coord in plain:
+            targets.append((ws, coord, plain[coord]))
+    _unmerge_target_ranges(wb, [(ws, coord) for ws, coord, _v in targets])
+    for ws, coord, value in targets:
         if isinstance(value, str) and value.startswith("="):
             ws[coord] = fix_formula(value)  # openpyxl stores "=..." as a formula
         else:

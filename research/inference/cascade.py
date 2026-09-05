@@ -44,6 +44,7 @@ from inference.predict import SYSTEM_PROMPT_FORMULAS
 from inference.serialize import build_prompt as coverage_build_prompt
 from inference.write import write_output
 from sb import answer_cells
+from sb import answer_ranges as sb_answer_ranges
 
 HARNESS_VERSION = "h8-structural"
 BASELINE_VIEW_ROWS, BASELINE_VIEW_COLS = 120, 30
@@ -173,9 +174,21 @@ async def run_cascade_task(complete, task: dict, work_dir: Path, *,
     tmp = work_dir / task["id"]
     tmp.mkdir(parents=True, exist_ok=True)
 
+    # multi-sheet answer ranges need sheet-qualified addresses (coordinate
+    # collision fix); the clause is appended ONLY for those tasks, so every
+    # single-sheet champion prompt stays byte-identical (cache/matched-control safe)
+    answer_sheets = {s for s, _r in sb_answer_ranges(task)}
+    multisheet_clause = ""
+    if len(answer_sheets) > 1:
+        multisheet_clause = (
+            "\n\nIMPORTANT: the answer range spans multiple sheets. Write every cell "
+            "address sheet-qualified as 'SheetName!CELL' (e.g. \"cell\": \"Sheet2!B6\") "
+            "so identical coordinates on different sheets are distinguished."
+        )
+
     reason = doomed_reason(task)
     if reason is None:
-        champion_prompt = champion_build_prompt(task)
+        champion_prompt = champion_build_prompt(task) + multisheet_clause
         cached = load_cached_response(cache_dir, task, champion_prompt)
         attempts.append(await _run_attempt(
             complete, task, stage="champion", system=CHAMPION_SYSTEM_PROMPT,
@@ -183,7 +196,7 @@ async def run_cascade_task(complete, task: dict, work_dir: Path, *,
             max_tokens=max_tokens, model=model, cached=cached))
 
     if not attempts or not attempts[-1].report.healthy:
-        formula_prompt = coverage_build_prompt(task)
+        formula_prompt = coverage_build_prompt(task) + multisheet_clause
         escalation = await _run_attempt(
             complete, task, stage="formula", system=SYSTEM_PROMPT_FORMULAS,
             user_prompt=formula_prompt, path=tmp / "formula.xlsx",
