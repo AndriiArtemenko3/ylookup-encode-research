@@ -6,3 +6,9 @@ results.json
 __pycache__/
 .env
 .venv/
+
+# experiment artifacts: keep the research record (manifest, results, events,
+# predictions, logs, notes) in git; heavy generated workbooks and traces stay out
+experiments/*/outputs/
+experiments/*/traces/
+!experiments/*/results.json
