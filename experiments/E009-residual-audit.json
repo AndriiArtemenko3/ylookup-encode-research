@@ -1,0 +1,2302 @@
+{
+ "aggregates": {
+  "n_failures": 95,
+  "A_healthy_but_wrong": 53,
+  "B_leq5_wrong_cells": 26,
+  "C_geq90pct_cell_acc": 16,
+  "D_large_sheet_transform": 22,
+  "by_scale": {
+   "broad": 26,
+   "dead": 13,
+   "sparse": 11,
+   "partial": 36,
+   "1-cell": 9
+  },
+  "by_mechanism": {
+   "large-output/combinatorial": 26,
+   "incomplete output": 17,
+   "unknown": 15,
+   "arithmetic / logic": 12,
+   "wrong lookup/range": 12,
+   "formula error": 6,
+   "multi-sheet reasoning": 5,
+   "missing source visibility": 2
+  },
+  "by_stage": {
+   "formula": 33,
+   "champion": 45,
+   "repair": 17
+  },
+  "by_type": {
+   "Sheet": 50,
+   "Cell-": 45
+  },
+  "E_addressable_by": {
+   "model reasoning/post-training": 46,
+   "targeted repair": 38,
+   "code execution": 25,
+   "self-consistency": 11,
+   "better workbook inspection": 2
+  }
+ },
+ "rows": [
+  {
+   "id": "17-35",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 1450,
+   "correct": 10,
+   "answer_cells": 1450,
+   "dims": {
+    "FILTER 5b": [
+     315,
+     14
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "22-47",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 27,
+   "correct": 0,
+   "answer_cells": 27,
+   "dims": {
+    "sheet1": [
+     195,
+     10
+    ],
+    "\u0648\u0631\u0642\u06291": [
+     11,
+     2
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "23-24",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 5510,
+   "correct": 1797,
+   "answer_cells": 5510,
+   "dims": {
+    "Sheet1": [
+     3707,
+     9
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "24-23",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 824,
+   "correct": 133,
+   "answer_cells": 824,
+   "dims": {
+    "Sheet1": [
+     53706,
+     4
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "28-7",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "sparse",
+   "cells": 78,
+   "correct": 71,
+   "answer_cells": 78,
+   "dims": {
+    "Sheet1": [
+     26,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "41-47",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 6403,
+   "correct": 5211,
+   "answer_cells": 6403,
+   "dims": {
+    "CMSN": [
+     1529,
+     4
+    ],
+    "CSTR": [
+     592,
+     4
+    ],
+    "EXPRO": [
+     11,
+     4
+    ],
+    "OUT CAS": [
+     1529,
+     15
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "code execution",
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "263-1",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 3,
+   "correct": 2,
+   "answer_cells": 3,
+   "dims": {
+    "Sheet1": [
+     276,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "267-18",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 2,
+   "correct": 1,
+   "answer_cells": 2,
+   "dims": {
+    "Folha1": [
+     2,
+     10
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "283-32",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 28,
+   "correct": 16,
+   "answer_cells": 14,
+   "dims": {
+    "Sheet1": [
+     32,
+     7
+    ],
+    "Sheet2": [
+     32,
+     7
+    ],
+    "Sheet3": [
+     1,
+     7
+    ],
+    "Sheet4": [
+     1,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "multi-sheet reasoning",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "290-27",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 1116,
+   "correct": 1106,
+   "answer_cells": 1116,
+   "dims": {
+    "Sheet1": [
+     139,
+     9
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "297-42",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 12315,
+   "correct": 1,
+   "answer_cells": 12315,
+   "dims": {
+    "combined": [
+     1,
+     15
+    ],
+    "sindh": [
+     324,
+     15
+    ],
+    "punjab": [
+     160,
+     15
+    ],
+    "baluchistan": [
+     176,
+     15
+    ],
+    "Khyber Pakhtoonkhawa": [
+     165,
+     15
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "341-40",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 11917,
+   "correct": 11905,
+   "answer_cells": 11917,
+   "dims": {
+    "Sheet1": [
+     701,
+     17
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "408-5",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 685,
+   "correct": 460,
+   "answer_cells": 685,
+   "dims": {
+    "Sheet1": [
+     137,
+     5
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "455-35",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 104110,
+   "correct": 10709,
+   "answer_cells": 104110,
+   "dims": {
+    "Worksheet1": [
+     10411,
+     10
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "code execution",
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "61-4",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 98,
+   "correct": 87,
+   "answer_cells": 98,
+   "dims": {
+    "input": [
+     21,
+     18
+    ],
+    "output": [
+     6,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "80-42",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 95988,
+   "correct": 48013,
+   "answer_cells": 95988,
+   "dims": {
+    "Consolidate_ALL": [
+     3999,
+     12
+    ],
+    "Jack": [
+     2000,
+     18
+    ],
+    "Henry": [
+     2000,
+     18
+    ],
+    "Richard": [
+     1001,
+     18
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "118-50",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 9998,
+   "correct": 9976,
+   "answer_cells": 9998,
+   "dims": {
+    "Sheet1": [
+     5000,
+     4
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "146-49",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 130,
+   "correct": 0,
+   "answer_cells": 130,
+   "dims": {
+    "Sheet1": [
+     5002,
+     8
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "156-14",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 156,
+   "correct": 125,
+   "answer_cells": 156,
+   "dims": {
+    "99250": [
+     9,
+     6
+    ],
+    "99251": [
+     9,
+     6
+    ],
+    "99252": [
+     8,
+     6
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "multi-sheet reasoning",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "157-4",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "sparse",
+   "cells": 675,
+   "correct": 665,
+   "answer_cells": 675,
+   "dims": {
+    "Sheet1": [
+     83,
+     13
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "165-23",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 1008,
+   "correct": 962,
+   "answer_cells": 1008,
+   "dims": {
+    "Sheet1": [
+     73,
+     14
+    ],
+    "Desired Sheet1 after delrow1": [
+     69,
+     14
+    ],
+    "Desired Sheet1 after delrow2": [
+     5,
+     14
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "170-13",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 200,
+   "correct": 151,
+   "answer_cells": 200,
+   "dims": {
+    "Sheet1": [
+     14,
+     1
+    ],
+    "Sheet2": [
+     11,
+     5
+    ],
+    "Sheet3": [
+     41,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "multi-sheet reasoning",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "178-22",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 54,
+   "correct": 36,
+   "answer_cells": 54,
+   "dims": {
+    "Sheet1": [
+     18,
+     3
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "191-40",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 680,
+   "correct": 238,
+   "answer_cells": 680,
+   "dims": {
+    "Sheet1": [
+     250,
+     12
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "194-19",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 740,
+   "correct": 432,
+   "answer_cells": 740,
+   "dims": {
+    "Sheet1": [
+     372,
+     10
+    ],
+    "Sheet2": [
+     173,
+     13
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "203-15",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 39,
+   "correct": 38,
+   "answer_cells": 39,
+   "dims": {
+    "Main": [
+     14,
+     10
+    ],
+    "Output Required": [
+     8,
+     6
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "230-16",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 12,
+   "correct": 2,
+   "answer_cells": 12,
+   "dims": {
+    "Before": [
+     19,
+     2
+    ],
+    "After": [
+     10,
+     2
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "236-22",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 35,
+   "correct": 17,
+   "answer_cells": 35,
+   "dims": {
+    "Sheet1": [
+     28,
+     16
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "120-24",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "1-cell",
+   "cells": 44,
+   "correct": 43,
+   "answer_cells": 44,
+   "dims": {
+    "Sheet1": [
+     45,
+     64
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "141-20",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 38,
+   "correct": 24,
+   "answer_cells": 38,
+   "dims": {
+    "PL Recon Items": [
+     2,
+     4
+    ],
+    "Statement Recon Items": [
+     3,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "multi-sheet reasoning",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "183-8",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 20,
+   "correct": 5,
+   "answer_cells": 20,
+   "dims": {
+    "Sheet1": [
+     null,
+     null
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "209-30",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 6066,
+   "correct": 1,
+   "answer_cells": 6066,
+   "dims": {
+    "Home": [
+     1,
+     1
+    ],
+    "Location Matrix": [
+     1,
+     1
+    ],
+    "Data to Import": [
+     93197,
+     6
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "code execution",
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "247-24",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 897,
+   "correct": 521,
+   "answer_cells": 897,
+   "dims": {
+    "Main": [
+     47,
+     13
+    ],
+    "Lookup": [
+     43,
+     2
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "302-1",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 13,
+   "correct": 1,
+   "answer_cells": 13,
+   "dims": {
+    "ITEMS": [
+     8,
+     2
+    ],
+    "SHEET1": [
+     8,
+     2
+    ],
+    "SHEET2": [
+     7,
+     2
+    ],
+    "result sheet1": [
+     8,
+     2
+    ],
+    "result sheet2": [
+     7,
+     2
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "multi-sheet reasoning",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "353-6",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 680,
+   "correct": 438,
+   "answer_cells": 680,
+   "dims": {
+    "Data": [
+     20,
+     34
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "code execution"
+   ]
+  },
+  {
+   "id": "387-16",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 68,
+   "correct": 52,
+   "answer_cells": 68,
+   "dims": {
+    "Sheet1": [
+     21,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "395-36",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 300,
+   "correct": 201,
+   "answer_cells": 300,
+   "dims": {
+    "Main unique ID": [
+     19,
+     1
+    ],
+    "Result what i am getting": [
+     15,
+     15
+    ],
+    "Result what i am expecting ": [
+     20,
+     15
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "398-14",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "sparse",
+   "cells": 56,
+   "correct": 53,
+   "answer_cells": 56,
+   "dims": {
+    "STA": [
+     null,
+     null
+    ],
+    "RPA": [
+     null,
+     null
+    ],
+    "SR": [
+     null,
+     null
+    ],
+    "SS": [
+     null,
+     null
+    ],
+    "COLLECTION": [
+     null,
+     null
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "402-43",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 330,
+   "correct": 216,
+   "answer_cells": 330,
+   "dims": {
+    "Sheet1": [
+     25,
+     33
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "416-15",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 18,
+   "correct": 0,
+   "answer_cells": 18,
+   "dims": {
+    "Sheet1": [
+     19,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "423-16",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 34,
+   "correct": 6,
+   "answer_cells": 34,
+   "dims": {
+    "master": [
+     1,
+     7
+    ],
+    "Test": [
+     63,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "486-17",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": true,
+   "scale": "sparse",
+   "cells": 129,
+   "correct": 126,
+   "answer_cells": 129,
+   "dims": {
+    "Blad1": [
+     130,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "493-5",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 60,
+   "correct": 53,
+   "answer_cells": 60,
+   "dims": {
+    "Imported Data": [
+     10,
+     6
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "524-31",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 53,
+   "correct": 46,
+   "answer_cells": 53,
+   "dims": {
+    "Exp-DB": [
+     53,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "531-18",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 2904,
+   "correct": 104,
+   "answer_cells": 2904,
+   "dims": {
+    "Data": [
+     28,
+     50
+    ],
+    "Transpose": [
+     134,
+     3
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "534-26",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 35,
+   "correct": 16,
+   "answer_cells": 35,
+   "dims": {
+    "Sheet1": [
+     1,
+     43
+    ],
+    "Result": [
+     1,
+     27
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "535-20",
+   "type": "Sheet-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 7965,
+   "correct": 3626,
+   "answer_cells": 7965,
+   "dims": {
+    "Sheet1": [
+     5,
+     1592
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "code execution",
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "545-35",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "1-cell",
+   "cells": 270,
+   "correct": 269,
+   "answer_cells": 270,
+   "dims": {
+    "Data": [
+     23,
+     37
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "560-12",
+   "type": "Sheet-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 12,
+   "correct": 4,
+   "answer_cells": 12,
+   "dims": {
+    "\u5de5\u4f5c\u88681": [
+     10,
+     4
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "577-40",
+   "type": "Sheet-Level Manipulation",
+   "stage": "repair",
+   "healthy": true,
+   "scale": "sparse",
+   "cells": 594,
+   "correct": 590,
+   "answer_cells": 594,
+   "dims": {
+    "Sheet2": [
+     54,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair",
+    "code execution"
+   ]
+  },
+  {
+   "id": "34033",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 5,
+   "correct": 3,
+   "answer_cells": 5,
+   "dims": {
+    "ExcelForum help": [
+     13,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "44389",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 6,
+   "correct": 4,
+   "answer_cells": 6,
+   "dims": {
+    "Sheet1": [
+     7,
+     16
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "45300",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 4,
+   "correct": 0,
+   "answer_cells": 4,
+   "dims": {
+    "Sheet1": [
+     4,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "47933",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 153,
+   "correct": 152,
+   "answer_cells": 153,
+   "dims": {
+    "master": [
+     154,
+     5
+    ],
+    "Hrs": [
+     1601,
+     2
+    ],
+    "amount": [
+     1590,
+     2
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "missing source visibility",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair",
+    "better workbook inspection"
+   ]
+  },
+  {
+   "id": "48921",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 4451,
+   "correct": 3,
+   "answer_cells": 4451,
+   "dims": {
+    "Sheet1": [
+     4452,
+     2
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "48983",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 42,
+   "correct": 4,
+   "answer_cells": 42,
+   "dims": {
+    "H\u00e1rok1": [
+     19,
+     19
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "49036",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 1,
+   "correct": 0,
+   "answer_cells": 1,
+   "dims": {
+    "Dashboard": [
+     11,
+     5
+    ],
+    "Trades": [
+     16,
+     14
+    ],
+    "Data": [
+     5,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "49667",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 60,
+   "correct": 52,
+   "answer_cells": 60,
+   "dims": {
+    "Edit": [
+     16,
+     46
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "50193",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 602,
+   "correct": 582,
+   "answer_cells": 602,
+   "dims": {
+    "RS.Food": [
+     607,
+     23
+    ],
+    "Sheet1": [
+     8,
+     4
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "50324",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 64,
+   "correct": 1,
+   "answer_cells": 64,
+   "dims": {
+    "Datensatz": [
+     33,
+     15
+    ],
+    "Analyse": [
+     12,
+     26
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "51090",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 22,
+   "correct": 16,
+   "answer_cells": 22,
+   "dims": {
+    "Daily Numbers": [
+     24,
+     69
+    ],
+    "Inbound Receipts": [
+     498,
+     52
+    ],
+    "Errors": [
+     506,
+     52
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "missing source visibility",
+   "addressable_by": [
+    "better workbook inspection"
+   ]
+  },
+  {
+   "id": "54196",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "1-cell",
+   "cells": 278,
+   "correct": 277,
+   "answer_cells": 278,
+   "dims": {
+    "Sheet one": [
+     6234,
+     8
+    ],
+    "Sheet two": [
+     6234,
+     7
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "54590",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 1,
+   "correct": 0,
+   "answer_cells": 1,
+   "dims": {
+    "HR ": [
+     37,
+     202
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "54675",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 1,
+   "correct": 0,
+   "answer_cells": 1,
+   "dims": {
+    "Sheet1": [
+     2452,
+     6
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "3002",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 11,
+   "correct": 5,
+   "answer_cells": 11,
+   "dims": {
+    "Sheet1": [
+     15,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "9391",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 22,
+   "correct": 2,
+   "answer_cells": 22,
+   "dims": {
+    "Front": [
+     12,
+     14
+    ],
+    "Data": [
+     29,
+     15
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "9448",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 10,
+   "correct": 4,
+   "answer_cells": 10,
+   "dims": {
+    "Data": [
+     18,
+     21
+    ],
+    "MetaData": [
+     19,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "9569",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 1280,
+   "correct": 1,
+   "answer_cells": 1280,
+   "dims": {
+    "Sheet1": [
+     1288,
+     41
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "13284",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 25,
+   "correct": 20,
+   "answer_cells": 25,
+   "dims": {
+    "Base": [
+     26,
+     6
+    ],
+    "Streets": [
+     26,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "32023",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 16,
+   "correct": 14,
+   "answer_cells": 16,
+   "dims": {
+    "Sheet1": [
+     19,
+     12
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "32438",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 3,
+   "correct": 0,
+   "answer_cells": 3,
+   "dims": {
+    "Sheet1": [
+     4,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "32562",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 20,
+   "correct": 16,
+   "answer_cells": 20,
+   "dims": {
+    "Sheet2": [
+     21,
+     2
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "32789",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 22,
+   "correct": 18,
+   "answer_cells": 22,
+   "dims": {
+    "Sheet1": [
+     82,
+     70
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "42216",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 320,
+   "correct": 1,
+   "answer_cells": 320,
+   "dims": {
+    "Sheet1": [
+     261,
+     32
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "43436",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 15,
+   "correct": 6,
+   "answer_cells": 15,
+   "dims": {
+    "Sheet1": [
+     12,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "45738",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 480,
+   "correct": 42,
+   "answer_cells": 480,
+   "dims": {
+    "Sheet1": [
+     67,
+     28
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "50051",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 32,
+   "correct": 3,
+   "answer_cells": 32,
+   "dims": {
+    "Sheet1": [
+     782,
+     88
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "50486",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "dead",
+   "cells": 4,
+   "correct": 0,
+   "answer_cells": 4,
+   "dims": {
+    "Sheet1": [
+     10,
+     4
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "50521",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 3,
+   "correct": 2,
+   "answer_cells": 3,
+   "dims": {
+    "Sheet1": [
+     6,
+     13
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "50631",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 32,
+   "correct": 0,
+   "answer_cells": 32,
+   "dims": {
+    "Sheet1": [
+     38,
+     10
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "51680",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 13,
+   "correct": 9,
+   "answer_cells": 13,
+   "dims": {
+    "Sheet1": [
+     14,
+     7
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "wrong lookup/range",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "52305",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 95,
+   "correct": 85,
+   "answer_cells": 95,
+   "dims": {
+    "Sheet1": [
+     41,
+     14
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "53161",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 208,
+   "correct": 27,
+   "answer_cells": 208,
+   "dims": {
+    "Sheet1": [
+     43,
+     31
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "54638",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "sparse",
+   "cells": 149,
+   "correct": 144,
+   "answer_cells": 149,
+   "dims": {
+    "Sheet1": [
+     151,
+     2
+    ],
+    "Sheet2": [
+     13,
+     1
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "54667",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "broad",
+   "cells": 56,
+   "correct": 3,
+   "answer_cells": 56,
+   "dims": {
+    "Test": [
+     79,
+     13
+    ],
+    "DATA": [
+     82,
+     22
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "54925",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 39,
+   "correct": 28,
+   "answer_cells": 39,
+   "dims": {
+    "Support": [
+     41,
+     17
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "arithmetic / logic",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "55427",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "broad",
+   "cells": 1460,
+   "correct": 46,
+   "answer_cells": 1460,
+   "dims": {
+    "Compiled and located schools da": [
+     1419,
+     36
+    ],
+    "URN lookup": [
+     1461,
+     24
+    ],
+    "KS4 data": [
+     278,
+     12
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "formula error",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "44017",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 348,
+   "correct": 0,
+   "answer_cells": 348,
+   "dims": {
+    "Data": [
+     42,
+     76
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "55977",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 15,
+   "correct": 0,
+   "answer_cells": 15,
+   "dims": {
+    "WEEKDAY": [
+     16,
+     3
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "56786",
+   "type": "Cell-Level Manipulation",
+   "stage": "repair",
+   "healthy": false,
+   "scale": "dead",
+   "cells": 197,
+   "correct": 0,
+   "answer_cells": 197,
+   "dims": {
+    "Sheet1": [
+     515,
+     4
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "56915",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 24,
+   "correct": 16,
+   "answer_cells": 24,
+   "dims": {
+    "COVER": [
+     23,
+     5
+    ],
+    "DATA": [
+     24,
+     29
+    ],
+    "LIST": [
+     6,
+     1
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "incomplete output",
+   "addressable_by": [
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "57989",
+   "type": "Cell-Level Manipulation",
+   "stage": "formula",
+   "healthy": false,
+   "scale": "partial",
+   "cells": 133,
+   "correct": 108,
+   "answer_cells": 133,
+   "dims": {
+    "Sheet1": [
+     118,
+     25
+    ]
+   },
+   "healthy_but_wrong": false,
+   "mechanism": "large-output/combinatorial",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "58499",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "1-cell",
+   "cells": 2,
+   "correct": 1,
+   "answer_cells": 2,
+   "dims": {
+    "Sheet1": [
+     13,
+     9
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "self-consistency",
+    "targeted repair"
+   ]
+  },
+  {
+   "id": "58942",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 20,
+   "correct": 10,
+   "answer_cells": 20,
+   "dims": {
+    "Sheet1": [
+     11,
+     6
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  },
+  {
+   "id": "59884",
+   "type": "Cell-Level Manipulation",
+   "stage": "champion",
+   "healthy": true,
+   "scale": "partial",
+   "cells": 28,
+   "correct": 12,
+   "answer_cells": 28,
+   "dims": {
+    "Sheet1": [
+     13,
+     11
+    ]
+   },
+   "healthy_but_wrong": true,
+   "mechanism": "unknown",
+   "addressable_by": [
+    "model reasoning/post-training"
+   ]
+  }
+ ]
+}
