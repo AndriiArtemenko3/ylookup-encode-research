@@ -77,6 +77,25 @@ conclusion, next action. Controlled ablations over multi-change jumps.
 reasoning model, so budget max_tokens for thinking and rely on the renderer's
 `<think>` handling already present in `baseline/common.py`.
 
+## Iteration-speed policy (human-approved 2026-09-05)
+
+Sampling wall-clock is the scarce resource. Adopted:
+
+1. **High concurrency by default** — 12 from E002 onward (starter default 4
+   left ~4x on the table). Raise further if traces stay free of rate-limit
+   errors; back off if they appear.
+2. **Cheap probe runs** — directional questions get a probe on only the
+   affected task ids first; a full dev run follows only if the probe looks
+   good. Probes NEVER go into EXPERIMENTS.md as results, only full-dev runs
+   do (guards against overfitting to hand-picked subsets).
+3. **Overlap compute with analysis** — while a run samples, analyse the
+   previous run and prepare the next change.
+4. **Harness changes double as speed changes** — output-token count is both
+   the latency and the truncation driver (formulas / code instead of 120
+   literal values; lower reasoning effort where the renderer allows it).
+5. **Parallel experiments when headroom allows** — independent out-dirs;
+   only when concurrency tests show the service isn't saturated.
+
 ## Tinker smoke test (prepared, not run — blocked on HUMAN_ACTIONS #2, API key)
 
 ```sh
