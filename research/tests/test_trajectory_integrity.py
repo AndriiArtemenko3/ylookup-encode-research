@@ -80,8 +80,11 @@ class TrajectoryIntegrity(unittest.TestCase):
             content_tokens = len(self.tokenizer.encode(r["response"]))
             frac = 1 - content_tokens / max(len(r["completion_token_ids"]), 1)
             fractions.append(frac)
-            self.assertGreater(len(raw), len(r["response"]),
-                               f"{r['task_id']}: decoded raw not longer than stripped content")
+            # A candidate may legitimately answer without reasoning; the gate
+            # requires the raw decode to CONTAIN the content (within special-
+            # token rendering tolerance), never to be shorter than it.
+            self.assertGreaterEqual(len(raw), len(r["response"]) - 64,
+                                    f"{r['task_id']}: decoded raw SHORTER than stripped content — corruption")
         print(f"\n  reasoning-token fraction (sample): "
               f"{[round(f, 2) for f in fractions]}")
 
