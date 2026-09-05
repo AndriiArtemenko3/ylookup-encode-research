@@ -9,6 +9,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E000-tinker-smoke | Qwen/Qwen3.8-27B | untouched baseline | 1 task (13-1) | 0.0 | 0.68 | n/a | 0.0 | 1 parse | 106 s | plumbing OK; reply hit 8192-token cap mid-reasoning |
 | E001-baseline-dev | Qwen/Qwen3.8-27B | untouched baseline | dev (60) | 0.467 | 0.747 | 0.561 | 0.263 | 25 | 18 min | 24/32 failures are 8192-token truncations |
 | E002-maxtokens-24k-dev | Qwen/Qwen3.8-27B | baseline + max_tokens 24576 | dev (60) | 0.617 | 0.894 | 0.732 | 0.368 | 8 | 14 min | +9 tasks, 0 regressions; wrong values now dominant failure |
+| E003-faithful-write-dev | Qwen/Qwen3.8-27B | h1-faithful-write (replay of E002) | dev (60) | 0.767 | 0.923 | 0.780 | 0.737 | 8 | 0 tokens | +9/-0; all 9 date-as-text tasks converted |
 
 ## Template (copy per experiment)
 
@@ -89,3 +90,35 @@ per experiment; controlled ablations over multi-change jumps.
 - **Next action:** analyse the 15 wrong-value traces (local, free); probe the
   6 stubborn truncators at 32k; fix the MergedCell write bug as its own
   change.
+
+## E003-faithful-write-dev
+
+- **Hypothesis:** the 9 "date/time-as-text" failures (E002 taxonomy pattern 1)
+  are write-path representation bugs; coercing strict ISO strings to typed
+  datetime/time objects in the writer converts all 9.
+- **Deterministic vs fine-tuning (decided before implementing):** JSON has no
+  datetime type, so the model can never hand the harness a typed date — the
+  string→cell-type decision is structurally a harness responsibility.
+  Fine-tuning could only relocate it (e.g. teach Excel serial emission):
+  fragile, expensive, unauditable. Deterministic coercion is exact, free, and
+  encodes Excel semantics rather than benchmark quirks, so it generalises to
+  the holdout. Fine-tuning stays reserved for reasoning gaps (patterns 3/4).
+- **Primary change (one):** `inference/write.py::coerce_value` — full-string
+  ISO datetime / date / `HH:MM:SS` matches become typed objects; everything
+  else (AM/PM, display formats, partial matches, invalid dates) stays
+  verbatim. Baseline untouched; harness v1 = baseline + this writer.
+- **Safety evidence:** regression scan found 0 ISO-pattern strings in the
+  answer cells of E002's 37 passing tasks; unit checks cover the
+  leave-verbatim cases.
+- **Method:** replay — E002's stored responses re-written through the new
+  writer (`experiments/replay.py`), then officially evaluated. Zero model
+  calls, so the delta is attributable to the writer alone. Next sampled run
+  revalidates end-to-end incidentally.
+- **Result:** pass_rate **0.767** (cell 0.780, sheet **0.737** — doubled),
+  cell_accuracy 0.923. Diff vs E002: **FAIL→PASS exactly the 9 predicted ids,
+  PASS→FAIL 0.**
+- **Conclusion:** taxonomy pattern 1 fully eliminated at zero token cost.
+- **Next action:** remaining 14 failures = 7 serialisation-window, 4
+  output-size/combinatorial, 2 logic, 1 MergedCell. E004 candidates:
+  MergedCell unmerge fix (deterministic, +1) and the serialisation-coverage
+  experiment.
