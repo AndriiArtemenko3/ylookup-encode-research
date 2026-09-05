@@ -40,6 +40,8 @@ def main():
     p.add_argument("--rollouts", required=True)
     p.add_argument("--out")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--oversample-hard", action="store_true",
+                   help="duplicate examples from learnable-band tasks (1..G-1 passes) x2 — variant C data mix")
     args = p.parse_args()
     root = Path(args.rollouts)
     out_path = Path(args.out) if args.out else root / "sft_dataset.jsonl"
@@ -71,6 +73,18 @@ def main():
                 {"role": "user", "content": r["prompt"] + FORMAT_HINT},
                 {"role": "assistant", "content": r["response"]},
             ]})
+
+    if args.oversample_hard:
+        groups_file = root / "groups.jsonl"
+        learnable = set()
+        if groups_file.exists():
+            for line in groups_file.read_text().splitlines():
+                g = json.loads(line)
+                if 0 < g["passes"] < g["group"]:
+                    learnable.add(g["task_id"])
+        extra = [e for e in examples if e["task_id"] in learnable]
+        examples = examples + extra
+        print(f"oversample-hard: duplicated {len(extra)} learnable-band examples")
 
     lengths = sorted(len(e["messages"][1]["content"]) + len(e["messages"][2]["content"]) for e in examples)
     print(f"examples: {len(examples)} from {len(kept)} tasks   {dict(stats)}")
