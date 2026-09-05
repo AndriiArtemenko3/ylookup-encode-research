@@ -1,0 +1,9 @@
+.git
+.env
+**/.env
+research/data
+research/.venv
+research/submissions
+experiments
+docs
+*.md
