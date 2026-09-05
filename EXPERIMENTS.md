@@ -7,6 +7,7 @@ per experiment; controlled ablations over multi-change jumps.
 | Exp | Model | Harness | Split | Pass rate | Cell acc | Cell-level | Sheet-level | Errors | Runtime | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
 | E000-tinker-smoke | Qwen/Qwen3.8-27B | untouched baseline | 1 task (13-1) | 0.0 | 0.68 | n/a | 0.0 | 1 parse | 106 s | plumbing OK; reply hit 8192-token cap mid-reasoning |
+| E001-baseline-dev | Qwen/Qwen3.8-27B | untouched baseline | dev (60) | 0.467 | 0.747 | 0.561 | 0.263 | 25 | 18 min | 24/32 failures are 8192-token truncations |
 
 ## Template (copy per experiment)
 
@@ -39,3 +40,29 @@ per experiment; controlled ablations over multi-change jumps.
   controlled ablation, E002).
 - **Next action:** run the untouched baseline on the dev split (E001) once
   spend is approved.
+
+## E001-baseline-dev
+
+- **Hypothesis:** measure the untouched starter baseline (pre-fine-tuning
+  reference point) on the dev split.
+- **Primary change (one):** none — stock harness, stock 8192 max-tokens,
+  temperature 0, concurrency 4, base `Qwen/Qwen3.8-27B`.
+- **Result:** pass_rate **0.467** (cell-level 0.561, sheet-level 0.263),
+  cell_accuracy 0.747. 60/60 graded, 18 min, 141k in / 315k out tokens,
+  mean latency 68 s/task.
+- **Failure breakdown (32 failed):**
+  - **24 truncated at the 8192-token cap** mid-reasoning → parse error →
+    init-workbook fallback. By far the dominant mode, on both task types.
+  - 7 parsed fine but produced wrong values (genuine model errors:
+    32438, 333-29, 343-20, 388-47, 51680, 58942, 66-24).
+  - 1 harness bug: task 38703 crashes `write_output` with
+    `AttributeError: 'MergedCell' object attribute 'value' is read-only`
+    (baseline writes into a merged range).
+  - 0 non-truncation parse errors — when the model finishes, its JSON is fine.
+- **Conclusion:** the untouched baseline's ceiling is set by the token budget,
+  not by model competence: 28/35 (80%) of tasks that escaped truncation
+  passed. Dev score 46.7% vs the advertised 59.0% full-400 one-shot is
+  consistent with split noise plus our cap-heavy dev draw.
+- **Next action:** E002 = single-variable ablation raising `--max-tokens`
+  (65k context allows ~24k) on dev; also note the MergedCell write bug as a
+  future harness fix (separate experiment, not bundled).
