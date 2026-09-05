@@ -45,7 +45,7 @@ from inference.serialize import build_prompt as coverage_build_prompt
 from inference.write import write_output
 from sb import answer_cells
 
-HARNESS_VERSION = "h7-cascade-fv"
+HARNESS_VERSION = "h8-structural"
 BASELINE_VIEW_ROWS, BASELINE_VIEW_COLS = 120, 30
 # Above every answer-range size the champion configuration has ever passed
 # (max known pass: 200 cells). Below this, stage 1 always gets its chance.
