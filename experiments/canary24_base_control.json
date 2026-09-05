@@ -1,0 +1,30 @@
+{
+ "sentinels": {
+  "1925": true,
+  "30930": true,
+  "31915": true,
+  "35739": true,
+  "37229": true,
+  "37554": true,
+  "38703": true,
+  "105-24": true,
+  "177-6": true,
+  "192-22": true,
+  "343-20": true,
+  "388-47": true
+ },
+ "opportunity": {
+  "254-34": false,
+  "290-27": false,
+  "32438": false,
+  "486-17": false,
+  "49667": false,
+  "50193": false,
+  "51090": false,
+  "51680": false,
+  "524-31": false,
+  "54590": false,
+  "236-22": true,
+  "250-20": true
+ }
+}
