@@ -1,5 +1,8 @@
-"""Harness v3 Tinker prediction: baseline pipeline + coverage serialisation +
-lenient parse + faithful write. One model call per task, values not formulas.
+"""Single-shot Tinker prediction with selectable system prompt (values or
+formulas), coverage serialisation, lenient parse and faithful write. Used for
+controlled single-variable experiments; the submission pipeline is the cascade
+(cascade_predict.py), which composes these pieces with health-checked
+escalation.
 
     uv run inference/predict.py --out-dir ../experiments/X --base-model Qwen/Qwen3.8-27B \
         --ids 13-1 --concurrency 12 --max-tokens 24576
