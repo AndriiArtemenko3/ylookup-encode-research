@@ -39,10 +39,10 @@ its worst case per task is the champion's output. Dev: 46.7% → 83.3% pass,
 uv run evaluate.py --predictions <your predictions.jsonl> --all --out results.json
 ```
 
-<!-- PENDING E009 — paste summary block here -->
 ```json
-{"items": 400, "graded": ..., "missing": ..., "errors": ..., "pass_rate": ..., "cell_accuracy": ..., "pass_rate_cell_level": ..., "pass_rate_sheet_level": ...}
+{"items": 400, "graded": 400, "missing": 0, "errors": 0, "pass_rate": 0.7625, "cell_accuracy": 0.3777, "pass_rate_cell_level": 0.8364, "pass_rate_sheet_level": 0.6}
 ```
+<!-- E009 (base model + h6 cascade). May be superseded by the LoRA run E014 before hand-in. -->
 
 ## Your run on the 400
 

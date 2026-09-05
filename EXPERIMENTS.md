@@ -14,6 +14,7 @@ per experiment; controlled ablations over multi-change jumps.
 | E006-formulas-dev | Qwen/Qwen3.8-27B | h4-formulas (coverage + formula prompt) | dev (60) | 0.700 | 0.962 | 0.780 | 0.526 | 1 | 15 min | +3/-8 NET -5: formula prompt over-applied; changes confounded |
 | E007-coverage-only-dev | Qwen/Qwen3.8-27B | h5-coverage-values (coverage serialiser only) | dev (60) | 0.717 | 0.916 | 0.756 | 0.632 | 2 | 13 min | net -4 BUT 4/5 flips are sampling noise (identical prompts); true serialiser effect: -1 (250-20 cap) |
 | E008-cascade-dev | Qwen/Qwen3.8-27B | h6-cascade (matched-control cache) | dev (60) | 0.833 | 0.984 | 0.854 | 0.789 | 0 | 21 min | +3/-0 vs E004; all 47 passers held by construction |
+| E009-champion-400 | Qwen/Qwen3.8-27B | h6-cascade (live, no cache) | ALL 400 | 0.7625 | 0.378 | 0.836 | 0.600 | – | 2h 25m | OFFICIAL full-400: +17.25pp vs 59.0% reference; cell_acc whale-dominated |
 
 ## Template (copy per experiment)
 
@@ -229,3 +230,19 @@ per experiment; controlled ablations over multi-change jumps.
   (254-34), rank tie-logic (50193), multi-criteria aggregation (51090), and
   the residual wrong-value/format tail.
 - **Next action:** gate decision (champion adoption), then Phase C full-400.
+
+## E009-champion-400
+
+- **Purpose:** the official full-400 run of the frozen h6 cascade champion —
+  live sampling end to end, no cache (the judges' mode: `evaluate.py --all`).
+- **Result:** pass_rate **0.7625** (cell-level 0.836, sheet-level 0.600),
+  400/400 graded, 0 missing, 0 errors. Reference one-shot baseline: 0.590.
+- **cell_accuracy 0.378 explained:** 9 tasks hold 87.4% of all graded cells
+  (two >95k cells each); they fail as tasks and drag the cell average. Two are
+  99.8%+ near-passes (341-40: 11905/11917; 118-50: 9976/9998). Documented
+  as the benchmark's structural quirk; targeted by the code-execution roadmap.
+- **Dev→400 transfer:** 83.3% dev → 76.25% full set — composition (heavier
+  sheet-level share, whale class absent from dev) plus sampling noise;
+  cell-level actually held (0.854 dev → 0.836).
+- **Next:** taxonomy-at-scale comparison, trace audit (background), LoRA
+  chain per approved Phase F.

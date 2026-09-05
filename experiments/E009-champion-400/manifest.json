@@ -1,0 +1,26 @@
+{
+  "experiment_id": "E009-champion-400",
+  "timestamp": "2026-09-05T18:15:40.412623+00:00",
+  "git_commit": "ddbe6260d267627692d2ba9539028e93a0da9b6f",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": null,
+  "harness_version": "h6-cascade",
+  "prompt_version": "cascade-v1",
+  "dataset_split": "all",
+  "task_ids": null,
+  "temperature": 0.0,
+  "max_tokens": 24576,
+  "concurrency": 12,
+  "retry_policy": "escalate+1repair",
+  "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/E009-champion-400 --base-model Qwen/Qwen3.8-27B --concurrency 12 --max-tokens 24576",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": 8351.5
+}

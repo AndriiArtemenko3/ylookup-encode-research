@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T18:15:40.652535+00:00", "event": "experiment.start", "experiment_id": "E009-champion-400", "split": "all", "n_tasks": "all", "command": "uv run inference/cascade_predict.py --out-dir /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/experiments/E009-champion-400 --base-model Qwen/Qwen3.8-27B --concurrency 12 --max-tokens 24576"}
+{"ts": "2026-09-05T20:34:52.149489+00:00", "event": "experiment.predict_done", "returncode": 0, "wall_clock_seconds": 8351.5}
+{"ts": "2026-09-05T20:40:15.759534+00:00", "event": "evaluation.done", "items": 400, "graded": 400, "missing": 0, "errors": 0, "pass_rate": 0.7625, "cell_accuracy": 0.3777, "pass_rate_cell_level": 0.8364, "pass_rate_sheet_level": 0.6}
+{"ts": "2026-09-05T20:40:15.759675+00:00", "event": "experiment.end", "returncode": 0}
