@@ -200,20 +200,17 @@ Everything a judge needs, one click each: [SUBMISSION.md](SUBMISSION.md) (requir
 
 ## Repository guide
 
-| Path | What it is |
+**New to the repository? Start with [REPOSITORY_MAP.md](REPOSITORY_MAP.md)** — the annotated map of the whole tree, canonical-vs-historical classification, and reading paths by audience. The major areas:
+
+| Area | Canonical path |
 |---|---|
-| [results.json](results.json), [predictions.jsonl](predictions.jsonl), [outputs/](outputs/), [traces/](traces/), [run.log](run.log) | the E015 submission run — all 400 tasks graded, 0 missing, 0 evaluation errors |
-| [SUBMISSION.md](SUBMISSION.md) | submission form content |
-| [EXPERIMENTS.md](EXPERIMENTS.md) | the full ablation log, negatives included, with transition counts |
-| [README_FACTS.md](README_FACTS.md) | source-of-truth fact pack behind this README, with claim audit |
-| [docs/RESEARCH_APPENDIX.md](docs/RESEARCH_APPENDIX.md) | the research narrative in full |
-| [docs/RESIDUAL_FRONTIER.md](docs/RESIDUAL_FRONTIER.md) | classification of what still fails and why |
-| [research/inference/](research/inference/) | the cascade: serialization, health checks, invariants, writer |
-| [research/training/](research/training/) | rollouts, curation, RSFT, REINFORCE, online-RLVR environments |
-| [research/experiments/](research/experiments/) | runner, official-scorer diffing, replay, failure classification, trace audit |
-| [research/tests/](research/tests/) | golden-isolation, sheet-aware-write, reward-agreement, trajectory-integrity guards |
-| [research/splits/](research/splits/) | the frozen splits and canary |
-| [Dockerfile](Dockerfile) | the judges' contract container |
+| Submission (container + run evidence) | [Dockerfile](Dockerfile) · [SUBMISSION.md](SUBMISSION.md) · [results.json](results.json) + the four runtime outputs at root |
+| Inference (the final system) | [research/inference/](research/inference/) |
+| Training (post-training machinery) | [research/training/](research/training/) |
+| Experiments (run artifacts) | [experiments/](experiments/) — index: [experiments/README.md](experiments/README.md) |
+| Datasets (lineage) | [DATASETS.md](DATASETS.md) |
+| Research docs | [docs/](docs/) — index: [docs/README.md](docs/README.md) |
+| Tests (integrity guards) | [research/tests/](research/tests/) |
 
 ## Takeaway
 

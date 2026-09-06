@@ -1,9 +1,15 @@
 # experiments/ — run directory index
 
+**You do not need to read every directory.** For the main research story,
+follow only the *Canonical milestone runs* below — everything else is
+supporting rollout, replay, canary, failed-branch, or historical evidence.
+Wider context: [../REPOSITORY_MAP.md](../REPOSITORY_MAP.md) ·
+[../docs/EXPERIMENT_MAP.md](../docs/EXPERIMENT_MAP.md) ·
+[../DATASETS.md](../DATASETS.md).
+
 Directory names look heterogeneous because they preserve **append-only
 historical experiment IDs** — runs are never renamed or rewritten after they
-execute, so manifests, diffs and logs stay verifiable. Decode any ID with
-[../docs/EXPERIMENT_MAP.md](../docs/EXPERIMENT_MAP.md).
+execute, so manifests, diffs and logs stay verifiable.
 
 Each run directory contains a `manifest.json` (git commit, exact command,
 parameters), the official scorer's `results.json` where the run was scored,

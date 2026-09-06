@@ -1,8 +1,11 @@
 # Documentation index
 
-The authoritative map of every document in this repository, grouped by what a
-reader needs. Experiment IDs (E/H/P/C24/F*) are decoded in
-[EXPERIMENT_MAP.md](EXPERIMENT_MAP.md).
+The documentation-only map. The whole-repository map is
+[../REPOSITORY_MAP.md](../REPOSITORY_MAP.md); experiment chronology is
+[EXPERIMENT_MAP.md](EXPERIMENT_MAP.md); raw run directories are decoded in
+[../experiments/README.md](../experiments/README.md); data lineage is
+[../DATASETS.md](../DATASETS.md). This page groups every document by what a
+reader needs.
 
 ## Start here (judge-facing)
 
