@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T08:10:45",
+ "updated_at": "2026-09-06T08:33:16",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -328,6 +328,12 @@
    "at": "2026-09-06T01:31:44",
    "event": "2nd memory kill even solo; top consumers external (Docker VM 8.2GB, Codex 4.7GB, WebKit 3.5GB on 24GB RAM)",
    "response": "Docker Desktop quit to free 8GB (cold test already GREEN; MUST relaunch Docker before P10 final retest); user apps untouched"
+  },
+  {
+   "at": "2026-09-06T08:22:27",
+   "what": "H13C v1 crashed mid-batch-3: 342k-token routed observation (task 80-42) vs 65536 ctx; no checkpoint existed",
+   "fix": "dataset-seam guard excludes 11 physically-unsampleable whale observations (listed in frozen_tasks.json); restart fresh, budget unchanged (280 presentations/14 updates over 269 tasks)",
+   "class": "rule-10 infra"
   }
  ],
  "morning": {
@@ -358,8 +364,9 @@
    "canary_at_step": 8
   },
   "H13B": {
-   "status": "trained 100% exposure (24 steps, NLL 0.31); canary24 sampling in flight (task bvxr8lsrl)",
-   "checkpoint": "tinker://fa68e5b9-1800-560b-8447-cb2fce4aead2:train:0/sampler_weights/final"
+   "status": "COMPLETE \u2014 canary verdict YELLOW safe/neutral",
+   "canary": "13/24: 12/12 sentinels (SAFE), 1/12 opportunity (250-20) vs control 14/24 (2/12 opp)",
+   "decision": "NOT constructive -> no dev60 per race protocol"
   },
   "next": [
    "E015 400/400 -> auto-eval -> audit_traces -> classify",
@@ -369,9 +376,27 @@
    "hard stop 10:30 -> submission track"
   ],
   "H13C": {
-   "status": "TRAIN in flight (task byq6ss8wp)",
-   "smoke": "GREEN",
-   "launched": "2026-09-06T07:55:56"
+   "status": "v2 TRAIN in flight (task br7j03qyf), batch 0; ETA ~09:55",
+   "sampleable": 269,
+   "excluded": 11
+  },
+  "dashboard": "final data refresh done (pass 2/2): E013 85.0 tile+ladder, E015 78.0 official row; republished; fresh review package mirrored",
+  "docker": "Desktop relaunching; cold retest queued (watch b7p1eo0kl)",
+  "E015_transitions": {
+   "fail_to_pass": 22,
+   "pass_to_fail": 15,
+   "net": 7
   }
+ },
+ "campaign_priority": {
+  "set_at": "2026-09-06T08:18:28",
+  "rule": "POST-TRAINING PRIORITY OVERRIDE: E015 banked; harness frozen for perf research; only complete+evaluate frozen H13A/H13B/H13C (checkpoint race). No spec changes, no new arms, no tuning on dev, no H4C/H10/H11/prompt ablations.",
+  "race_protocol": [
+   "canary24 (frozen sentinels/opportunity, base control 14/24) per meaningful checkpoint",
+   "constructive = 12/12 sentinels AND opportunity above control, exact task passes not reward",
+   "constructive -> ONE frozen dev60 immediately (no waiting for other arms)",
+   ">= +2 net dev vs E013 with no broad regression mechanism -> full-400 confirmation if wall-clock permits",
+   "at 10:30: checkpoint running jobs, flush logs, preserve resume commands, switch to submission reliability"
+  ]
  }
 }
