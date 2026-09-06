@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T00:43:47",
+ "updated_at": "2026-09-06T01:01:42",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -30,7 +30,7 @@
    "blocker": null,
    "commit": null,
    "status": "RUNNING",
-   "description": "risk-gated selector dev60",
+   "description": "risk-gated selector dev60 | RUNNING (rerun solo)",
    "next_on_green": "P7-candidate",
    "next_on_yellow": "P7-candidate(E013-config)",
    "next_on_red": "P7-candidate(E013-config)"
@@ -52,8 +52,8 @@
    "gate_result": null,
    "blocker": null,
    "commit": null,
-   "status": "RUNNING",
-   "description": "exec probe 10 train ids incl whales"
+   "status": "PENDING",
+   "description": "exec probe 10 train ids incl whales | PENDING (queued serial, run last solo)"
   },
   "P4-patch": {
    "started_at": null,
@@ -82,8 +82,8 @@
    "gate_result": null,
    "blocker": null,
    "commit": null,
-   "status": "RUNNING",
-   "description": "ladder probe 8 truncation-class train ids"
+   "status": "PENDING",
+   "description": "ladder probe 8 truncation-class train ids | PENDING (queued serial)"
   },
   "P7-candidate": {
    "started_at": null,
@@ -222,7 +222,8 @@
    "gate_result": null,
    "blocker": null,
    "commit": null,
-   "status": "PENDING"
+   "status": "PENDING",
+   "description": " | PENDING (queued)"
   },
   "H12-R1-CANARY": {
    "started_at": null,
@@ -231,7 +232,8 @@
    "gate_result": null,
    "blocker": null,
    "commit": null,
-   "status": "PENDING"
+   "status": "PENDING",
+   "description": " | PENDING (queued)"
   },
   "H12-R2-CANARY": {
    "started_at": null,
@@ -240,7 +242,8 @@
    "gate_result": null,
    "blocker": null,
    "commit": null,
-   "status": "PENDING"
+   "status": "PENDING",
+   "description": " | PENDING (queued)"
   },
   "H12-R0-DEV": {
    "started_at": null,
@@ -278,5 +281,13 @@
    "commit": null,
    "status": "PENDING"
   }
- }
+ },
+ "incident_log": [
+  {
+   "at": "2026-09-06T01:01:42",
+   "event": "macOS low-memory killed all background tasks (E014@31/60, H10, H11, R0/R1/R2 canaries, caffeinate)",
+   "classification": "infrastructure (rule 10) \u2014 NOT a research result",
+   "response": "serial restart policy: max 1 heavy sampling job + 1 light job locally; E014 rerun solo c=6; canaries/probes queued sequentially"
+  }
+ ]
 }
