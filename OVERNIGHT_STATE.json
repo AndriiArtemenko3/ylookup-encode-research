@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T07:54:14",
+ "updated_at": "2026-09-06T07:55:56",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -289,9 +289,9 @@
    "blocker": null
   },
   "H13C-TRAIN": {
-   "started_at": null,
+   "started_at": "2026-09-06T07:55:56",
    "completed_at": null,
-   "experiment_id": null,
+   "experiment_id": "H13C-fulltrain-rlvr",
    "gate_result": null,
    "blocker": null
   },
@@ -361,6 +361,10 @@
    "Docker relaunch ~09:00 -> cold retest",
    "hard stop 10:30 -> submission track"
   ],
-  "H13C": "frozen; smoke pending"
+  "H13C": {
+   "status": "TRAIN in flight (task byq6ss8wp)",
+   "smoke": "GREEN",
+   "launched": "2026-09-06T07:55:56"
+  }
  }
 }
