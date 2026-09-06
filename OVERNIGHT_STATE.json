@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T07:48:20",
+ "updated_at": "2026-09-06T07:54:14",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -280,6 +280,41 @@
    "blocker": null,
    "commit": null,
    "status": "PENDING"
+  },
+  "H13C-FREEZE": {
+   "started_at": "2026-09-06T07:54:14",
+   "completed_at": "2026-09-06T07:54:14",
+   "experiment_id": null,
+   "gate_result": "frozen: docs/H13C_FULLTRAIN_PLAN.md; uniform seed-42 one-pass 280x K4, 14x20 batches, lr1e-5 r32 16384, save_every 4; K/batch deviations documented",
+   "blocker": null
+  },
+  "H13C-TRAIN": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null
+  },
+  "H13C-CANARY": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null
+  },
+  "H13C-DEV": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null
+  },
+  "H13C-COMPARE": {
+   "started_at": null,
+   "completed_at": null,
+   "experiment_id": null,
+   "gate_result": null,
+   "blocker": null
   }
  },
  "incident_log": [
@@ -325,6 +360,7 @@
    "launch H13B sft2",
    "Docker relaunch ~09:00 -> cold retest",
    "hard stop 10:30 -> submission track"
-  ]
+  ],
+  "H13C": "frozen; smoke pending"
  }
 }
