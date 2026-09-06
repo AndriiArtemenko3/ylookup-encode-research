@@ -21,6 +21,37 @@ These are **different evaluation sets, not repeated measurements of the same sam
 
 Final full-400 detail: **312/400 exact pass**, cell-level task pass 83.64%, sheet-level task pass 65.6%, items/graded/missing/errors = 400/400/0/0 ([results.json](results.json)). Against our earlier full-400 champion (E009, 76.25%), the finalist produced **22 FAIL→PASS and 15 PASS→FAIL transitions, net +7 tasks** — and the fixed tasks fall in exactly the failure classes the added mechanisms target.
 
+## Repository at a glance
+
+```mermaid
+flowchart TD
+    R["Superspreadsheets"]
+
+    R --> S["Submission evidence"]
+    S --> SUB["SUBMISSION.md<br/>method write-up"]
+    S --> RES["results.json<br/>312/400 · 78.0%"]
+    S --> OUT["predictions.jsonl<br/>outputs/ · traces/ · run.log"]
+    S --> DKR["Dockerfile<br/>judge container"]
+
+    R --> CODE["research/"]
+    CODE --> INF["inference/<br/>final cascade"]
+    CODE --> TRAIN["training/<br/>RSFT · REINFORCE · RLVR"]
+    CODE --> TOOL["experiments/<br/>evaluation tooling"]
+    CODE --> TEST["tests/ · splits/<br/>guards + frozen splits"]
+
+    R --> RUNS["experiments/<br/>immutable run artifacts"]
+    RUNS --> FINAL["E015<br/>final 400 run"]
+    RUNS --> PT["F1 / H12 / H13<br/>post-training artifacts"]
+
+    R --> DOCS["docs/<br/>research documentation"]
+    DOCS --> EMAP["EXPERIMENT_MAP.md<br/>chronology"]
+    DOCS --> APP["RESEARCH_APPENDIX.md<br/>full research story"]
+
+    R --> DATA["DATASETS.md<br/>data lineage"]
+```
+
+The detailed layer — annotated tree, canonical-vs-historical classification, reading paths by audience — is [REPOSITORY_MAP.md](REPOSITORY_MAP.md).
+
 ## Research goal: improve reliability, not just benchmark fit
 
 The core question we set out to test:
