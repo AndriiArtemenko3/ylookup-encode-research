@@ -1,0 +1,125 @@
+harness h9-selector  model Qwen/Qwen3.8-27B  tasks 60  N=3
+472-15   ok
+66-24    ok
+333-29   ok
+105-24   ok
+236-22   ok
+192-22   ok
+177-6    ok (h4-selected)
+343-20   ok
+463-17   ok
+388-47   ok
+510-3    ok
+250-20   ok
+433-47   ok
+567-21   ok
+585-41   ok
+30930    ok
+38823    ok
+39667    ok
+39903    ok
+38703    ok
+47766    ok
+47798    ok
+42526    ok
+49196    ok
+254-34   error: ValueError: no salvageable cell entries in 
+50682    ok
+50952    ok
+290-27   unhealthy: hard_failures=5
+486-17   ok (h4-selected)
+52807    ok
+50193    error: ValueError: no salvageable cell entries in 
+524-31   ok (h4-selected)
+1925     ok
+31915    ok
+32438    ok
+6698     ok
+15671    ok (h4-selected)
+51090    error: ValueError: no salvageable cell entries in 
+41265    ok
+37554    ok
+41348    ok
+42930    ok
+43589    ok
+35739    ok
+50811    ok
+43436    ok
+51680    ok
+53383    ok
+44266    ok
+57033    ok
+57590    ok
+58147    ok
+58701    ok
+43657    ok
+54590    ok (h4-selected)
+55965    ok
+37229    ok
+49667    unhealthy: hard_failures=5
+58942    ok
+51556    ok
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+harness h9-selector  model Qwen/Qwen3.8-27B  tasks 60  N=3
+472-15   ok
+66-24    ok
+333-29   ok
+105-24   ok
+236-22   ok
+192-22   ok
+177-6    ok (h4-selected)
+343-20   ok
+463-17   ok
+388-47   ok
+510-3    ok
+250-20   ok
+433-47   ok
+567-21   ok
+585-41   ok
+30930    ok
+38823    ok
+39667    ok
+39903    ok
+38703    ok
+47766    ok
+47798    ok
+42526    ok
+49196    ok
+254-34   error: ValueError: no salvageable cell entries in 
+50682    ok
+50952    ok
+290-27   unhealthy: hard_failures=5
+486-17   ok (h4-selected)
+52807    ok
+50193    error: ValueError: no salvageable cell entries in 
+524-31   ok (h4-selected)
+1925     ok
+31915    ok
+32438    ok
+6698     ok
+15671    ok (h4-selected)
+51090    error: ValueError: no salvageable cell entries in 
+41265    ok
+37554    ok
+41348    ok
+42930    ok
+43589    ok
+35739    ok
+50811    ok
+43436    ok
+51680    ok
+53383    ok
+44266    ok
+57033    ok
+57590    ok
+58147    ok
+58701    ok
+43657    ok
+54590    ok (h4-selected)
+55965    ok
+37229    ok
+49667    unhealthy: hard_failures=5
+58942    ok
+51556    ok
+Task was destroyed but it is pending!
+task: <Task pending name='tinker_session_futures_poller' coro=<SessionFuturesPoller._poll_loop() running at /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research/.venv/lib/python3.13/site-packages/tinker/lib/session_futures_poller.py:132> wait_for=<Future pending cb=[Task.task_wakeup()]>>

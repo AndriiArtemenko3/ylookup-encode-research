@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T01:01:42",
+ "updated_at": "2026-09-06T02:41:23",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -26,10 +26,10 @@
    "started_at": null,
    "completed_at": null,
    "experiment_id": "E014-h4-dev",
-   "gate_result": null,
+   "gate_result": "net -3; 2 regressions selector-caused (blind-champion-prompt candidates on view-doomed tasks outvote sighted artifact); 1 genuine fix (177-6); H4C fix registered as future work, NOT run tonight",
    "blocker": null,
    "commit": null,
-   "status": "RUNNING",
+   "status": "RED",
    "description": "risk-gated selector dev60 | RUNNING (rerun solo)",
    "next_on_green": "P7-candidate",
    "next_on_yellow": "P7-candidate(E013-config)",
@@ -93,7 +93,7 @@
    "blocker": null,
    "commit": null,
    "status": "PENDING",
-   "description": "combined candidate dev60 from GREENs"
+   "description": "combined candidate = E013 config (h8) \u2014 msheet GREEN already inside; H4 RED excluded; patch RED excluded"
   },
   "P8-localtest": {
    "started_at": null,
