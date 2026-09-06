@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T09:03:01",
+ "updated_at": "2026-09-06T09:05:06",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -424,8 +424,11 @@
   "dev60_gate_interpretation": "Override point 5 governs: dev60 ONLY on a clearly constructive canary (sentinels 12/12 AND opportunity above control 2/12). H13A plan's older 'dev60 if non-destructive' clause superseded by the priority override; recorded here for audit."
  },
  "commute": {
-  "declared_at": "2026-09-06T09:01:28",
-  "lid_close_eta": "~09:30",
-  "plan": "wait H13C ckpt@8 (~09:12) + H13A ckpt@16 (~09:15) -> clean-stop orchestrators -> flush -> commit -> READY FOR LID"
+  "declared_at": "2026-09-06T09:05:06",
+  "mode": "ADAPTIVE",
+  "policy": "checkpoints are safety banks NOT stop triggers; TRAIN->CHECKPOINT->CONTINUE. Stop only on human signal (LEAVING NOW / LID IN 5 / COMMUTE NOW) or auto-cutoff: 09:50 stop initiating long batches, 09:55 graceful stop, all committed by 10:00.",
+  "on_checkpoint": "verify path, record exposure/updates, continue training immediately",
+  "if_arm_finishes": "save final ckpt -> frozen canary -> if safe+constructive, authorized dev eval",
+  "post_1030": "submission-integration freeze only; training may continue"
  }
 }
