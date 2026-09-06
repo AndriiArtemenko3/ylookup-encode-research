@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T09:41:09",
+ "updated_at": "2026-09-06T09:52:19",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -290,9 +290,9 @@
   },
   "H13C-TRAIN": {
    "started_at": "2026-09-06T07:55:56",
-   "completed_at": null,
+   "completed_at": "2026-09-06T09:52:19",
    "experiment_id": "H13C-fulltrain-rlvr",
-   "gate_result": null,
+   "gate_result": "COMPLETE full pass",
    "blocker": null
   },
   "H13C-CANARY": {
@@ -433,21 +433,40 @@
   "post_1030": "submission-integration freeze only; training may continue"
  },
  "lid_close": {
-  "as_of": "2026-09-06T09:16:47",
-  "H13A_newest": {
-   "name": "000016",
-   "batch": 16,
-   "state_path": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/weights/000016",
-   "sampler_path": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/000016"
+  "executed_at": "2026-09-06T09:52:19",
+  "verdict": "GRACEFUL STOP COMPLETE",
+  "H13A": {
+   "training": "COMPLETE 20/20",
+   "final_ckpt": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/final",
+   "canary_s8": "14/24 neutral (= control)",
+   "canary_final": "KILLED at 11/24 sampled (partial dir: H13A-canary-final-partial-killed) \u2014 RELAUNCH FRESH after arrival"
   },
-  "H13A_steps_done": 16,
-  "H13C_newest": {
-   "name": "000008",
-   "batch": 8,
-   "state_path": "tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/weights/000008",
-   "sampler_path": "tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/sampler_weights/000008"
+  "H13C": {
+   "training": "COMPLETE 14/14 \u2014 genuine full coverage pass (280 presentations / 269 sampleable tasks / 11 whales excluded)",
+   "final_ckpt": "tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/sampler_weights/final",
+   "mean_reward_by_batch": [
+    0.703,
+    0.619,
+    0.59,
+    0.735,
+    0.861,
+    0.382,
+    0.724,
+    0.833,
+    0.707,
+    0.863,
+    0.668,
+    0.565,
+    0.638,
+    0.702
+   ],
+   "canary": "NOT RUN YET \u2014 first post-arrival action after H13A canary"
   },
-  "H13C_v2_batches_done": 8,
-  "policy": "verified-and-continuing per adaptive mode"
+  "post_arrival_queue": [
+   "1) relaunch H13A final canary (fresh dir H13A-canary-final2)",
+   "2) H13C final canary",
+   "3) replay+eval each; constructive gate; dev60 only if constructive",
+   "4) submission form before 12:00 (integration frozen 10:30)"
+  ]
  }
 }

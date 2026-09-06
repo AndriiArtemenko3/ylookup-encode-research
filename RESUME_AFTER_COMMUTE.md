@@ -40,20 +40,26 @@ already banked (PASS 09:03) — its completion does not stop training.
 
 ## Exact resume commands (after arrival)
 
+**SUPERSEDED at 09:52 — BOTH TRAINING ARMS COMPLETED BEFORE DEPARTURE.**
+No training resume is needed or allowed (rerunning would start a fresh LoRA).
+H13A: 20/20 steps, final `tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/final`.
+H13C: 14/14 batches, full coverage pass, final `tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/sampler_weights/final`.
+
+Post-arrival queue (evaluation only):
 ```sh
 cd /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research
-# 1) reconcile
-git status && git log --oneline -3
-tail -2 ../experiments/H13A-online-rlvr/checkpoints.jsonl
-tail -2 ../experiments/H13C-fulltrain-rlvr/checkpoints.jsonl
-# 2) resume training (cookbook rl.train auto-resumes from log_path's
-#    checkpoints.jsonl using state_path; verified semantics: a fresh dir
-#    starts at batch 0, a dir with checkpoints continues after the last one)
-uv run training/h13_run.py   > ../experiments/h13a_resume.log 2>&1 &   # H13A → step 20
-uv run training/h13c_run.py  > ../experiments/h13c_resume.log 2>&1 &   # H13C → batch 14
-# 3) verify resume did NOT restart from zero: first new metrics.jsonl line
-#    must show step > last checkpoint batch. If it shows step 0, STOP and
-#    treat weights-only continuation: do not retrain from scratch silently.
+# 1) H13A final canary — RELAUNCH FRESH (the 09:52 graceful stop killed it at
+#    11/24; partial dir kept as experiments/H13A-canary-final-partial-killed)
+uv run baseline/tinker_predict.py --out-dir ../experiments/H13A-canary-final2 \
+  --base-model Qwen/Qwen3.8-27B \
+  --model-path tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/final \
+  --ids "<canary24 list below>" --max-tokens 24576 --concurrency 6
+# 2) H13C final canary — same command with
+#    --out-dir ../experiments/H13C-canary-final and
+#    --model-path tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/sampler_weights/final
+# 3) for each: write manifest.json (copy pattern from H13B-canary), then
+#    uv run experiments/replay.py --source <name> --id <name>-h2
+# 4) constructive gate (12/12 sentinels AND opportunity > 2/12) -> ONE dev60.
 ```
 
 ## Canary recipe (per checkpoint)
