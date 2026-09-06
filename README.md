@@ -123,11 +123,16 @@ In execution order: a **values-first champion attempt** (baseline 120×30 serial
 | E004 | salvage parser + unmerge | Dev | 60 | 78.3% | +1 / −0 | adopted |
 | E006 | formulas everywhere | Dev | 60 | 70.0% | +3 / −8 | **negative** |
 | E008 | evidence cascade | Dev | 60 | 83.3% | +3 / −0 | adopted |
+| E009 | champion cascade | Public benchmark | 400 | 76.25% (305/400) | — | first frozen full-400 measurement |
 | E013 | structural repair + multi-sheet | Dev | 60 | 85.0% | +2 / −1 | adopted → finalist |
 | E014 | risk-gated best-of-N | Dev | 60 | 80.0% | +1 / −4 | **negative** |
-| E015 | frozen finalist | Public benchmark | 400 | **78.0%** | +22 / −15 vs E009 | **final frozen measurement** |
+| E015 | frozen finalist | Public benchmark | 400 | **78.0%** | +22 / −15 vs E009 | **final submission measurement** |
 
-E001–E014 are development-set experiments on the same fixed 60 tasks; E015 is the frozen finalist measured across the complete 400-task public benchmark — a different evaluation scope, not a drop from 85.0% on the same sample.
+The Dev rows are development-set experiments on the same fixed 60 tasks; E009 and E015 are frozen measurements across the complete 400-task public benchmark — a different evaluation scope, so 78.0% is not a drop from 85.0% on the same sample.
+
+### Research lineage
+
+The repository preserves append-only experiment IDs — runs are never renamed after they execute, so manifests and diffs stay verifiable. The decoder and full chronology live in [docs/EXPERIMENT_MAP.md](docs/EXPERIMENT_MAP.md); the six stages in one line: baseline → runtime/representation fixes → evidence-gated cascade → full-400 audit → residual-tail mechanisms → post-training.
 
 A few simple mechanisms produced most of the gain; later mechanisms showed diminishing returns; the negative experiments materially shaped the final architecture.
 
@@ -143,18 +148,20 @@ Kept deliberately, because they reduced uncertainty and shaped the system: **E00
 
 ## Post-training: investigated seriously, reported by what it measured
 
-Sequence, with precise terminology — LoRA is the parameter-efficient update mechanism (rank 32 throughout); SFT is an imitation objective; RLVR is verifier-grounded outcome optimization:
+Terminology stays precise throughout — LoRA is the parameter-efficient update mechanism (rank 32 in every arm); SFT is an imitation objective; RLVR is verifier-grounded outcome optimization. These are different things and the table treats them as such. Evaluation shorthand: the *canary* is a frozen 24-task safety probe (12 sentinels the base system reliably passes + 12 opportunity near-misses, base control 2/12).
 
-1. rejection-sampling SFT on verifier-approved trajectories (E012 — collapsed; root cause was data representation, not RSFT);
-2. a trajectory-integrity gate (exact prompt+completion token capture, reasoning preserved, length-regime guard), then corrected RSFT at two learning rates;
-3. a reward-function ablation (H12: continuous R0, discrete R1, hybrid R2) via on-policy REINFORCE;
-4. hard-mined expert iteration (H13B, 100 frozen examples);
-5. true online RLVR with fresh current-policy rollouts and importance-sampled updates on boundary tasks (H13A);
-6. the same online RLVR over the full train distribution (H13C, 269/280 sampleable tasks — 11 whale workbooks whose serialized observations cannot fit any context are excluded and listed).
+| Iteration | Hypothesis / change | Training scale | Evaluation | Measured result | Reflection |
+|---|---|---|---|---|---|
+| E012 first RSFT | verifier-approved trajectories improve reliability | 3 LoRA variants | dev60 | collapse: 78.3% → 41.7–46.7% | trajectory representation was broken — targets were thinking-stripped (median 253 tokens); not evidence against RSFT itself |
+| Corrected RSFT | exact raw sampled tokens, reasoning preserved (F0 integrity gate) | 253 examples, lr 1e-5 / 2e-5 | canary | 12/12 sentinels; opportunity 2/12 = control | stability solved; constructive plasticity not demonstrated |
+| H12 reward ablation | reward geometry is the bottleneck | REINFORCE, 56-group frozen variance band; R0 continuous / R1 discrete / R2 hybrid | canary ×3 | 13, 13, 14 of 24; none above control | discrete R1 left ~half the groups gradient-dead as predicted offline; changing signal density was not sufficient at this budget |
+| H13B hard-mined expert iteration | easy-data dilution suppressed learning | 100 hard-mined examples, 2 passes | canary | 12/12 sentinels; opportunity 1/12 | easy-data dilution was not the whole problem |
+| H13A online RLVR | fresh on-policy rollouts + importance-sampled updates on boundary tasks | 51 groups, K=8, 20 optimizer updates | step-8 canary; final eval pending | step-8: 14/24, passing exactly the control's opportunity tasks | neutral at mid-training; **final-checkpoint evaluation had not finalized at README freeze** |
+| H13C broad online RLVR | boundary mining was too narrow — train on the full distribution | 269/280 sampleable tasks (11 unsampleable whales excluded, listed), K=4, 14 updates, 1,120 fresh episodes | final eval pending | training completed to full coverage | **evaluation had not finalized at README freeze** — no conclusion reported |
 
-**Completed evidence at README freeze:** corrected RSFT — safe, control-level. H12 R0/R1/R2 — safe, none above control. H13B — safe, one opportunity task below control. Across every corrected arm, sentinel retention on the frozen canary was **12/12 — zero capability collapses** — so the trajectory-integrity fix demonstrably solved destructive training. But safe ≠ better: **no completed arm has produced a measured exact-pass improvement over the base+harness control**, and the submitted 78.0% is attributable to the harness, not post-training.
+**Completed evidence:** every corrected arm holds **12/12 sentinels — zero capability collapses** — so the trajectory-integrity fix demonstrably solved destructive training. But safe ≠ better: **no completed arm has produced a measured exact-pass improvement over the base+harness control**, and the submitted 78.0% is attributable to the harness, not post-training.
 
-**H13A / H13C status:** both completed their frozen training budgets (20/20 and 14/14 updates) shortly before README freeze; H13A's mid-training canary was neutral (it passes exactly the control's opportunity tasks). Their **final-checkpoint evaluations had not yet run at freeze**, so no conclusion about online RLVR's end state is reported here.
+**What may have limited the post-training result** — hypotheses and limitations, not measured causal facts: the 12-task opportunity canary has low statistical power for +1–2pp effects; dev60 itself carries measured ±3–4-task run-to-run variance; H13A/H13C received only 20/14 optimizer updates, which could have been too shallow a dose; the RL environment trains a single-turn 16k-token solver while the submitted system is a multi-stage cascade at 24k/32k, a train/inference mismatch we cannot rule out as limiting; sparse terminal reward over thousands-of-token trajectories makes credit assignment hard at the tested budget; and 11 whale tasks cannot fit the textual context interface at all, capping what any policy could learn about them.
 
 ## Evaluation and anti-overfit discipline
 
