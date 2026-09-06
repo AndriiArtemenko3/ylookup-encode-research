@@ -15,3 +15,4 @@ experiments/*/traces/
 
 # bulky rollout candidates stay local; groups.jsonl + curation report are kept
 experiments/*/rollouts/
+experiments/*/iteration_*/
