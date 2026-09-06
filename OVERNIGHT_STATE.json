@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T08:55:16",
+ "updated_at": "2026-09-06T09:01:28",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -392,7 +392,8 @@
    "constructive -> ONE frozen dev60 immediately (no waiting for other arms)",
    ">= +2 net dev vs E013 with no broad regression mechanism -> full-400 confirmation if wall-clock permits",
    "at 10:30: checkpoint running jobs, flush logs, preserve resume commands, switch to submission reliability"
-  ]
+  ],
+  "post_1030_amendment": "10:30 = SUBMISSION-INTEGRATION FREEZE, not training stop. Training/canary/dev may continue non-blocking; integration into submission gated on safe canary + real frozen dev improvement + ample packaging time + zero E015 risk. Promotion gate 7A recorded in RESUME_AFTER_COMMUTE.md."
  },
  "cutoff_runbook": {
   "at": "10:30 hard research stop",
@@ -411,5 +412,10 @@
    "canary_recipe": "uv run baseline/tinker_predict.py --out-dir experiments/<name> --base-model Qwen/Qwen3.8-27B --model-path <sampler_path> --ids <canary24 list> --max-tokens 24576 --concurrency 6; then experiments/replay.py --source <name> --id <name>-h2"
   },
   "dev60_gate_interpretation": "Override point 5 governs: dev60 ONLY on a clearly constructive canary (sentinels 12/12 AND opportunity above control 2/12). H13A plan's older 'dev60 if non-destructive' clause superseded by the priority override; recorded here for audit."
+ },
+ "commute": {
+  "declared_at": "2026-09-06T09:01:28",
+  "lid_close_eta": "~09:30",
+  "plan": "wait H13C ckpt@8 (~09:12) + H13A ckpt@16 (~09:15) -> clean-stop orchestrators -> flush -> commit -> READY FOR LID"
  }
 }
