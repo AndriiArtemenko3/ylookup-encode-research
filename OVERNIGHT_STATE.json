@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T08:51:11",
+ "updated_at": "2026-09-06T08:55:16",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -393,5 +393,23 @@
    ">= +2 net dev vs E013 with no broad regression mechanism -> full-400 confirmation if wall-clock permits",
    "at 10:30: checkpoint running jobs, flush logs, preserve resume commands, switch to submission reliability"
   ]
+ },
+ "cutoff_runbook": {
+  "at": "10:30 hard research stop",
+  "note": "H13A ends ~09:45 and H13C ~09:55 on their own; runbook applies to whatever still runs",
+  "steps": [
+   "TaskStop any still-running H13 training task (b2dnap60q H13A, br7j03qyf H13C) \u2014 cookbook saves state at save_every boundaries; latest checkpoint stands",
+   "flush: git add experiments/*/metrics.jsonl checkpoints.jsonl manifests; commit",
+   "record per-arm: unique tasks seen, rollouts, updates, assistant tokens (from metrics.jsonl), latest checkpoint path",
+   "mark INCOMPLETE any arm without full coverage; never present partial as full",
+   "switch fully to submission reliability (Docker retest, Phase-G, form)"
+  ],
+  "resume_commands": {
+   "H13A": "cd research && uv run training/h13_run.py  # rl_train resumes from log_path checkpoints",
+   "H13B": "complete \u2014 checkpoint tinker://fa68e5b9-1800-560b-8447-cb2fce4aead2:train:0/sampler_weights/final",
+   "H13C": "cd research && uv run training/h13c_run.py  # resumes from experiments/H13C-fulltrain-rlvr",
+   "canary_recipe": "uv run baseline/tinker_predict.py --out-dir experiments/<name> --base-model Qwen/Qwen3.8-27B --model-path <sampler_path> --ids <canary24 list> --max-tokens 24576 --concurrency 6; then experiments/replay.py --source <name> --id <name>-h2"
+  },
+  "dev60_gate_interpretation": "Override point 5 governs: dev60 ONLY on a clearly constructive canary (sentinels 12/12 AND opportunity above control 2/12). H13A plan's older 'dev60 if non-destructive' clause superseded by the priority override; recorded here for audit."
  }
 }
