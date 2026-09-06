@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T09:01:28",
+ "updated_at": "2026-09-06T09:03:01",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -315,6 +315,10 @@
    "experiment_id": null,
    "gate_result": null,
    "blocker": null
+  },
+  "P10-docker-retest": {
+   "completed_at": "2026-09-06T09:03:01",
+   "gate_result": "PASS"
   }
  },
  "incident_log": [
@@ -381,6 +385,12 @@
    "fail_to_pass": 22,
    "pass_to_fail": 15,
    "net": 7
+  },
+  "docker_retest": {
+   "verdict": "PASS (exit 0) at 2026-09-06T09:03:01",
+   "command": "docker run --rm --env-file research/.env -v <goldenless data>:/data:ro -v <empty out>:/out superspreadsheets",
+   "image": "superspreadsheets:latest 6928e689ee19",
+   "out_contents": "predictions.jsonl + outputs/ + traces/ + run.log (all tasks ok)"
   }
  },
  "campaign_priority": {
