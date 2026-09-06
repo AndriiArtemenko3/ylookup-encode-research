@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T11:19:32",
+ "updated_at": "2026-09-06T11:26:30",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -358,10 +358,10 @@
    }
   },
   "H13A": {
-   "status": "TRAINING COMPLETE 20/20; final canary sampling (task b73gcbxm4)",
-   "final_ckpt": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/final",
-   "canary_s8": "14/24 = control (neutral)",
-   "note": "if 09:50 cutoff catches canary mid-flight: kill cleanly, relaunch after arrival (recipe in RESUME_AFTER_COMMUTE.md)"
+   "status": "final canary SAFE + first above-control signal; dev60 IN FLIGHT (task b1qzwdha2)",
+   "canary_final": "15/24 = 12/12 sentinels + 3/12 opportunity (236-22, 250-20, +NEW 524-31) vs control 14/24 (2/12 opp)",
+   "note": "+1 opportunity task is within single-flip noise; dev60 is the resolving instrument",
+   "dev60_protocol": "champion-route tinker_predict @24k + h2 replay; matched base control = E004 protocol 47/60 (78.3%); compare.py transitions; NO tuning after results; separate from frozen E015 submission"
   },
   "H13B": {
    "status": "COMPLETE \u2014 canary verdict YELLOW safe/neutral",
