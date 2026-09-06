@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T11:50:42",
+ "updated_at": "2026-09-06T11:58:19",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -400,6 +400,12 @@
    "launched": "2026-09-06T11:29:38",
    "rule": "no tuning after results; separate from frozen E015 submission; dev60 (b1qzwdha2) still resolving in parallel",
    "snapshot_45": "H13A 31/45 (68.9%) vs BASE 30/45 (66.7%); transitions +1 (156-14) / -0; direction-consistent with canary, within noise"
+  },
+  "H13A_shadow400": {
+   "status": "IN FLIGHT (task b810ks3yw)",
+   "launched": "2026-09-06T11:58:19",
+   "design": "H13A-final checkpoint under FULL frozen finalist harness (cascade_predict --model-path, c=10, 24576/32768) on ALL 400 \u2014 measurement-only shadow of E015 (78.0%); official eval at completion; NOT part of the submission",
+   "eta": "~14:00"
   }
  },
  "campaign_priority": {
