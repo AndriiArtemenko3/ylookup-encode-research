@@ -1,4 +1,6 @@
-# Ylookup research-track submission container: h6 cascade harness.
+# Ylookup research-track submission container: h8-structural cascade harness
+# (the frozen E015 finalist: 24576-token champion budget, 32768-token gated
+# escalation via cascade_predict defaults).
 #
 # Contract (research/SUBMISSION.md): judges mount a dataset dir read-only at
 # /data (dataset.json + spreadsheet/<id>/ with init workbook and prompt.txt,

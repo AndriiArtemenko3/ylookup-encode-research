@@ -194,6 +194,10 @@ cd research && uv run inference/cascade_predict.py --out-dir <out> \
 uv run evaluate.py --predictions <predictions.jsonl> --all --out results.json
 ```
 
+## Submission contents
+
+Everything a judge needs, one click each: [SUBMISSION.md](SUBMISSION.md) (required method write-up) · [Dockerfile](Dockerfile) (judge container) · [results.json](results.json) (scored public-400: 78.0%) · [predictions.jsonl](predictions.jsonl) · [outputs/](outputs/) · [traces/](traces/) · [run.log](run.log) · [DATASETS.md](DATASETS.md) (data lineage) · [corrected RSFT corpus](experiments/F1v2-rollouts-reasoning-preserved/sft_dataset_v2.jsonl) · [first-generation corpora](experiments/F1-rollouts/) · [H13A](experiments/H13A-online-rlvr/) / [H13C](experiments/H13C-fulltrain-rlvr/) RLVR artifacts · [research/splits/](research/splits/) · [docs/RESEARCH_APPENDIX.md](docs/RESEARCH_APPENDIX.md) · [EXPERIMENTS.md](EXPERIMENTS.md) · [docs/EXPERIMENT_MAP.md](docs/EXPERIMENT_MAP.md)
+
 ## Repository guide
 
 | Path | What it is |

@@ -21,9 +21,10 @@ Ideas that failed are logged as honest negatives: formula freedom as a policy
 (+3/−8 — capability real, policy wrong), a wider serialisation window alone
 (which instead measured our ±3–4 task sampling-noise floor), best-of-N
 trajectory selection (net −3: blind candidates outvote sighted artifacts), and
-a post-training arc (RSFT, reward-function ablation, online RLVR) that was
-uniformly safe but never beat the harness — including the diagnosis that
-thinking-stripped SFT targets, not RSFT itself, caused a 30-point collapse.
+a post-training arc (RSFT, reward-function ablation, expert iteration, online
+RLVR) whose completed arms were uniformly safe but never beat the harness —
+including the diagnosis that thinking-stripped SFT targets, not RSFT itself,
+caused a 30-point collapse.
 Those negatives shaped the final architecture: an evidence-based cascade that
 runs the proven literal-value path first, escalates to a formula-permitting
 32k-budget mode only on golden-free distress signals (truncation, parse
@@ -31,18 +32,23 @@ damage, Excel error values in our own recalculated output), retries once with
 concrete evidence, applies one structural-invariant repair behind a
 changed-cells allowlist, and selects the healthiest artifact with ties to the
 champion — so its worst case per task is the champion's output. Dev: 46.7% →
-85.0% pass; single-use local_test confirmation: 91.7%.
+85.0% pass; single-use local_test confirmation: 91.7%; frozen finalist on the
+full public 400: **78.0% (312/400)**.
 
 ## Models
 
 - Inference: `Qwen/Qwen3.8-27B` via Tinker, temperature 0; 24576-token
   champion budget with a gated 32768-token escalation rung.
 - Fine-tuning: none in the submitted configuration. We trained and measured
-  five LoRA post-training variants (corrected-representation RSFT at two LRs,
-  three reward-function REINFORCE arms) plus a true online-RLVR run; all were
-  safe on matched canaries but none beat the frozen harness on dev, so the
-  base model ships. Full designs, checkpoints and negative results:
-  `docs/RESEARCH_APPENDIX.md`. <!-- update if H13A/H13B promotes -->
+  six offline LoRA post-training variants (corrected-representation RSFT at
+  two LRs, three reward-function REINFORCE arms, hard-mined expert iteration)
+  — every one safe on matched canaries, none above the base control — plus
+  two true online-RLVR runs whose final evaluations were still resolving at
+  submission freeze (one safety-failed its canary; one was safe with a
+  first above-control canary signal, larger evaluations in flight). No
+  trained checkpoint enters the submission; the base model ships. Full
+  designs, checkpoints and results: `docs/RESEARCH_APPENDIX.md`,
+  `DATASETS.md`.
 
 ## Scores on the 400
 
