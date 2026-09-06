@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T11:01:47",
+ "updated_at": "2026-09-06T11:19:32",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -376,9 +376,10 @@
    "hard stop 10:30 -> submission track"
   ],
   "H13C": {
-   "status": "v2 TRAIN in flight (task br7j03qyf), batch 0; ETA ~09:55",
-   "sampleable": 269,
-   "excluded": 11
+   "status": "EVALUATED \u2014 DESTRUCTIVE at final checkpoint",
+   "canary_final": "11/24: sentinels 10/12 (REGRESSIONS: 30930, 192-22), opportunity 1/12 (250-20) vs control 14/24 (12/12 + 2/12)",
+   "decision": "preregistered rule: sentinel regression = destructive -> NO dev60; first sentinel damage in the campaign (7 prior arms all 12/12)",
+   "note": "batch-8/12 checkpoints remain durable for post-submission analysis; NOT part of submission"
   },
   "dashboard": "final data refresh done (pass 2/2): E013 85.0 tile+ladder, E015 78.0 official row; republished; fresh review package mirrored",
   "docker": "Desktop relaunching; cold retest queued (watch b7p1eo0kl)",
