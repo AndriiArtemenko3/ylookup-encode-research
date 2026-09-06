@@ -5,7 +5,7 @@
 - Team name: superspreadsheets
 - Members, one GitHub handle per line:
   - AndriiArtemenko3
-- Repo URL: https://github.com/AndriiArtemenko3/ylookup-encode-research
+- Repo URL: https://github.com/AndriiArtemenko3/superspreadsheets-ylookup-encode
 
 ## What we built and why
 
