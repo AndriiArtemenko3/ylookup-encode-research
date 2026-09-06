@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T11:29:38",
+ "updated_at": "2026-09-06T11:50:42",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -398,7 +398,8 @@
    "status": "IN FLIGHT (H13A btk0nxptc, base control bub64jpc3)",
    "spec": "experiments/EVAL100_spec.json \u2014 100 seed-42 tasks from train MINUS H13A's 51 training tasks (pool 229); champion-route @24k + h2; matched ids both arms",
    "launched": "2026-09-06T11:29:38",
-   "rule": "no tuning after results; separate from frozen E015 submission; dev60 (b1qzwdha2) still resolving in parallel"
+   "rule": "no tuning after results; separate from frozen E015 submission; dev60 (b1qzwdha2) still resolving in parallel",
+   "snapshot_45": "H13A 31/45 (68.9%) vs BASE 30/45 (66.7%); transitions +1 (156-14) / -0; direction-consistent with canary, within noise"
   }
  },
  "campaign_priority": {
