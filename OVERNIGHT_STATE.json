@@ -120,7 +120,7 @@
    "completed_at": null,
    "experiment_id": null,
    "gate_result": null,
-   "blocker": null,
+   "blocker": "Docker Desktop quit for memory \u2014 relaunch before final retest",
    "commit": null,
    "status": "PENDING",
    "description": "final-config cold retest"
@@ -288,6 +288,11 @@
    "event": "macOS low-memory killed all background tasks (E014@31/60, H10, H11, R0/R1/R2 canaries, caffeinate)",
    "classification": "infrastructure (rule 10) \u2014 NOT a research result",
    "response": "serial restart policy: max 1 heavy sampling job + 1 light job locally; E014 rerun solo c=6; canaries/probes queued sequentially"
+  },
+  {
+   "at": "2026-09-06T01:31:44",
+   "event": "2nd memory kill even solo; top consumers external (Docker VM 8.2GB, Codex 4.7GB, WebKit 3.5GB on 24GB RAM)",
+   "response": "Docker Desktop quit to free 8GB (cold test already GREEN; MUST relaunch Docker before P10 final retest); user apps untouched"
   }
  ]
 }
