@@ -9,29 +9,40 @@
 
 ## What we built and why
 
-<!-- FINAL PARAGRAPH PENDING E009/PHASE F — draft: -->
 We kept the mandated Qwen3.8-27B untouched and rebuilt everything around it,
 treating the weekend as a measured ablation study. The untouched starter
 baseline scored 46.7% on our fixed 60-task dev split. Failure diagnostics — not
 intuition — drove each change: 24/32 failures were token-cap truncations
 (fixed by budget, +15pp); 9 were correct dates written as text against typed
 golden cells (fixed by a deterministic ISO-coercion write path, +15pp, validated
-by replaying stored responses at zero token cost); salvage parsing and
-merged-cell handling added more. Two ideas failed honestly and are logged as
-negatives: formula freedom (+3/−8 — capability real, policy wrong) and a wider
-serialisation window alone (which instead measured our ±3–4 task sampling-noise
-floor). Those negatives shaped the final architecture: an evidence-based
-cascade that runs the proven literal-value path first, escalates to formula
-mode only on golden-free distress signals (truncation, parse damage, Excel
-error values in our own recalculated output), retries once with concrete
-evidence, and selects the healthiest artifact with ties to the champion — so
-its worst case per task is the champion's output. Dev: 46.7% → 83.3% pass,
-98.4% cell accuracy, with zero regressions at every adopted step.
+by replaying stored responses at zero token cost); salvage parsing,
+merged-cell handling and sheet-qualified multi-sheet addressing added more.
+Ideas that failed are logged as honest negatives: formula freedom as a policy
+(+3/−8 — capability real, policy wrong), a wider serialisation window alone
+(which instead measured our ±3–4 task sampling-noise floor), best-of-N
+trajectory selection (net −3: blind candidates outvote sighted artifacts), and
+a post-training arc (RSFT, reward-function ablation, online RLVR) that was
+uniformly safe but never beat the harness — including the diagnosis that
+thinking-stripped SFT targets, not RSFT itself, caused a 30-point collapse.
+Those negatives shaped the final architecture: an evidence-based cascade that
+runs the proven literal-value path first, escalates to a formula-permitting
+32k-budget mode only on golden-free distress signals (truncation, parse
+damage, Excel error values in our own recalculated output), retries once with
+concrete evidence, applies one structural-invariant repair behind a
+changed-cells allowlist, and selects the healthiest artifact with ties to the
+champion — so its worst case per task is the champion's output. Dev: 46.7% →
+85.0% pass; single-use local_test confirmation: 91.7%.
 
 ## Models
 
-- Inference: `Qwen/Qwen3.8-27B` via Tinker, temperature 0, max_tokens 24576.
-- Fine-tuning: <!-- none | tinker://... checkpoint + training details, pending Phase F -->
+- Inference: `Qwen/Qwen3.8-27B` via Tinker, temperature 0; 24576-token
+  champion budget with a gated 32768-token escalation rung.
+- Fine-tuning: none in the submitted configuration. We trained and measured
+  five LoRA post-training variants (corrected-representation RSFT at two LRs,
+  three reward-function REINFORCE arms) plus a true online-RLVR run; all were
+  safe on matched canaries but none beat the frozen harness on dev, so the
+  base model ships. Full designs, checkpoints and negative results:
+  `docs/RESEARCH_APPENDIX.md`. <!-- update if H13A/H13B promotes -->
 
 ## Scores on the 400
 

@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T02:41:23",
+ "updated_at": "2026-09-06T07:48:20",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -294,5 +294,37 @@
    "event": "2nd memory kill even solo; top consumers external (Docker VM 8.2GB, Codex 4.7GB, WebKit 3.5GB on 24GB RAM)",
    "response": "Docker Desktop quit to free 8GB (cold test already GREEN; MUST relaunch Docker before P10 final retest); user apps untouched"
   }
- ]
+ ],
+ "morning": {
+  "frontend_loop": "complete (Playwright Chromium, 1 correction pass; package mirrored to project-root + repo-root .claude/visual-reviews/)",
+  "H12_canaries": {
+   "R0": "13/24 (12/12 sent, 1/12 opp)",
+   "R1": "13/24 (12/12 sent, 1/12 opp)",
+   "R2": "14/24 (=base control)"
+  },
+  "P8_localtest": "91.67% (55/60) GREEN; local_test burned",
+  "E015": {
+   "status": "sampling 390/400",
+   "monitor": "bsfwkzw7n",
+   "task": "b41kgzhq0"
+  },
+  "H13A": {
+   "status": "step 1/20 in flight",
+   "step0": {
+    "reward": 0.541,
+    "exact_pass": 0.5625,
+    "frac_mixed": 0.5
+   },
+   "task": "b2dnap60q",
+   "canary_at_step": 8
+  },
+  "H13B": "queued on E015 sampling completion",
+  "next": [
+   "E015 400/400 -> auto-eval -> audit_traces -> classify",
+   "H13A ckpt@8 canary24",
+   "launch H13B sft2",
+   "Docker relaunch ~09:00 -> cold retest",
+   "hard stop 10:30 -> submission track"
+  ]
+ }
 }

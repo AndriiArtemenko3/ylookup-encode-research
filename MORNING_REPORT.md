@@ -15,11 +15,13 @@ marked PROJECTED. [PENDING] sections fill as final runs land.
 - Post-training: corrected-representation RSFT and three reward-ablation
   policy-gradient arms are uniformly **safe but behaviorally ~neutral** at
   conservative matched budgets — the E012 collapse is causally attributed to
-  thinking-stripped targets, and reward substitution [PENDING: R0/R1/R2
-  canary table] did/did not change that.
+  thinking-stripped targets, and reward substitution did **not** change that
+  (R0 13/24, R1 13/24, R2 14/24 vs base control 14/24; all 12/12 sentinels —
+  zero regressions, no arm above control).
 - Adaptive compute: the 32k escalation rung (merged pre-overnight) is the
   single largest projected full-400 lever (28-task truncation class);
-  H11's deeper 40k rung: [PENDING probe].
+  H11's deeper 40k rung: probe killed by the macOS memory incident, never
+  completed — registered unrun.
 - New chunky class discovered: none beyond classes already covered — the
   evidence-first conclusion of the frontier mining.
 
@@ -32,13 +34,13 @@ marked PROJECTED. [PENDING] sections fill as final runs land.
 | H4B (sim) | H4 | executable-evidence selection | 129 train | 82.2% (=H4) | 0 | 0 | 0 | YELLOW |
 | P-patch | best rollout | targeted patch | 6 train | — | 0 | 1 | −1 | RED |
 | C24 2e-5 | control | corrected RSFT LR | canary24 | 12/12 sent, 2/12 opp | 0 | 0 | 0 | YELLOW |
-| H12-R0 | base | REINFORCE, reward R0 | canary24 | [PENDING] | | | | |
-| H12-R1 | base | REINFORCE, reward R1 | canary24 | [PENDING] | | | | |
-| H12-R2 | base | REINFORCE, reward R2 | canary24 | [PENDING] | | | | |
-| H11 probe | E009 truncation class | 40k conditional rung | 8 train | [PENDING] | | | | |
-| H10 probe | E009 exec class | sandboxed openpyxl agent | 10 train | [PENDING] | | | | |
-| P8 local_test | — | frozen finalist, single confirmation | 60 | [PENDING] | | | | |
-| P9 full-400 | E009 | frozen finalist measurement | 400 | [PENDING] | | | | |
+| H12-R0 | base ctl 14/24 | REINFORCE, reward R0 continuous | canary24 | 13/24 (12/12 sent, 1/12 opp) | 0 | 1 opp | −1 (noise) | YELLOW safe/neutral |
+| H12-R1 | base ctl 14/24 | REINFORCE, reward R1 discrete | canary24 | 13/24 (12/12 sent, 1/12 opp) | 0 | 1 opp | −1 (noise) | YELLOW safe/neutral |
+| H12-R2 | base ctl 14/24 | REINFORCE, reward R2 hybrid | canary24 | 14/24 (12/12 sent, 2/12 opp) | 0 | 0 | 0 | YELLOW safe/neutral |
+| H11 probe | E009 truncation class | 40k conditional rung | 8 train | killed (memory incident) | — | — | — | UNRUN |
+| H10 probe | E009 exec class | sandboxed openpyxl agent | 10 train | killed (memory incident) | — | — | — | UNRUN |
+| P8 local_test | dev 85.0% | frozen finalist, single confirmation | 60 | **91.7%** (55/60), cell 96.9% | — | — | — | GREEN |
+| P9 full-400 (E015) | E009 76.25% | frozen finalist measurement | 400 | [PENDING — 390/400 sampled] | | | | |
 
 ## Active champion architecture (real, in execution order)
 

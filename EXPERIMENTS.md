@@ -302,7 +302,7 @@ per experiment; controlled ablations over multi-change jumps.
 | H4B sim | executable-evidence selection | train offline | 82.2% = H4 82.2%; 0 divergent wins | YELLOW (redundant on values pools) |
 | P-patch | targeted patch repair | 6 train | 0 conversions, 1 allowlisted regression; consensus-wrong defeats triggers | RED |
 | C24 lr1e-5/lr2e-5 | corrected RSFT | canary24 | 12/12 retention both; plasticity = control both | YELLOW; LR escalation stopped |
-| H12 R0/R1/R2 | reward-fn ablation (on-policy REINFORCE) | canary24 | pending (canaries in flight) | — |
+| H12 R0/R1/R2 | reward-fn ablation (on-policy REINFORCE) | canary24 | R0 13/24, R1 13/24, R2 14/24 vs base control 14/24; all 12/12 sentinels | YELLOW ×3: safe, neutral; no reward fn rescues the conservative-budget regime; R1's offline "under-informative" prediction consistent |
 
 Incidents: two macOS low-memory kills (external consumers: Docker VM 8.2GB,
 other apps ~8GB on 24GB RAM); Docker Desktop quit for the night (relaunch
@@ -313,3 +313,12 @@ Finalist (harness): E013 configuration = h8 cascade (champion-first + gated
 formula escalation @32k + health checks + structural repair + salvage +
 faithful write + multi-sheet addressing). Model: base Qwen/Qwen3.8-27B
 (no trained checkpoint has shown constructive plasticity yet).
+
+## Morning session (2026-09-06, 06:30–) — confirmation + final campaign
+
+| Exp | Mechanism | Split | Result | Verdict |
+|---|---|---|---|---|
+| P8 | frozen finalist, local_test single-use confirmation | 60 | **91.7%** (55/60), cell 96.9% | GREEN — generalizes above dev 85.0%; local_test now burned |
+| E015 | frozen finalist, Sacred-400 measurement | 400 | sampling 390/400; snapshot@361 78.1% | PENDING (auto-eval on completion) |
+| H13A | true online RLVR (cookbook rl.train, importance_sampling, fresh rollouts, R0) | train frozen-boundary groups | smoke GREEN; step 0: reward 0.541, exact_pass 0.56, 50% mixed groups, KL ~4e-4; 20 steps, ckpt@8 | IN FLIGHT (canary24 at step 8, destructive-only stop) |
+| H13B | hard-mined expert-iteration RSFT (100 frozen examples, lr 2e-5, bs 8, 2 passes) | train | dataset frozen; launch gated on E015 sampling completion | QUEUED |
