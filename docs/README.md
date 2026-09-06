@@ -25,6 +25,7 @@ reader needs. Experiment IDs (E/H/P/C24/F*) are decoded in
 - [H12_REWARD_ABLATION_PLAN.md](H12_REWARD_ABLATION_PLAN.md) — frozen preregistration of the reward-function ablation (R0/R1/R2). *(status: executed; all arms safe/neutral)*
 - [H13_ONLINE_RLVR_PLAN.md](H13_ONLINE_RLVR_PLAN.md) — frozen preregistration of true online RLVR (H13A) and hard-mined expert iteration (H13B). *(status: executed; H13B safe/neutral, H13A evaluation pending at submission)*
 - [H13C_FULLTRAIN_PLAN.md](H13C_FULLTRAIN_PLAN.md) — frozen preregistration of full-train-coverage online RLVR, incl. the unsampleable-whale guard incident. *(status: trained; evaluation pending at submission)*
+- [H14_DOSE_EXTENSION_PLAN.md](H14_DOSE_EXTENSION_PLAN.md) — preregistered post-submission dose-extension follow-up. *(status: preregistered, not launched)*
 - Training code: [../research/training/](../research/training/) (rollout capture, curation, RSFT, REINFORCE, RLVR environments and launchers).
 
 ## Historical / preregistered experiment plans

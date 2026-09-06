@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T09:52:19",
+ "updated_at": "2026-09-06T11:01:47",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -468,5 +468,15 @@
    "3) replay+eval each; constructive gate; dev60 only if constructive",
    "4) submission form before 12:00 (integration frozen 10:30)"
   ]
+ },
+ "final_hour": {
+  "at": "2026-09-06T11:01:47",
+  "canaries": {
+   "H13A-final": "sampling (task buf9iu2ld)",
+   "H13C-final": "sampling (task bsb32mtal)"
+  },
+  "eval_policy": "per final directive: canary = safety only; if non-destructive -> dev60 REGARDLESS of opportunity count; repeats (base x2-3, arms x2-3) post-submission if clock forbids",
+  "H14": "preregistered in docs/H14_DOSE_EXTENSION_PLAN.md; launch ONLY after submission form filed",
+  "submission": "E015 remains the submission regardless of late results (integration frozen 10:30)"
  }
 }
