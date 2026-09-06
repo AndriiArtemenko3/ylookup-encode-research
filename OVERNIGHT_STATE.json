@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T08:33:16",
+ "updated_at": "2026-09-06T08:51:11",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -354,14 +354,9 @@
    }
   },
   "H13A": {
-   "status": "step 1/20 in flight",
-   "step0": {
-    "reward": 0.541,
-    "exact_pass": 0.5625,
-    "frac_mixed": 0.5
-   },
-   "task": "b2dnap60q",
-   "canary_at_step": 8
+   "status": "training continues (step-8 canary non-destructive)",
+   "canary_s8": "14/24 = 12/12 sentinels SAFE, 2/12 opportunity (236-22, 250-20) = base control level; NEUTRAL",
+   "next": "final ckpt step 20 (~09:45) canary if clock permits; else step-16"
   },
   "H13B": {
    "status": "COMPLETE \u2014 canary verdict YELLOW safe/neutral",
