@@ -57,6 +57,25 @@ If training cannot finish before the 10:30 stop: save latest checkpoint,
 record unique-tasks-seen honestly, mark **INCOMPLETE — partial coverage**,
 never present it as full-train.
 
+## Incident amendment (08:25, infra — not a spec change)
+
+First launch crashed mid-batch-3 (no checkpoint yet): task 80-42's routed
+observation is 342,114 tokens against the 65,536 context — the service
+correctly refused, and the cookbook loop has no per-episode failure
+isolation. Root cause: the full-train population includes whale workbooks
+whose coverage-route serialisation cannot fit any context; H13A's
+rollout-derived boundary list implicitly avoided them. Guard added at the
+dataset seam (deterministic, golden-free, documented): tasks whose routed
+prompt + 16,384 generation budget exceed the context are excluded loudly and
+listed in `frozen_tasks.json` — **11/280 excluded** (56k–724k-token
+observations: 48921, 341-40, 45738, 80-42, 209-30, 9569, 535-20, 455-35,
+41-47, 297-42, 55427). Budget unchanged (280 presentations /
+14 updates); the presentation schedule wraps over the 269 sampleable tasks,
+so 11 early tasks are seen twice. Training restarted from scratch (fresh
+LoRA; the 3 crashed steps had no checkpoint to resume). "Full-train" claims
+in all reports read: **269/280 sampleable tasks, 11 physically
+unsampleable excluded and listed.**
+
 ## State machine
 
 H13C-FREEZE → H13C-TRAIN → H13C-CANARY → (non-destructive) → H13C-DEV →
