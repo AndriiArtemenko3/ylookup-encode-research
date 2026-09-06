@@ -291,3 +291,25 @@ per experiment; controlled ablations over multi-change jumps.
   7 cell/5 sheet) + 12 opportunity (all 10 E008 dev failures + 2 cross-config
   flippers). Selected deterministically from committed results; local_test
   untouched.
+
+## Overnight campaign (2026-09-06, ref 59831a0) — gated results
+
+| Exp | Mechanism | Split | Result | Verdict |
+|---|---|---|---|---|
+| P-msheet-train | sheet-qualified addressing | 3 train | 156-14 156/156, 283-32 28/28 | **GREEN → in finalist** |
+| E013 | H3 structural repair | dev60 | **85.0%**, +1 net | GREEN (finalist base) |
+| E014 | H4 risk-gated selection | dev60 | 80.0%, net −3; 2 regressions = blind-champion-prompt candidates outvoting sighted artifact on view-doomed tasks; 177-6 fixed by adoption | **RED** (H4C fix = future work) |
+| H4B sim | executable-evidence selection | train offline | 82.2% = H4 82.2%; 0 divergent wins | YELLOW (redundant on values pools) |
+| P-patch | targeted patch repair | 6 train | 0 conversions, 1 allowlisted regression; consensus-wrong defeats triggers | RED |
+| C24 lr1e-5/lr2e-5 | corrected RSFT | canary24 | 12/12 retention both; plasticity = control both | YELLOW; LR escalation stopped |
+| H12 R0/R1/R2 | reward-fn ablation (on-policy REINFORCE) | canary24 | pending (canaries in flight) | — |
+
+Incidents: two macOS low-memory kills (external consumers: Docker VM 8.2GB,
+other apps ~8GB on 24GB RAM); Docker Desktop quit for the night (relaunch
+required before final packaging retest); serial job policy adopted. Rule-10:
+infra, not results.
+
+Finalist (harness): E013 configuration = h8 cascade (champion-first + gated
+formula escalation @32k + health checks + structural repair + salvage +
+faithful write + multi-sheet addressing). Model: base Qwen/Qwen3.8-27B
+(no trained checkpoint has shown constructive plasticity yet).
