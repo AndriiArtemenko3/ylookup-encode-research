@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T11:26:30",
+ "updated_at": "2026-09-06T11:29:38",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -393,6 +393,12 @@
    "command": "docker run --rm --env-file research/.env -v <goldenless data>:/data:ro -v <empty out>:/out superspreadsheets",
    "image": "superspreadsheets:latest 6928e689ee19",
    "out_contents": "predictions.jsonl + outputs/ + traces/ + run.log (all tasks ok)"
+  },
+  "EVAL100": {
+   "status": "IN FLIGHT (H13A btk0nxptc, base control bub64jpc3)",
+   "spec": "experiments/EVAL100_spec.json \u2014 100 seed-42 tasks from train MINUS H13A's 51 training tasks (pool 229); champion-route @24k + h2; matched ids both arms",
+   "launched": "2026-09-06T11:29:38",
+   "rule": "no tuning after results; separate from frozen E015 submission; dev60 (b1qzwdha2) still resolving in parallel"
   }
  },
  "campaign_priority": {
