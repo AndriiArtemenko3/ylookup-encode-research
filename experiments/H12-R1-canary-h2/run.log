@@ -1,0 +1,26 @@
+replay of H12-R1-canary through h4-formulas at 2026-09-06T02:31:06.458935+00:00
+105-24   ok
+250-20   ok
+192-22   ok
+177-6    ok
+236-22   ok
+388-47   ok
+30930    ok
+343-20   ok
+290-27   error: no salvageable cell entries in reply
+254-34   error: no salvageable cell entries in reply
+38703    ok
+486-17   ok
+524-31   error: no salvageable cell entries in reply
+1925     ok
+51090    error: no salvageable cell entries in reply
+54590    ok
+49667    error: no salvageable cell entries in reply
+50193    ok (salvaged)
+31915    ok
+37554    ok
+51680    ok
+37229    ok
+32438    ok
+35739    ok
+rewritten ok=19 (salvaged=1) error=5

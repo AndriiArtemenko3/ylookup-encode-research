@@ -1,0 +1,461 @@
+{
+  "summary": {
+    "items": 24,
+    "graded": 24,
+    "missing": 0,
+    "errors": 0,
+    "pass_rate": 0.5417,
+    "cell_accuracy": 0.9682,
+    "pass_rate_cell_level": 0.5385,
+    "pass_rate_sheet_level": 0.5455
+  },
+  "items": [
+    {
+      "status": "graded",
+      "cells": 1116,
+      "correct": 1106,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!B14",
+          "expected": 1,
+          "actual": "PID1"
+        },
+        {
+          "cell": "Sheet1!B26",
+          "expected": 2,
+          "actual": "PID2"
+        },
+        {
+          "cell": "Sheet1!B39",
+          "expected": 3,
+          "actual": "PID3"
+        },
+        {
+          "cell": "Sheet1!B54",
+          "expected": 4,
+          "actual": "PID4"
+        },
+        {
+          "cell": "Sheet1!B67",
+          "expected": 5,
+          "actual": "PID5"
+        }
+      ],
+      "id": "290-27",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 22,
+      "correct": 22,
+      "pass": true,
+      "mismatches": [],
+      "id": "105-24",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 144,
+      "correct": 144,
+      "pass": true,
+      "mismatches": [],
+      "id": "177-6",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 35,
+      "correct": 17,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!A3",
+          "expected": null,
+          "actual": "Line No"
+        },
+        {
+          "cell": "Sheet1!B3",
+          "expected": null,
+          "actual": "SLAccount"
+        },
+        {
+          "cell": "Sheet1!C3",
+          "expected": null,
+          "actual": "TransType"
+        },
+        {
+          "cell": "Sheet1!D3",
+          "expected": null,
+          "actual": "Reference"
+        },
+        {
+          "cell": "Sheet1!E3",
+          "expected": null,
+          "actual": "Other"
+        }
+      ],
+      "id": "236-22",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 200,
+      "correct": 200,
+      "pass": true,
+      "mismatches": [],
+      "id": "250-20",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 1,
+      "correct": 0,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Before!C2",
+          "expected": 994110,
+          "actual": null
+        }
+      ],
+      "id": "254-34",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 70,
+      "correct": 70,
+      "pass": true,
+      "mismatches": [],
+      "id": "192-22",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 25,
+      "correct": 25,
+      "pass": true,
+      "mismatches": [],
+      "id": "343-20",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 35,
+      "correct": 35,
+      "pass": true,
+      "mismatches": [],
+      "id": "388-47",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 129,
+      "correct": 116,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Blad1!B99",
+          "expected": "atum  v er",
+          "actual": null
+        },
+        {
+          "cell": "Blad1!B100",
+          "expected": "atum  v er",
+          "actual": null
+        },
+        {
+          "cell": "Blad1!B101",
+          "expected": "atum  v er",
+          "actual": null
+        },
+        {
+          "cell": "Blad1!B121",
+          "expected": "2021 02 24",
+          "actual": null
+        },
+        {
+          "cell": "Blad1!B122",
+          "expected": "2021 02 19",
+          "actual": null
+        }
+      ],
+      "id": "486-17",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 53,
+      "correct": 46,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Exp-DB!E7",
+          "expected": null,
+          "actual": "#N/A"
+        },
+        {
+          "cell": "Exp-DB!E8",
+          "expected": null,
+          "actual": "#N/A"
+        },
+        {
+          "cell": "Exp-DB!E28",
+          "expected": null,
+          "actual": "#N/A"
+        },
+        {
+          "cell": "Exp-DB!E29",
+          "expected": null,
+          "actual": "#N/A"
+        },
+        {
+          "cell": "Exp-DB!E30",
+          "expected": null,
+          "actual": "#N/A"
+        }
+      ],
+      "id": "524-31",
+      "type": "Sheet-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 65,
+      "correct": 65,
+      "pass": true,
+      "mismatches": [],
+      "id": "30930",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 23,
+      "correct": 23,
+      "pass": true,
+      "mismatches": [],
+      "id": "38703",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 60,
+      "correct": 52,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Edit!C7",
+          "expected": "11:00:00",
+          "actual": null
+        },
+        {
+          "cell": "Edit!D7",
+          "expected": "13:45:00",
+          "actual": null
+        },
+        {
+          "cell": "Edit!E7",
+          "expected": "15:15:00",
+          "actual": null
+        },
+        {
+          "cell": "Edit!C10",
+          "expected": "13:00:00",
+          "actual": null
+        },
+        {
+          "cell": "Edit!B14",
+          "expected": "10:30:00",
+          "actual": null
+        }
+      ],
+      "id": "49667",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 602,
+      "correct": 583,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "RS.Food!K127",
+          "expected": 11,
+          "actual": 10
+        },
+        {
+          "cell": "RS.Food!K130",
+          "expected": 14,
+          "actual": 13
+        },
+        {
+          "cell": "RS.Food!K177",
+          "expected": 12,
+          "actual": 11
+        },
+        {
+          "cell": "RS.Food!K179",
+          "expected": 14,
+          "actual": 13
+        },
+        {
+          "cell": "RS.Food!K180",
+          "expected": 15,
+          "actual": 13
+        }
+      ],
+      "id": "50193",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 22,
+      "correct": 16,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Daily Numbers!Q3",
+          "expected": 699,
+          "actual": 0
+        },
+        {
+          "cell": "Daily Numbers!Q4",
+          "expected": 33770,
+          "actual": 0
+        },
+        {
+          "cell": "Daily Numbers!Q9",
+          "expected": 1345,
+          "actual": 0
+        },
+        {
+          "cell": "Daily Numbers!Q11",
+          "expected": 3,
+          "actual": 0
+        },
+        {
+          "cell": "Daily Numbers!Q15",
+          "expected": 39,
+          "actual": 0
+        }
+      ],
+      "id": "51090",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 1,
+      "correct": 0,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "HR !GK29",
+          "expected": 692.71486185,
+          "actual": 0
+        }
+      ],
+      "id": "54590",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 26,
+      "correct": 26,
+      "pass": true,
+      "mismatches": [],
+      "id": "1925",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 10,
+      "correct": 10,
+      "pass": true,
+      "mismatches": [],
+      "id": "31915",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 3,
+      "correct": 0,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!J2",
+          "expected": "18:08:00",
+          "actual": 0.755555555555556
+        },
+        {
+          "cell": "Sheet1!J3",
+          "expected": "00:04:00",
+          "actual": 0.00277777777777778
+        },
+        {
+          "cell": "Sheet1!J4",
+          "expected": "08:08:00",
+          "actual": 0.338888888888889
+        }
+      ],
+      "id": "32438",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 99,
+      "correct": 99,
+      "pass": true,
+      "mismatches": [],
+      "id": "35739",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 60,
+      "correct": 60,
+      "pass": true,
+      "mismatches": [],
+      "id": "37229",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 16,
+      "correct": 16,
+      "pass": true,
+      "mismatches": [],
+      "id": "37554",
+      "type": "Cell-Level Manipulation"
+    },
+    {
+      "status": "graded",
+      "cells": 13,
+      "correct": 9,
+      "pass": false,
+      "mismatches": [
+        {
+          "cell": "Sheet1!G3",
+          "expected": "Blue, Green , Red Purple",
+          "actual": "Blue, Green, Red Purple"
+        },
+        {
+          "cell": "Sheet1!G6",
+          "expected": "Green , Red Purple",
+          "actual": "Green, Red Purple"
+        },
+        {
+          "cell": "Sheet1!G13",
+          "expected": "Blue, Black White, Green , Red Purple, Orange, Brown",
+          "actual": "Blue, Black White, Green, Red Purple, Orange, Brown"
+        },
+        {
+          "cell": "Sheet1!G14",
+          "expected": "Blue, Green , Orange, Brown",
+          "actual": "Blue, Green, Orange, Brown"
+        }
+      ],
+      "id": "51680",
+      "type": "Cell-Level Manipulation"
+    }
+  ]
+}

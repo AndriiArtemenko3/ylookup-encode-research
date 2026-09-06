@@ -1,0 +1,28 @@
+{
+  "experiment_id": "H12-R0",
+  "timestamp": "2026-09-05T23:51:52.820125+00:00",
+  "git_commit": "33d062501792f6d81b3b8a589dda681b99529c4a",
+  "git_branch": "main",
+  "dirty_worktree": true,
+  "model_id": "Qwen/Qwen3.8-27B",
+  "checkpoint": "tinker://4709b22f-f2bf-5783-8a6a-78a6e8ab6648:train:0/sampler_weights/final",
+  "harness_version": "training:pg-R0",
+  "prompt_version": "champion-values-v0",
+  "dataset_split": "H12 frozen band",
+  "task_ids": null,
+  "temperature": null,
+  "max_tokens": 32768,
+  "concurrency": null,
+  "retry_policy": "REINFORCE R0 lr1e-05 clip2 gps4",
+  "command": "training/pg_train.py --reward R0 --log-path ../experiments/H12-R0",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "hostname": "192.168.1.105",
+    "soffice": "LibreOffice 26.8.0.3 bce0998afefdbc355585ca324285661a2170ba77",
+    "cwd": "/Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research"
+  },
+  "wall_clock_seconds": null,
+  "band_groups": 56,
+  "exposure_tokens": 3329542
+}

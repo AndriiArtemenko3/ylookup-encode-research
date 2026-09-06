@@ -1,0 +1,24 @@
+{"id": "236-22", "output": "outputs/236-22.xlsx", "status": "ok"}
+{"id": "105-24", "output": "outputs/105-24.xlsx", "status": "ok"}
+{"id": "192-22", "output": "outputs/192-22.xlsx", "status": "ok"}
+{"id": "177-6", "output": "outputs/177-6.xlsx", "status": "ok"}
+{"id": "343-20", "output": "outputs/343-20.xlsx", "status": "ok"}
+{"id": "388-47", "output": "outputs/388-47.xlsx", "status": "ok"}
+{"id": "250-20", "output": "outputs/250-20.xlsx", "status": "ok"}
+{"id": "38703", "output": "outputs/38703.xlsx", "status": "error: 'MergedCell' object attribute 'value' is read-only"}
+{"id": "30930", "output": "outputs/30930.xlsx", "status": "ok"}
+{"id": "254-34", "output": "outputs/254-34.xlsx", "status": "error: no JSON object in reply: 'We need answer JSON only. Need solve. User asks: spreadsheet with Before and After sheets, values in A1:A16. Some values'"}
+{"id": "290-27", "output": "outputs/290-27.xlsx", "status": "error: Extra data: line 1 column 72 (char 71)"}
+{"id": "486-17", "output": "outputs/486-17.xlsx", "status": "ok"}
+{"id": "524-31", "output": "outputs/524-31.xlsx", "status": "ok"}
+{"id": "31915", "output": "outputs/31915.xlsx", "status": "ok"}
+{"id": "1925", "output": "outputs/1925.xlsx", "status": "ok"}
+{"id": "49667", "output": "outputs/49667.xlsx", "status": "error: no JSON object in reply: \"We need answer user's request. Need compute final values for B2:E16 after applying instruction. Need output JSON only. N\""}
+{"id": "50193", "output": "outputs/50193.xlsx", "status": "error: no JSON object in reply: \"We need answer user's request. Need compute final values for answer range RS.Food!K6:K607 after modifying SUMPRODUCT for\""}
+{"id": "51090", "output": "outputs/51090.xlsx", "status": "error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+{"id": "54590", "output": "outputs/54590.xlsx", "status": "ok"}
+{"id": "37554", "output": "outputs/37554.xlsx", "status": "ok"}
+{"id": "51680", "output": "outputs/51680.xlsx", "status": "ok"}
+{"id": "37229", "output": "outputs/37229.xlsx", "status": "ok"}
+{"id": "35739", "output": "outputs/35739.xlsx", "status": "ok"}
+{"id": "32438", "output": "outputs/32438.xlsx", "status": "error: Extra data: line 1 column 72 (char 71)"}

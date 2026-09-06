@@ -1,0 +1,59 @@
+model tinker://beba4edd-c331-5a71-8952-74d3d5909dd5:train:0/sampler_weights/final  tasks 24
+105-24   ok
+236-22   ok
+250-20   ok
+192-22   ok
+177-6    ok
+388-47   ok
+343-20   ok
+38703    error: 'MergedCell' object attribute 'value' is read-only
+30930    ok
+254-34   error: Extra data: line 1 column 41 (char 40)
+290-27   error: Expecting value: line 1 column 41 (char 40)
+486-17   ok
+524-31   ok
+31915    ok
+49667    error: 1 validation error for SpreadsheetAnswer
+cells
+  Field required [type=missing, input_value={'cell': 'B6', 'value': 42}, input_type=dict]
+    For further information visit https://errors.pydanti
+50193    error: no JSON object in reply: "We need answer user's request. Need compute final values for answer range RS.Food!K6:K607 after modifying SUMPRODUCT for"
+1925     ok
+51090    error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+37554    ok
+54590    error: Extra data: line 1 column 72 (char 71)
+51680    ok
+35739    ok
+37229    ok
+32438    ok
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+model tinker://beba4edd-c331-5a71-8952-74d3d5909dd5:train:0/sampler_weights/final  tasks 24
+105-24   ok
+236-22   ok
+250-20   ok
+192-22   ok
+177-6    ok
+388-47   ok
+343-20   ok
+38703    error: 'MergedCell' object attribute 'value' is read-only
+30930    ok
+254-34   error: Extra data: line 1 column 41 (char 40)
+290-27   error: Expecting value: line 1 column 41 (char 40)
+486-17   ok
+524-31   ok
+31915    ok
+49667    error: 1 validation error for SpreadsheetAnswer
+cells
+  Field required [type=missing, input_value={'cell': 'B6', 'value': 42}, input_type=dict]
+    For further information visit https://errors.pydanti
+50193    error: no JSON object in reply: "We need answer user's request. Need compute final values for answer range RS.Food!K6:K607 after modifying SUMPRODUCT for"
+1925     ok
+51090    error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+37554    ok
+54590    error: Extra data: line 1 column 72 (char 71)
+51680    ok
+35739    ok
+37229    ok
+32438    ok
+Task was destroyed but it is pending!
+task: <Task pending name='tinker_session_futures_poller' coro=<SessionFuturesPoller._poll_loop() running at /Users/andriimain/Desktop/Andrii_Ylookup_Hackathon/encode-hackathon/research/.venv/lib/python3.13/site-packages/tinker/lib/session_futures_poller.py:132> wait_for=<Future pending cb=[Task.task_wakeup()]>>
