@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T09:05:06",
+ "updated_at": "2026-09-06T09:16:47",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -430,5 +430,23 @@
   "on_checkpoint": "verify path, record exposure/updates, continue training immediately",
   "if_arm_finishes": "save final ckpt -> frozen canary -> if safe+constructive, authorized dev eval",
   "post_1030": "submission-integration freeze only; training may continue"
+ },
+ "lid_close": {
+  "as_of": "2026-09-06T09:16:47",
+  "H13A_newest": {
+   "name": "000016",
+   "batch": 16,
+   "state_path": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/weights/000016",
+   "sampler_path": "tinker://23e9d74e-b453-551d-9e73-3e8249595f93:train:0/sampler_weights/000016"
+  },
+  "H13A_steps_done": 16,
+  "H13C_newest": {
+   "name": "000008",
+   "batch": 8,
+   "state_path": "tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/weights/000008",
+   "sampler_path": "tinker://6b0284bb-713e-551c-b982-f3e441408bbf:train:0/sampler_weights/000008"
+  },
+  "H13C_v2_batches_done": 8,
+  "policy": "verified-and-continuing per adaptive mode"
  }
 }
