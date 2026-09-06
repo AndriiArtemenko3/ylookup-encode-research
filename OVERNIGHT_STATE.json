@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-06T07:55:56",
+ "updated_at": "2026-09-06T08:10:45",
  "head": "6b309ee",
  "phases": {
   "P0-preflight": {
@@ -339,9 +339,13 @@
   },
   "P8_localtest": "91.67% (55/60) GREEN; local_test burned",
   "E015": {
-   "status": "sampling 390/400",
-   "monitor": "bsfwkzw7n",
-   "task": "b41kgzhq0"
+   "status": "OFFICIAL 78.0% (312/400), sheet 65.6%, 0 missing; trace audit CLEAN; artifacts copied to repo root; SUBMISSION RUN",
+   "failures": {
+    "wrong-values": 46,
+    "truncated": 22,
+    "window": 17,
+    "formula-error": 3
+   }
   },
   "H13A": {
    "status": "step 1/20 in flight",
@@ -353,7 +357,10 @@
    "task": "b2dnap60q",
    "canary_at_step": 8
   },
-  "H13B": "queued on E015 sampling completion",
+  "H13B": {
+   "status": "trained 100% exposure (24 steps, NLL 0.31); canary24 sampling in flight (task bvxr8lsrl)",
+   "checkpoint": "tinker://fa68e5b9-1800-560b-8447-cb2fce4aead2:train:0/sampler_weights/final"
+  },
   "next": [
    "E015 400/400 -> auto-eval -> audit_traces -> classify",
    "H13A ckpt@8 canary24",

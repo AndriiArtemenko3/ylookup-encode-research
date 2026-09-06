@@ -51,9 +51,12 @@ uv run evaluate.py --predictions <your predictions.jsonl> --all --out results.js
 ```
 
 ```json
-{"items": 400, "graded": 400, "missing": 0, "errors": 0, "pass_rate": 0.7625, "cell_accuracy": 0.3777, "pass_rate_cell_level": 0.8364, "pass_rate_sheet_level": 0.6}
+{"items": 400, "graded": 400, "missing": 0, "errors": 0, "pass_rate": 0.78, "cell_accuracy": 0.386, "pass_rate_cell_level": 0.8364, "pass_rate_sheet_level": 0.656}
 ```
-<!-- E009 (base model + h6 cascade). May be superseded by the LoRA run E014 before hand-in. -->
+<!-- E015: frozen finalist (base model + h8 cascade), single Sacred-400
+measurement run 2026-09-06, trace-audited clean (no golden content in any
+prompt). Earlier champion E009 (h6): 76.25% — kept in experiments/ as the
+measured intermediate. -->
 
 ## Your run on the 400
 

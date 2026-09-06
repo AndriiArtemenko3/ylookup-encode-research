@@ -319,7 +319,7 @@ faithful write + multi-sheet addressing). Model: base Qwen/Qwen3.8-27B
 | Exp | Mechanism | Split | Result | Verdict |
 |---|---|---|---|---|
 | P8 | frozen finalist, local_test single-use confirmation | 60 | **91.7%** (55/60), cell 96.9% | GREEN — generalizes above dev 85.0%; local_test now burned |
-| E015 | frozen finalist, Sacred-400 measurement | 400 | sampling 390/400; snapshot@361 78.1% | PENDING (auto-eval on completion) |
+| E015 | frozen finalist, Sacred-400 measurement | 400 | **78.0%** (312/400), cell-lvl 83.6%, sheet-lvl 65.6%, 0 missing; +7 net vs E009; failures: wrong-values 46, truncated 22 (was 28), window 17, formula 3, date/merged 0; trace audit CLEAN | GREEN — submission run (measurement-only, no tuning loop) |
 | H13A | true online RLVR (cookbook rl.train, importance_sampling, fresh rollouts, R0) | train frozen-boundary groups | smoke GREEN; step 0: reward 0.541, exact_pass 0.56, 50% mixed groups, KL ~4e-4; 20 steps, ckpt@8 | IN FLIGHT (canary24 at step 8, destructive-only stop) |
 | H13B | hard-mined expert-iteration RSFT (100 frozen examples, lr 2e-5, bs 8, 2 passes) | train | dataset frozen; launch gated on E015 sampling completion | QUEUED |
 | H13C | full-train online RLVR: uniform one-pass all-280 train, K=4, 14×20 groups, else H13A-matched (lr 1e-5, r32, R0, routed obs, 16384) | train | smoke GREEN; full pass launched 07:56 (K=8→4 + batch-shape deviations frozen in docs/H13C_FULLTRAIN_PLAN.md) | IN FLIGHT (canary → dev if non-destructive; primary comparison vs H13A) |

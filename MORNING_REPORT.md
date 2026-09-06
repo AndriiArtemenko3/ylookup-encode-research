@@ -7,8 +7,10 @@ marked PROJECTED. [PENDING] sections fill as final runs land.
 
 - Best measured dev configuration: **E013 / h8 harness, base model — 85.0%**
   (51/60); adopted as the frozen finalist harness.
-- Best full-400: E009 76.25% (h6) — [PENDING: finalist full-400 measurement
-  capturing the 32k-budget, multi-sheet, and H3 mechanisms E009 lacked].
+- Best full-400: **E015 78.0%** (312/400; sheet-level 65.6% vs E009's 60.0%)
+  — the finalist's 32k-budget, multi-sheet, and H3 mechanisms delivered +7
+  tasks over E009's 76.25%; truncation class shrank 28→22, date/merged-cell
+  classes stay 0. Trace-audited CLEAN; now the submission run.
 - Overnight candidate vs E013: no stacked candidate beat E013 — H4 selection
   went RED (net −3, mechanism attributed), patch repair RED, H4B redundant;
   E013's own config, already containing every GREEN mechanism, stands.
@@ -40,7 +42,7 @@ marked PROJECTED. [PENDING] sections fill as final runs land.
 | H11 probe | E009 truncation class | 40k conditional rung | 8 train | killed (memory incident) | — | — | — | UNRUN |
 | H10 probe | E009 exec class | sandboxed openpyxl agent | 10 train | killed (memory incident) | — | — | — | UNRUN |
 | P8 local_test | dev 85.0% | frozen finalist, single confirmation | 60 | **91.7%** (55/60), cell 96.9% | — | — | — | GREEN |
-| P9 full-400 (E015) | E009 76.25% | frozen finalist measurement | 400 | [PENDING — 390/400 sampled] | | | | |
+| P9 full-400 (E015) | E009 76.25% | frozen finalist measurement | 400 | **78.0%** (312/400), sheet-lvl 65.6%, 0 missing, trace-audit CLEAN | — | — | +7 net vs E009 | GREEN — submission run |
 
 ## Active champion architecture (real, in execution order)
 

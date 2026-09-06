@@ -3,6 +3,7 @@ research/private/
 research/submissions/*
 !research/submissions/.gitkeep
 results.json
+!/results.json
 __pycache__/
 .env
 .venv/

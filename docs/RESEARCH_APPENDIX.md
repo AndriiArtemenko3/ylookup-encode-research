@@ -221,7 +221,7 @@ committed history, not rewritten.
 | Reference one-shot, public 400 | 59.0% |
 | Base model + our harness, public 400 (E009) | **76.25%** (cell-level 83.6%, sheet-level 60.0%) |
 | Final harness (E013/h8, base model), dev | 85.0% |
-| Final harness, public 400 (E015) | **[PENDING — run in flight]** |
+| Final harness, public 400 (E015) | **78.0%** (312/400; cell-level 83.6%, sheet-level 65.6%; 0 missing; trace-audited) |
 | Held-out local_test (single confirmation, consumed) | **91.7%** (55/60, cell 96.9%) |
 
 ## 13. Key takeaways
