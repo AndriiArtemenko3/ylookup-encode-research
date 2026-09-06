@@ -69,13 +69,17 @@ clean) and is the immutable fallback submission.
 6. **Selection**: healthiest artifact wins; ties go to the champion, so the
    worst case per task is the champion's own output.
 
-Candidate layers built and tested locally, **[PENDING]** dev validation:
-H3 structural invariants + guarded repair (train mechanism probe: 3/6 hard
-targets converted, 0 control regressions); golden-free whole-trajectory
-selection (offline: +3.4pp on train, 54% of the pass@4 oracle gap); targeted
-patch repair; multi-sheet addressing fix (§9); H10 code-execution specialist
-(§10). Key limitation stated plainly: **health checks detect distress, not
-correctness** (see §7).
+Candidate layers, after dev validation: **H3 structural invariants + guarded
+repair — adopted** (train mechanism probe 3/6 hard targets converted, 0
+control regressions; dev 85.0%, +1 net, one emptiness-fill loophole case
+documented); **multi-sheet addressing fix — adopted** (§9); golden-free
+whole-trajectory selection — **rejected on dev** (offline +3.4pp did not
+survive live fire: net −3, mechanism attributed to blind-prompt candidates
+outvoting sighted escalation artifacts on view-doomed tasks; a route-matched
+fix is registered, unrun); targeted patch repair — **rejected** (0
+conversions, 1 regression); H10 code-execution specialist — unrun (§10). Key
+limitation stated plainly: **health checks detect distress, not correctness**
+(see §7).
 
 ## 5. What failed and what we learned
 
@@ -121,7 +125,20 @@ evaluation on a frozen 24-task dev canary (12 stable retention sentinels + 12
 opportunity tasks) with a pre-registered behaviour-collapse alarm on
 completion-length distribution.
 
-**[PENDING: corrected RSFT result]**
+**Result**: the corrected representation eliminated the collapse — 12/12
+retention sentinels at both 1e-5 and 2e-5 with healthy completion-length
+distributions — but plasticity equalled the base control (2/12 opportunity
+tasks) at every checkpoint; LR escalation was stopped at the pre-registered
+2e-5 boundary. A matched reward-function ablation (H12: on-policy REINFORCE
+with continuous R0, discrete R1, hybrid R2 rewards on 56 frozen
+variance-bearing groups) was likewise uniformly safe and neutral (13, 13,
+14 / 24 vs control 14/24; zero sentinel regressions), with discrete R1's
+offline "under-informative" prediction (46% of groups gradient-dead)
+confirmed in the sense that no reward substitution changed the outcome. The
+honest conclusion: at conservative matched budgets on this task family,
+post-training was reliably *safe but not constructive*; the harness mechanisms
+carried the gains. A final higher-budget online-RLVR run (fresh rollouts per
+update, importance-sampling loss) was launched as the closing experiment.
 
 ## 7. Residual frontier after the 76.25% champion
 
@@ -167,7 +184,9 @@ with `(sheet, coordinate)` keying; single-sheet format unchanged
 byte-for-byte; the prompt requires qualification only when the answer range
 spans sheets. Unit-tested (same coordinate, two sheets, distinct values; old
 format regression-free). Holdout relevance is high — real fund workbooks are
-multi-sheet by construction. **[PENDING: scored validation]**
+multi-sheet by construction. Scored validation: both 100%-reproducible train
+residuals converted deterministically (156-14 → 156/156 cells, 283-32 →
+28/28); adopted into the finalist.
 
 ## 10. Inference-time code execution (H10, specialist route)
 
@@ -179,7 +198,9 @@ a Python/openpyxl program → sandboxed execution on a copy (no network,
 timeout-killed, env-stripped) → output workbook → health/structural validation
 → one traceback-fed code repair. Deliberately a *gated specialist*, not a
 general agent framework. Local self-tests pass (execution, timeout, crash
-capture, network denial). **[PENDING: H10 mechanism/DEV result]**
+capture, network denial). The mechanism probe was killed by a host
+memory incident and not rerun before freeze; H10 ships as a designed,
+self-tested, **unmeasured** route — registered future work, not a claim.
 
 ## 11. Reproducibility and integrity
 
@@ -199,8 +220,9 @@ committed history, not rewritten.
 |---|---|
 | Reference one-shot, public 400 | 59.0% |
 | Base model + our harness, public 400 (E009) | **76.25%** (cell-level 83.6%, sheet-level 60.0%) |
-| Final model + harness, public 400 | **[PENDING]** |
-| Held-out local_test (single confirmation) | **[PENDING]** |
+| Final harness (E013/h8, base model), dev | 85.0% |
+| Final harness, public 400 (E015) | **[PENDING — run in flight]** |
+| Held-out local_test (single confirmation, consumed) | **91.7%** (55/60, cell 96.9%) |
 
 ## 13. Key takeaways
 
