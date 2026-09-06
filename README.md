@@ -29,6 +29,16 @@ The core question we set out to test:
 
 We deliberately did not optimize around task IDs or golden-answer-specific patches. Every accepted change is a generic model-runtime or spreadsheet-semantics mechanism, and the evaluation was structured to preserve evidence that the system works on data not used for iteration.
 
+### What the evaluation sets mean
+
+For development and post-training, we partitioned the 400 public tasks once, up front, and the labels below are used throughout this README:
+
+- **TRAIN — 280 tasks.** The 280 public tasks reserved for training-side research: rollout analysis, reward construction and post-training. Not every experiment uses all 280.
+- **DEV — 60 tasks.** A fixed internal development set, used repeatedly to compare hypotheses in controlled one-change ablations.
+- **LOCAL TEST — 60 tasks.** An internal held-out set deliberately never inspected during development; evaluated exactly once, after the finalist configuration was frozen.
+- **PUBLIC 400.** The complete public SpreadsheetBench benchmark — the union of the three splits above (280 + 60 + 60), **not a fourth disjoint set**. Full-400 runs are sparse, frozen measurements of the entire public set.
+- **PRIVATE HOLDOUT.** A separate organizer-run set of unseen spreadsheets. We do not know its result.
+
 ## Why the improvements should transfer
 
 **Protected held-out data.** The 400 public tasks were frozen into 280 train / 60 dev / 60 local_test (seed 42, checksum-guarded). All iteration ran on train and dev. local_test was touched **exactly once**, only after the finalist was frozen, and scored 91.67%. This provides evidence that the finalist was not merely tuned to the dev set — it is not proof of arbitrary out-of-distribution generalization.
@@ -103,19 +113,21 @@ workbook + instruction
 
 In execution order: a **values-first champion attempt** (baseline 120×30 serialization, 24,576 tokens), skipped only on provable unwinnability (answer range over 300 cells, or answer cells outside the serialized view); **golden-free health checks** on our own artifact — truncation, parse damage, static formula issues, Excel error values after recalculating our own output; **gated escalation** to an expanded coverage serializer with formula-visible cells and a formula-permitting prompt at 32,768 tokens, followed by one **evidence-fed repair** quoting the concrete defect list; **structural invariants** (requested-range completeness, column-type consistency) triggering at most one repair whose writes are restricted to a **changed-cell allowlist**; **conservative selection** of the healthiest artifact with ties to the champion, so the per-task worst case is the champion's own output; and a **writer** that produces typed ISO dates/times, prefixes modern functions for LibreOffice, unmerges target ranges before writing, and uses **sheet-qualified addresses** whenever the answer range spans sheets.
 
-## The ablation journey (dev split, n=60)
+## Key experiments and measurements
 
-| Exp | One change | Dev pass | Flips | Verdict |
-|---|---|---:|---|---|
-| E001 | untouched starter | 46.7% | — | measured floor |
-| E002 | token budget 8k → 24k | 61.7% | +9 / −0 | adopted |
-| E003 | typed Excel writes (dates as dates) | 76.7% | +9 / −0 | adopted |
-| E004 | salvage parser + unmerge | 78.3% | +1 / −0 | adopted |
-| E006 | formulas everywhere | 70.0% | +3 / −8 | **negative** |
-| E008 | evidence cascade | 83.3% | +3 / −0 | adopted |
-| E013 | structural repair + multi-sheet | 85.0% | +2 / −1 | adopted → finalist |
-| E014 | risk-gated best-of-N | 80.0% | +1 / −4 | **negative** |
-| E015 | frozen finalist on the **full 400** (different split) | **78.0%** | 22 / 15 vs E009 | submission run |
+| Exp | One change | Evaluation set | N | Pass | Flips | Verdict |
+|---|---|---|---:|---:|---|---|
+| E001 | untouched starter | Dev | 60 | 46.7% | — | measured floor |
+| E002 | token budget 8k → 24k | Dev | 60 | 61.7% | +9 / −0 | adopted |
+| E003 | typed Excel writes (dates as dates) | Dev | 60 | 76.7% | +9 / −0 | adopted |
+| E004 | salvage parser + unmerge | Dev | 60 | 78.3% | +1 / −0 | adopted |
+| E006 | formulas everywhere | Dev | 60 | 70.0% | +3 / −8 | **negative** |
+| E008 | evidence cascade | Dev | 60 | 83.3% | +3 / −0 | adopted |
+| E013 | structural repair + multi-sheet | Dev | 60 | 85.0% | +2 / −1 | adopted → finalist |
+| E014 | risk-gated best-of-N | Dev | 60 | 80.0% | +1 / −4 | **negative** |
+| E015 | frozen finalist | Public benchmark | 400 | **78.0%** | +22 / −15 vs E009 | **final frozen measurement** |
+
+E001–E014 are development-set experiments on the same fixed 60 tasks; E015 is the frozen finalist measured across the complete 400-task public benchmark — a different evaluation scope, not a drop from 85.0% on the same sample.
 
 A few simple mechanisms produced most of the gain; later mechanisms showed diminishing returns; the negative experiments materially shaped the final architecture.
 
