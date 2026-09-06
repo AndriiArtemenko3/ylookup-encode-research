@@ -1,7 +1,15 @@
-# RESUME AFTER COMMUTE — continuity contract (written 09:02, pre-lid-close)
+# RESUME AFTER COMMUTE — continuity contract (written 09:02, adaptive 09:05)
 
 Commute interruption is an infrastructure pause, NOT an experiment boundary.
 No specs change on resume. H13B is COMPLETE — never rerun it.
+
+**Adaptive mode (09:05)**: checkpoints are safety banks, not stop triggers.
+Training continues until an explicit human departure signal ("LEAVING NOW" /
+"LID IN 5" / "COMMUTE NOW") or the automatic cutoff (09:50 no new long
+batches; 09:55 graceful stop; everything committed by 10:00). If an arm
+finishes naturally before departure: save final checkpoint → frozen canary →
+if safe AND constructive, the authorized dev evaluation. Docker retest is
+already banked (PASS 09:03) — its completion does not stop training.
 
 ## Banked and immutable (do not touch)
 
